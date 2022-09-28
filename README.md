@@ -1,4 +1,6 @@
-# Dashboard tab
+# Introduction
+
+This is a Teams tab dashboard app that uses the [Fluent UI Northstar](https://fluentsite.z22.web.core.windows.net/0.64.0/) and the [Microsoft Graph API](https://learn.microsoft.com/en-us/graph/use-the-api) to display a user's profile information and recent Teams activity.
 
 # Getting Started
 
@@ -35,14 +37,16 @@ The following files provide the business logic for the dashboard tab. These file
 | File                           | Contents                           |
 | ------------------------------ | ---------------------------------- |
 | `src/index.ts`                 | Application entry point            |
-| `src/sample/Widget.tsx`        | A implementation of widget         |
+| `src/sample/Widget.tsx`        | A sample widget implementation     |
 | `src/components/Dashboard.css` | The dashbaord style file           |
 | `src/components/Dashboard.tsx` | The implementation of dashboard    |
 | `src/model/widgetModel.ts`     | A model for the data in the widget |
 
 # How to add a new widget
 
-To make it easier for you to add a widget, we have provided a sample widget implementation in `src/sample/Widget.tsx`. You can copy this file and rename it to add a new widget. Then you can update the `src/components/Dashboard.tsx` to add the new widget to the dashboard. For details, please refer to the following steps.
+To make it easier for you to add a widget, we provide a sample widget implementation in `src/sample/Widget.tsx`. You can copy this file and rename it to add a new widget. Then you can update the `src/components/Dashboard.tsx` to add the new widget to the dashboard.
+
+For details, please refer to the following steps.
 
 1. Copy a new JSX file from the widget.tsx file, and modify the file name and the class name.
 
@@ -50,7 +54,7 @@ To make it easier for you to add a widget, we have provided a sample widget impl
 
 3. Modify the `getData()` method in the widget JSX file to get data the widget needs. For example, you can call Graph API or something else.
 
-4. Modify the `render` method in the widget JSX file to render the widget.
+4. Modify the `render()` method in the widget JSX file to render the widget.
 
 5. Add the widget to the Dashboard.
 
