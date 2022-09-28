@@ -9,13 +9,13 @@ import {
 } from "@fluentui/react-icons-northstar";
 import { Button, Card, Flex, Text } from "@fluentui/react-northstar";
 
-import TaskModel from "../../model/taskModel";
+import WidgetModel from "../../model/widgetModel";
 
-interface ICardState {
-  data?: TaskModel[];
+interface IWidgetState {
+  data?: WidgetModel[];
 }
 
-const taskData: TaskModel[] = [
+const taskData: WidgetModel[] = [
   {
     id: "t1",
     content: "task1",
@@ -42,7 +42,7 @@ const taskData: TaskModel[] = [
   },
 ];
 
-export class Task extends React.Component<{}, ICardState> {
+export class Widget extends React.Component<{}, IWidgetState> {
   constructor(props: any) {
     super(props);
     this.state = {
@@ -70,7 +70,7 @@ export class Task extends React.Component<{}, ICardState> {
         >
           <Card.Body>
             <div>
-              {this.state.data?.map((t: TaskModel) => {
+              {this.state.data?.map((t: WidgetModel) => {
                 return (
                   <Flex space="between" vAlign="center">
                     <Flex gap="gap.medium" vAlign="center">

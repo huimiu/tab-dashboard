@@ -1,4 +1,4 @@
-export default interface TaskModel {
+export default interface WidgetModel {
   id?: string;
   content: string;
   status?: string;

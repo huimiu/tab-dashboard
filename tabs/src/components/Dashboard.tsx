@@ -4,7 +4,7 @@ import React from "react";
 
 import { Flex } from "@fluentui/react-northstar";
 
-import { Task } from "./sample/Task";
+import { Widget } from "./sample/Widget";
 
 interface IDashboardProp {
   showLogin?: boolean;
@@ -28,16 +28,10 @@ export default class Dashboard extends React.Component<{}, IDashboardProp> {
     return (
       <>
         {this.state.showLogin === false && (
-          <Flex padding="padding.medium">
+          <Flex column padding="padding.medium" gap="gap.medium">
             <Flex fill gap="gap.small">
               <Flex styles={{ flex: "1" }}>
-                <Task />
-              </Flex>
-              <Flex styles={{ flex: "2" }}>
-                <Task />
-              </Flex>
-              <Flex styles={{ flex: "1" }}>
-                <Task />
+                <Widget />
               </Flex>
             </Flex>
           </Flex>
