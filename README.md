@@ -34,13 +34,13 @@ The core dashboard implementation is in `tabs` folder.
 
 The following files provide the business logic for the dashboard tab. These files can be updated to fit your business logic requirements. The default implementation provides a starting point to help you get started.
 
-| File                           | Contents                           |
-| ------------------------------ | ---------------------------------- |
-| `src/index.ts`                 | Application entry point            |
-| `src/sample/Widget.tsx`        | A sample widget implementation     |
-| `src/components/Dashboard.css` | The dashbaord style file           |
-| `src/components/Dashboard.tsx` | The implementation of dashboard    |
-| `src/model/widgetModel.ts`     | A model for the data in the widget |
+| File                               | Contents                           |
+| ---------------------------------- | ---------------------------------- |
+| `src/index.ts`                     | Application entry point            |
+| `src/components/sample/Widget.tsx` | A sample widget implementation     |
+| `src/components/Dashboard.css`     | The dashbaord style file           |
+| `src/components/Dashboard.tsx`     | The implementation of dashboard    |
+| `src/model/widgetModel.ts`         | A model for the data in the widget |
 
 # How to add a new widget
 
@@ -56,11 +56,26 @@ For details, please refer to the following steps.
 
 4. Modify the `render()` method in the widget JSX file to render the widget.
 
+   - Modify the `Card.Header` component to customize your widget header. For example, you can modify the `content` property to update the title of your widget. See [Card Header Props](https://fluentsite.z22.web.core.windows.net/0.64.0/components/card/props#card-header) [Text Props](https://fluentsite.z22.web.core.windows.net/0.64.0/components/text/props) for more details.
+
+   - Modify the `Card.Body` component to customize your widget body. See [Card Body Props](https://fluentsite.z22.web.core.windows.net/0.64.0/components/card/props#card-body) for more details. For more information about `Flex` layout, please refer to [Flex](https://fluentsite.z22.web.core.windows.net/0.64.0/components/flex/definition).
+
+   - Modify the `Card.Footer` component to customize your widget footer. For example, you can align the footer to the right side by setting the `hAlign` property to `end`.
+     ```html
+     <Card.Footer fitted>
+       <Flex hAlign="end">
+         <button text primary icon="{<ArrowRightIcon" size="small" />}
+         content="View all" iconPosition="after" size="small" style={{ width:
+         "fit-content", marginLeft: "-8px" }} onClick={() => {}} />
+       </Flex>
+     </Card.Footer>
+     ```
+
 5. Add the widget to the Dashboard.
 
    - If you want to add the newly created widget to the same line as the sample widget, you can refer to the following code snippet.
 
-     ```tsx
+     ```html
      <Flex column padding="padding.medium" gap="gap.medium">
        <Flex fill gap="gap.small">
          <Flex styles={{ flex: "1" }}>
@@ -77,7 +92,7 @@ For details, please refer to the following steps.
 
    - If you want to add the newly created widget to a new line, you can refer to the following code snippet.
 
-     ```tsx
+     ```html
      <Flex column padding="padding.medium" gap="gap.medium">
        <Flex fill gap="gap.small">
          <Flex styles={{ flex: "1" }}>
