@@ -12,8 +12,9 @@ Run your app with local debugging by pressing `F5` in VSCode. Select `Debug (Edg
 >
 > To run locally, you will need:
 >
-> - `Node.js` installed locally (recommended version: 14)
-> - An [M365 account for development](https://docs.microsoft.com/microsoftteams/platform/toolkit/accounts)
+> - [NodeJS](https://nodejs.org/en/), fully tested on NodeJS 14, 16
+> - A Microsoft 365 account. If you do not have Microsoft 365 account, apply one from [Microsoft 365 developer program](https://developer.microsoft.com/en-us/microsoft-365/dev-program)
+> - [Teams Toolkit Visual Studio Code Extension](https://aka.ms/teams-toolkit) or [TeamsFx CLI](https://aka.ms/teamsfx-cli)
 >
 > **Note**
 >
@@ -34,17 +35,18 @@ The core dashboard implementation is in `tabs` folder.
 
 The following files provide the business logic for the dashboard tab. These files can be updated to fit your business logic requirements. The default implementation provides a starting point to help you get started.
 
-| File                               | Contents                           |
-| ---------------------------------- | ---------------------------------- |
-| `src/index.ts`                     | Application entry point            |
-| `src/components/sample/Widget.tsx` | A sample widget implementation     |
-| `src/components/Dashboard.css`     | The dashbaord style file           |
-| `src/components/Dashboard.tsx`     | The implementation of dashboard    |
-| `src/model/widgetModel.ts`         | A model for the data in the widget |
+| File                               | Contents                             |
+| ---------------------------------- | ------------------------------------ |
+| `src/index.ts`                     | Application entry point              |
+| `src/components/sample/Widget.tsx` | A sample widget implementation       |
+| `src/components/sample/Chart.tsx`  | A sample chart widget implementation |
+| `src/components/Dashboard.css`     | The dashbaord style file             |
+| `src/components/Dashboard.tsx`     | The implementation of dashboard      |
+| `src/model/widgetModel.ts`         | A model for the data in the widget   |
 
 # How to add a new widget
 
-To make it easier for you to add a widget, we provide a sample widget implementation in `src/sample/Widget.tsx`. You can copy this file and rename it to add a new widget. Then you can update the `src/components/Dashboard.tsx` to add the new widget to the dashboard.
+To make it easier for you to add a widget, we provide a sample widget implementation in `src/components/sample/Widget.tsx`. You can copy this file and rename it to add a new widget. Then you can update the `src/components/Dashboard.tsx` to add the new widget to the dashboard.
 
 For details, please refer to the following steps.
 
@@ -56,11 +58,11 @@ For details, please refer to the following steps.
 
 4. Modify the `render()` method in the widget JSX file to render the widget.
 
-   - Modify the `Card.Header` component to customize your widget header. For example, you can modify the `content` property to update the title of your widget. See [Card Header Props](https://fluentsite.z22.web.core.windows.net/0.64.0/components/card/props#card-header) [Text Props](https://fluentsite.z22.web.core.windows.net/0.64.0/components/text/props) for more details.
+   - Modify the `Card.Header` component to customize your widget header. For example, you can modify the `content` property to update the title of your widget. See [Card Header Props](https://fluentsite.z22.web.core.windows.net/0.64.0/components/card/props#card-header) and [Text Props](https://fluentsite.z22.web.core.windows.net/0.64.0/components/text/props) for more details.
 
    - Modify the `Card.Body` component to customize your widget body. See [Card Body Props](https://fluentsite.z22.web.core.windows.net/0.64.0/components/card/props#card-body) for more details. For more information about `Flex` layout, please refer to [Flex](https://fluentsite.z22.web.core.windows.net/0.64.0/components/flex/definition).
 
-   - Modify the `Card.Footer` component to customize your widget footer. For example, you can align the footer to the right side by setting the `hAlign` property to `end`.
+   - Modify the `Card.Footer` component to customize your widget footer. For example, you can align the footer to the right side by setting the `hAlign` property to `end`. For more information about `Button` style customization, please refer to [Button component definition](https://fluentsite.z22.web.core.windows.net/0.64.0/components/button/definition).
      ```tsx
      <Card.Footer fitted>
        <Flex hAlign="end">
@@ -82,7 +84,7 @@ For details, please refer to the following steps.
 
    - If you want to add the newly created widget to the same line as the sample widget, you can refer to the following code snippet.
 
-     ```html
+     ```tsx
      <Flex column padding="padding.medium" gap="gap.medium">
        <Flex fill gap="gap.small">
          <Flex styles={{ flex: "1" }}>
@@ -99,7 +101,7 @@ For details, please refer to the following steps.
 
    - If you want to add the newly created widget to a new line, you can refer to the following code snippet.
 
-     ```html
+     ```tsx
      <Flex column padding="padding.medium" gap="gap.medium">
        <Flex fill gap="gap.small">
          <Flex styles={{ flex: "1" }}>
@@ -113,3 +115,9 @@ For details, please refer to the following steps.
        </Flex>
      </Flex>
      ```
+
+# See also
+- [Fluent UI Northstar](https://fluentsite.z22.web.core.windows.net/0.64.0/)
+- [Fluent UI React Charting](https://fluentuipr.z22.web.core.windows.net/heads/master/react-charting/demo/index.html#/)
+- [Fluent UI React Charting Example](https://fabricweb.z5.web.core.windows.net/pr-deploy-site/refs/heads/master/charting/dist/index.html)
+- [Flex layout](https://developer.mozilla.org/en-US/docs/Web/CSS/flex)
