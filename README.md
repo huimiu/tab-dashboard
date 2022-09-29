@@ -61,12 +61,19 @@ For details, please refer to the following steps.
    - Modify the `Card.Body` component to customize your widget body. See [Card Body Props](https://fluentsite.z22.web.core.windows.net/0.64.0/components/card/props#card-body) for more details. For more information about `Flex` layout, please refer to [Flex](https://fluentsite.z22.web.core.windows.net/0.64.0/components/flex/definition).
 
    - Modify the `Card.Footer` component to customize your widget footer. For example, you can align the footer to the right side by setting the `hAlign` property to `end`.
-     ```html
+     ```tsx
      <Card.Footer fitted>
        <Flex hAlign="end">
-         <button text primary icon="{<ArrowRightIcon" size="small" />}
-         content="View all" iconPosition="after" size="small" style={{ width:
-         "fit-content", marginLeft: "-8px" }} onClick={() => {}} />
+         <Button
+            text
+            primary
+            icon={<ArrowRightIcon" size="small" />}
+            content="View all"
+            iconPosition="after"
+            size="small"
+            style={{ width: "fit-content"}}
+            onClick={() => {}}
+        />
        </Flex>
      </Card.Footer>
      ```
