@@ -123,3 +123,4 @@ For details, please refer to the following steps.
 - [Fluent UI Northstar](https://fluentsite.z22.web.core.windows.net/0.64.0/)
 - [Fluent UI React Charting Example](https://fluentuipr.z22.web.core.windows.net/heads/master/react-charting/demo/index.html#/)
 - [Flex Layout](https://developer.mozilla.org/en-US/docs/Web/CSS/flex)
+- [Dashboard sample](https://github.com/huimiu/DashboardDemo)
