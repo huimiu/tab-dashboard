@@ -2,6 +2,8 @@
 
 This is a Teams tab dashboard app that uses the [Fluent UI Northstar](https://fluentsite.z22.web.core.windows.net/0.64.0/) and the [Microsoft Graph API](https://learn.microsoft.com/en-us/graph/use-the-api) to display a user's profile information and recent Teams activity.
 
+![Dashboard](images/dashboard.png)
+
 # Getting Started
 
 Run your app with local debugging by pressing `F5` in VSCode. Select `Debug (Edge)` or `Debug (Chrome)`.
@@ -35,24 +37,24 @@ The core dashboard implementation is in `tabs` folder.
 
 The following files provide the business logic for the dashboard tab. These files can be updated to fit your business logic requirements. The default implementation provides a starting point to help you get started.
 
-| File                               | Contents                             |
-| ---------------------------------- | ------------------------------------ |
-| `src/index.ts`                     | Application entry point              |
-| `src/components/sample/Widget.tsx` | A sample widget implementation       |
-| `src/components/sample/Chart.tsx`  | A sample chart widget implementation |
-| `src/components/Dashboard.css`     | The dashbaord style file             |
-| `src/components/Dashboard.tsx`     | The implementation of dashboard      |
-| `src/model/widgetModel.ts`         | A model for the data in the widget   |
+| File                              | Contents                             |
+| --------------------------------- | ------------------------------------ |
+| `src/index.ts`                    | Application entry point              |
+| `src/components/sample/Task.tsx`  | A sample task widget implementation  |
+| `src/components/sample/Chart.tsx` | A sample chart widget implementation |
+| `src/components/Dashboard.css`    | The dashbaord style file             |
+| `src/components/Dashboard.tsx`    | The implementation of dashboard      |
+| `src/model/taskModel.ts`          | A model for the data in the widget   |
 
 # How to add a new widget
 
-To make it easier for you to add a widget, we provide a sample widget implementation in `src/components/sample/Widget.tsx`. You can copy this file and rename it to add a new widget. Then you can update the `src/components/Dashboard.tsx` to add the new widget to the dashboard.
+To make it easier for you to add a widget, We provide some widget implementation examples under `src/components/sample` folder. You can copy any file and rename it, then update the `src/components/Dashboard.tsx` file to add the new widget to the dashboard.
 
 For details, please refer to the following steps.
 
-1. Copy a new JSX file from the widget.tsx file, and modify the file name and the class name.
+1. Copy a new JSX file from the `Task.tsx` file, and modify the file name and the class name.
 
-2. Define a data model based on the business scenario, and replace the `WidgetDataModel` in the your JSX file with the new data model just created.
+2. Define a data model based on the business scenario, and replace the `TaskModel` in the your JSX file with the new data model just created.
 
 3. Modify the `getData()` method in the widget JSX file to get data the widget needs. For example, you can call Graph API or something else.
 
@@ -80,44 +82,44 @@ For details, please refer to the following steps.
      </Card.Footer>
      ```
 
-5. Add the widget to the Dashboard.
+5. Add the widget to the dashboard.
 
    - If you want to add the newly created widget to the same line as the sample widget, you can refer to the following code snippet.
 
      ```tsx
      <Flex column padding="padding.medium" gap="gap.medium">
-       <Flex fill gap="gap.small">
-         <Flex styles={{ flex: "1" }}>
-           <Widget />
-         </Flex>
-         <Flex styles={{ flex: "1" }}>
-           <Widget2 />
-         </Flex>
-       </Flex>
-     </Flex>
+        <Flex fill gap="gap.small">
+          <Flex styles={{ flex: "1" }}>
+            <Task />
+          </Flex>
+          <Flex styles={{ flex: "1" }}>
+            <Chart />
+          </Flex>
+        </Flex>
+      </Flex>
      ```
 
-     `Widget` and `Widget2` are in the same line, they each occupy half width of the line. Forthermore, you can modify the `styles` property to change the width of the widget. For example, if you want to make `Widget` occupy 2/3 width of the line, you can modify the `styles` property to `styles={{ flex: "2" }}`.
+     `Task` and `Chart` are in the same line, they each occupy half width of the line. Forthermore, you can modify the `styles` property to change the width of the widget. For example, if you want to make `Chart` occupy 2/3 width of the line, you can modify the `styles` property to `styles={{ flex: "2" }}`.
 
    - If you want to add the newly created widget to a new line, you can refer to the following code snippet.
 
      ```tsx
      <Flex column padding="padding.medium" gap="gap.medium">
-       <Flex fill gap="gap.small">
-         <Flex styles={{ flex: "1" }}>
-           <Widget />
-         </Flex>
-       </Flex>
-       <Flex fill gap="gap.small">
-         <Flex styles={{ flex: "1" }}>
-           <Widget2 />
-         </Flex>
-       </Flex>
-     </Flex>
+        <Flex fill gap="gap.small">
+          <Flex styles={{ flex: "1" }}>
+            <Task />
+          </Flex>
+        </Flex>
+        <Flex fill gap="gap.small">              
+          <Flex styles={{ flex: "1" }}>
+            <Chart />
+          </Flex>
+        </Flex>
+      </Flex>
      ```
 
 # See also
+
 - [Fluent UI Northstar](https://fluentsite.z22.web.core.windows.net/0.64.0/)
-- [Fluent UI React Charting](https://fluentuipr.z22.web.core.windows.net/heads/master/react-charting/demo/index.html#/)
-- [Fluent UI React Charting Example](https://fabricweb.z5.web.core.windows.net/pr-deploy-site/refs/heads/master/charting/dist/index.html)
-- [Flex layout](https://developer.mozilla.org/en-US/docs/Web/CSS/flex)
+- [Fluent UI React Charting Example](https://fluentuipr.z22.web.core.windows.net/heads/master/react-charting/demo/index.html#/)
+- [Flex Layout](https://developer.mozilla.org/en-US/docs/Web/CSS/flex)

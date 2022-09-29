@@ -108,11 +108,17 @@ const chartPoints = [
   },
 ];
 
+// Chart dummy data
 const chartData = {
   chartTitle: "Area chart example",
   lineChartData: chartPoints,
 };
 
+/**
+ * Defined a widget to show the chart, it's also a react component.
+ * For more information about react component, please refer to https://reactjs.org/docs/react-component.html
+ * For more information about charting, please refer to https://fluentuipr.z22.web.core.windows.net/heads/master/react-charting/demo/index.html#/
+ */
 export class Chart extends React.Component<{}, IChartState> {
   constructor(props: any) {
     super(props);
@@ -121,16 +127,26 @@ export class Chart extends React.Component<{}, IChartState> {
     };
   }
 
+  /**
+   * This method is invoked immediately after a component is mounted.
+   * It's a good place to fetch data from server.
+   */
   async componentDidMount() {
     this.setState({ data: chartData });
   }
 
+  /**
+   * Define your widget layout, you can edit the code here to customize your widget.
+   */
   public render(): JSX.Element {
     return (
       <Card fluid elevated styles={{ ":hover": "backgroud-color: #FFFFFF" }}>
+        {/** Card header */}
         <Card.Header>
           <Text weight="semibold" size="large" content="Power BI" />
         </Card.Header>
+
+        {/** Card content layout */}
         <Flex
           fill
           column
@@ -139,6 +155,7 @@ export class Chart extends React.Component<{}, IChartState> {
           space="between"
           style={{ overflow: "hidden" }}
         >
+          {/** Card body */}
           <Card.Body>
             <div>
               {this.state.data && (
@@ -154,6 +171,8 @@ export class Chart extends React.Component<{}, IChartState> {
             </div>
           </Card.Body>
         </Flex>
+
+        {/** Card footer */}
         <Card.Footer fitted>
           <Button
             text
@@ -163,7 +182,7 @@ export class Chart extends React.Component<{}, IChartState> {
             iconPosition="after"
             size="small"
             style={{ width: "fit-content", marginLeft: "-8px" }}
-            onClick={() => {}} // navigate to task page
+            onClick={() => {}} // navigate to details page
           />
         </Card.Footer>
       </Card>

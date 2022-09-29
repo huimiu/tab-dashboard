@@ -4,7 +4,7 @@ import React from "react";
 
 import { Flex } from "@fluentui/react-northstar";
 
-import { Widget } from "./sample/Widget";
+import { Task } from "./sample/Task";
 import { Chart } from "./sample/Chart";
 
 interface IDashboardProp {
@@ -32,7 +32,7 @@ export default class Dashboard extends React.Component<{}, IDashboardProp> {
           <Flex column padding="padding.medium" gap="gap.medium">
             <Flex fill gap="gap.small">
               <Flex styles={{ flex: "1" }}>
-                <Widget />
+                <Task />
               </Flex>
               <Flex styles={{ flex: "1" }}>
                 <Chart />
