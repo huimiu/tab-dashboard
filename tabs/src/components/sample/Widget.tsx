@@ -90,18 +90,16 @@ export class Widget extends React.Component<{}, IWidgetState> {
           </Card.Body>
         </Flex>
         <Card.Footer fitted>
-          <Flex hAlign="end">
-            <Button
-              text
-              primary
-              icon={<ArrowRightIcon size="small" />}
-              content="View all"
-              iconPosition="after"
-              size="small"
-              style={{ width: "fit-content", marginLeft: "-8px" }}
-              onClick={() => {}} // navigate to task page
-            />
-          </Flex>
+          <Button
+            text
+            primary
+            icon={<ArrowRightIcon size="small" />}
+            content="View all"
+            iconPosition="after"
+            size="small"
+            style={{ width: "fit-content", marginLeft: "-8px" }}
+            onClick={() => {}} // navigate to task page
+          />
         </Card.Footer>
       </Card>
     );

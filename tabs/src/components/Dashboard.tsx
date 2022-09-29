@@ -5,6 +5,7 @@ import React from "react";
 import { Flex } from "@fluentui/react-northstar";
 
 import { Widget } from "./sample/Widget";
+import { Chart } from "./sample/Chart";
 
 interface IDashboardProp {
   showLogin?: boolean;
@@ -32,6 +33,9 @@ export default class Dashboard extends React.Component<{}, IDashboardProp> {
             <Flex fill gap="gap.small">
               <Flex styles={{ flex: "1" }}>
                 <Widget />
+              </Flex>
+              <Flex styles={{ flex: "1" }}>
+                <Chart />
               </Flex>
             </Flex>
           </Flex>

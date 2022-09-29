@@ -3,6 +3,8 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
+        "@fluentui/react": "^8.96.2",
+        "@fluentui/react-charting": "^5.13.5",
         "@fluentui/react-northstar": "^0.62.0",
         "@microsoft/mgt-element": "2.4.1-next.teamsfx.8d56785",
         "@microsoft/mgt-react": "2.4.1-next.teamsfx.8d56785",
