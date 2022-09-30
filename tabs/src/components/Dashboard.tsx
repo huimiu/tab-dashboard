@@ -7,39 +7,28 @@ import { Flex } from "@fluentui/react-northstar";
 import { Task } from "./sample/Task";
 import { Chart } from "./sample/Chart";
 
-interface IDashboardProp {
-  showLogin?: boolean;
-}
+interface IDashboardProp {}
 
 export default class Dashboard extends React.Component<{}, IDashboardProp> {
   constructor(props: any) {
     super(props);
-    this.state = {
-      showLogin: undefined,
-    };
   }
 
-  async componentDidMount() {
-    this.setState({
-      showLogin: false,
-    });
-  }
+  async componentDidMount() {}
 
   render() {
     return (
       <>
-        {this.state.showLogin === false && (
-          <Flex column padding="padding.medium" gap="gap.medium">
-            <Flex fill gap="gap.small">
-              <Flex styles={{ flex: "1" }}>
-                <Task />
-              </Flex>
-              <Flex styles={{ flex: "1" }}>
-                <Chart />
-              </Flex>
+        <Flex column padding="padding.medium" gap="gap.medium">
+          <Flex gap="gap.medium">
+            <Flex styles={{ flex: "1" }}>
+              <Task />
+            </Flex>
+            <Flex styles={{ flex: "1" }}>
+              <Chart />
             </Flex>
           </Flex>
-        )}
+        </Flex>
       </>
     );
   }

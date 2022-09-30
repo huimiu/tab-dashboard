@@ -19,7 +19,7 @@ export default function App() {
     <TeamsFxContext.Provider value={{ theme, themeString, teamsfx }}>
       <Provider
         theme={theme || teamsTheme}
-        styles={{ backgroundColor: "#eeeeee" }}
+        style={{ height: "100%" }}
       >
         <Router>
           <Route exact path="/">

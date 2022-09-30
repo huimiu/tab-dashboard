@@ -2,7 +2,10 @@
 
 This is a Teams tab dashboard app that uses the [Fluent UI Northstar](https://fluentsite.z22.web.core.windows.net/0.64.0/) and the [Microsoft Graph API](https://learn.microsoft.com/en-us/graph/use-the-api) to display a user's profile information and recent Teams activity.
 
-![Dashboard](images/dashboard.png)
+|      Default theme       |        Dark theme         | High contrast theme |
+| :----------------------: | :-----------------------: | :-------------------: |
+| ![](images/dashboard.png) | ![](images/dashboard-dark.png) | ![](images/dashboard-hc.png) |
+
 
 # Getting Started
 
@@ -88,15 +91,15 @@ For details, please refer to the following steps.
 
      ```tsx
      <Flex column padding="padding.medium" gap="gap.medium">
-        <Flex fill gap="gap.small">
-          <Flex styles={{ flex: "1" }}>
-            <Task />
-          </Flex>
-          <Flex styles={{ flex: "1" }}>
-            <Chart />
-          </Flex>
-        </Flex>
-      </Flex>
+       <Flex fill gap="gap.small">
+         <Flex styles={{ flex: "1" }}>
+           <Task />
+         </Flex>
+         <Flex styles={{ flex: "1" }}>
+           <Chart />
+         </Flex>
+       </Flex>
+     </Flex>
      ```
 
      `Task` and `Chart` are in the same line, they each occupy half width of the line. Forthermore, you can modify the `styles` property to change the width of the widget. For example, if you want to make `Chart` occupy 2/3 width of the line, you can modify the `styles` property to `styles={{ flex: "2" }}`.
@@ -105,17 +108,17 @@ For details, please refer to the following steps.
 
      ```tsx
      <Flex column padding="padding.medium" gap="gap.medium">
-        <Flex fill gap="gap.small">
-          <Flex styles={{ flex: "1" }}>
-            <Task />
-          </Flex>
-        </Flex>
-        <Flex fill gap="gap.small">              
-          <Flex styles={{ flex: "1" }}>
-            <Chart />
-          </Flex>
-        </Flex>
-      </Flex>
+       <Flex fill gap="gap.small">
+         <Flex styles={{ flex: "1" }}>
+           <Task />
+         </Flex>
+       </Flex>
+       <Flex fill gap="gap.small">
+         <Flex styles={{ flex: "1" }}>
+           <Chart />
+         </Flex>
+       </Flex>
+     </Flex>
      ```
 
 # How to add a new Graph API call
@@ -126,9 +129,10 @@ For details, please refer to the following steps.
 
    You can refer to [the Graph API V1.0](https://learn.microsoft.com/en-us/graph/api/overview?view=graph-rest-1.0) to get the `scope name of the permission` related to the graph api you want to call.
 
-2. Create a graph client by adding the scope related to the Graph API you want to call. 
+2. Create a graph client by adding the scope related to the Graph API you want to call.
 
    You can refer to the following code snippet:
+
    ```ts
    let teamsfx: TeamsFx;
    teamsfx = FxContext.getInstance().getTeamsFx();
@@ -138,11 +142,12 @@ For details, please refer to the following steps.
 3. Call the Graph API, and parse the response into a certain model, which will be used by front-end.
 
    You can refer to the following code snippet:
+
    ```ts
    try {
      const graphApiResult = await graphClient.api("<GRAPH_API_PATH>").get();
      // Parse the graphApiResult into a Model you defined, used by the front-end.
-   } catch(e) {} 
+   } catch (e) {}
    ```
 
 # See also
