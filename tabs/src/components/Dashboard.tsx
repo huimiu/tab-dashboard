@@ -1,5 +1,3 @@
-import "./Dashboard.css";
-
 import React from "react";
 
 import { Flex } from "@fluentui/react-northstar";
@@ -19,12 +17,14 @@ export default class Dashboard extends React.Component<{}, IDashboardProp> {
   render() {
     return (
       <>
-        <Flex column padding="padding.medium" gap="gap.medium">
-          <Flex gap="gap.medium">
-            <Flex styles={{ flex: "1" }}>
+        <Flex padding="padding.medium" wrap column>
+          <Flex wrap gap="gap.medium">
+            <Flex styles={{ flex: "1", margin: "0 0 1rem 0" }}>
               <Task />
             </Flex>
-            <Flex styles={{ flex: "1" }}>
+          </Flex>
+          <Flex wrap gap="gap.medium">
+            <Flex styles={{ flex: "1", margin: "0 0 1rem 0" }}>
               <Chart />
             </Flex>
           </Flex>

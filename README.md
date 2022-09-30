@@ -93,35 +93,37 @@ For details, please refer to the following steps.
    - If you want to add the newly created widget to the same line as the sample widget, you can refer to the following code snippet.
 
      ```tsx
-     <Flex column padding="padding.medium" gap="gap.medium">
-       <Flex fill gap="gap.small">
-         <Flex styles={{ flex: "1" }}>
-           <Task />
-         </Flex>
-         <Flex styles={{ flex: "1" }}>
-           <Chart />
-         </Flex>
-       </Flex>
-     </Flex>
+    <Flex padding="padding.medium" wrap column>
+      <Flex wrap gap="gap.medium">
+        <Flex styles={{ flex: "1", margin: "0 0 1rem 0" }}>
+          <Task />
+        </Flex>
+        <Flex styles={{ flex: "1", margin: "0 0 1rem 0" }}>
+          <Chart />
+        </Flex>
+      </Flex>
+    </Flex>
      ```
 
-     `Task` and `Chart` are in the same line, they each occupy half width of the line. Forthermore, you can modify the `styles` property to change the width of the widget. For example, if you want to make `Chart` occupy 2/3 width of the line, you can modify the `styles` property to `styles={{ flex: "2" }}`.
+     `Task` and `Chart` are in the same line, they each occupy half width of the line. Forthermore, you can modify the `styles` property to change the width of the widget. For example, if you want to make `Chart` occupy 2/3 width of the line, you can modify the `flex` property to `flex: "2"`.
+
+     Additionally, `wrap` property is used to make the widgets in the same line wrap to the next line if there is no enough space for the widgets in the same line. It is recommended to use `wrap` property to make the dashboard more responsive.
 
    - If you want to add the newly created widget to a new line, you can refer to the following code snippet.
 
      ```tsx
-     <Flex column padding="padding.medium" gap="gap.medium">
-       <Flex fill gap="gap.small">
-         <Flex styles={{ flex: "1" }}>
-           <Task />
-         </Flex>
-       </Flex>
-       <Flex fill gap="gap.small">
-         <Flex styles={{ flex: "1" }}>
-           <Chart />
-         </Flex>
-       </Flex>
-     </Flex>
+     <Flex padding="padding.medium" wrap column>
+        <Flex wrap gap="gap.medium">
+          <Flex styles={{ flex: "1", margin: "0 0 1rem 0" }}>
+            <Task />
+          </Flex>
+        </Flex>
+        <Flex wrap gap="gap.medium">
+          <Flex styles={{ flex: "1", margin: "0 0 1rem 0" }}>
+            <Chart />
+          </Flex>
+        </Flex>
+      </Flex>
      ```
 
 # How to add a new Graph API call
