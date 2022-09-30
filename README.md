@@ -92,18 +92,18 @@ For details, please refer to the following steps.
 
    - If you want to add the newly created widget to the same line as the sample widget, you can refer to the following code snippet.
 
-     ```tsx
-    <Flex padding="padding.medium" wrap column>
-      <Flex wrap gap="gap.medium">
-        <Flex styles={{ flex: "1", margin: "0 0 1rem 0" }}>
-          <Task />
-        </Flex>
-        <Flex styles={{ flex: "1", margin: "0 0 1rem 0" }}>
-          <Chart />
+      ```tsx
+      <Flex padding="padding.medium" wrap column>
+        <Flex wrap gap="gap.medium">
+          <Flex styles={{ flex: "1", margin: "0 0 1rem 0" }}>
+            <Task />
+          </Flex>
+          <Flex styles={{ flex: "1", margin: "0 0 1rem 0" }}>
+            <Chart />
+          </Flex>
         </Flex>
       </Flex>
-    </Flex>
-     ```
+      ```
 
      `Task` and `Chart` are in the same line, they each occupy half width of the line. Forthermore, you can modify the `styles` property to change the width of the widget. For example, if you want to make `Chart` occupy 2/3 width of the line, you can modify the `flex` property to `flex: "2"`.
 
