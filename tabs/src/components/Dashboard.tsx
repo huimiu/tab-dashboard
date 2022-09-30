@@ -22,12 +22,10 @@ export default class Dashboard extends React.Component<{}, IDashboardProp> {
             <Flex styles={{ flex: "1", margin: "0 0 1rem 0" }}>
               <Task />
             </Flex>
-          </Flex>
-          <Flex wrap gap="gap.medium">
             <Flex styles={{ flex: "1", margin: "0 0 1rem 0" }}>
               <Chart />
             </Flex>
-          </Flex>
+          </Flex>         
         </Flex>
       </>
     );
