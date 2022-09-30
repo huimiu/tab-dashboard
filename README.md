@@ -118,6 +118,33 @@ For details, please refer to the following steps.
       </Flex>
      ```
 
+# How to add a new Graph API call
+
+1. Consent scope first.
+
+   You can call [`addNewScope(scopes: string[])`](/tabs/src/service/AddNewScopes.ts) to consent the scopes of permissions you want to add. And the consented status will be preserved in a global context [`FxContext`](/tabs/src/components/singletonContext.ts).
+
+   You can refer to [the Graph API V1.0](https://learn.microsoft.com/en-us/graph/api/overview?view=graph-rest-1.0) to get the `scope name of the permission` related to the graph api you want to call.
+
+2. Create a graph client by adding the scope related to the Graph API you want to call. 
+
+   You can refer to the following code snippet:
+   ```ts
+   let teamsfx: TeamsFx;
+   teamsfx = FxContext.getInstance().getTeamsFx();
+   const graphClient: Client = createMicrosoftGraphClient(teamsfx, scope);
+   ```
+
+3. Call the Graph API, and parse the response into a certain model, which will be used by front-end.
+
+   You can refer to the following code snippet:
+   ```ts
+   try {
+     const graphApiResult = await graphClient.api("<GRAPH_API_PATH>").get();
+     // Parse the graphApiResult into a Model you defined, used by the front-end.
+   } catch(e) {} 
+   ```
+
 # See also
 
 - [Fluent UI Northstar](https://fluentsite.z22.web.core.windows.net/0.64.0/)
