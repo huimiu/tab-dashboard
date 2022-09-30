@@ -2,10 +2,13 @@
 
 This is a Teams tab dashboard app that uses the [Fluent UI Northstar](https://fluentsite.z22.web.core.windows.net/0.64.0/) and the [Microsoft Graph API](https://learn.microsoft.com/en-us/graph/use-the-api) to display a user's profile information and recent Teams activity.
 
-|      Default theme       |        Dark theme         | High contrast theme |
-| :----------------------: | :-----------------------: | :-------------------: |
-| ![](images/dashboard.png) | ![](images/dashboard-dark.png) | ![](images/dashboard-hc.png) |
+![Default theme](images/Dashboard.png)
 
+This app also supported teams different themes, including dark theme and high contrast theme.
+
+|           Dark theme           |     High contrast theme      |
+| :----------------------------: | :--------------------------: |
+| ![](images/dashboard-dark.png) | ![](images/dashboard-hc.png) |
 
 # Getting Started
 
