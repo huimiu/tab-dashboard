@@ -112,7 +112,7 @@ For details, please refer to the following steps.
    - If you want to add the newly created widget to a new line, you can refer to the following code snippet.
 
      ```tsx
-     <<div className="dashboard">
+      <div className="dashboard">
         <div className="row">
           <div className="widget">
             <Task />

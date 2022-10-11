@@ -20,6 +20,12 @@
   height: 480px;
 }
 
+.widget2 {
+  flex: 2;
+  flex-shrink: 1;
+  height: 480px;
+}
+
 @media screen and (min-width: 480px) {  
 
   .row {
