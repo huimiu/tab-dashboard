@@ -1,9 +1,10 @@
+import "./Dashboard.css";
+
 import React from "react";
 
-import { Flex } from "@fluentui/react-northstar";
-
-import { Task } from "./sample/Task";
 import { Chart } from "./sample/Chart";
+import { Task } from "./sample/Task";
+import { dashboardStyle, rowStyle } from "./Dashboard.styles";
 
 interface IDashboardProp {}
 
@@ -17,17 +18,18 @@ export default class Dashboard extends React.Component<{}, IDashboardProp> {
   render() {
     return (
       <>
-        <Flex padding="padding.medium" wrap column>
-          <Flex wrap gap="gap.medium">
-            <Flex styles={{ flex: "1", margin: "0 0 1rem 0" }}>
+        <div className="dashboard">
+          <div className="row">
+            <div className="widget">
               <Task />
-            </Flex>
-            <Flex styles={{ flex: "1", margin: "0 0 1rem 0" }}>
+            </div>
+            <div className="widget">
               <Chart />
-            </Flex>
-          </Flex>         
-        </Flex>
+            </div>
+          </div>          
+        </div>
       </>
     );
   }
 }
+
