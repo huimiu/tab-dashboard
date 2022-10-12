@@ -46,11 +46,11 @@ The following files provide the business logic for the dashboard tab. These file
 | File                              | Contents                             |
 | --------------------------------- | ------------------------------------ |
 | `src/index.ts`                    | Application entry point              |
-| `src/components/sample/Task.tsx`  | A sample task widget implementation  |
+| `src/components/sample/List.tsx`  | A sample list widget implementation  |
 | `src/components/sample/Chart.tsx` | A sample chart widget implementation |
 | `src/components/Dashboard.css`    | The dashbaord style file             |
 | `src/components/Dashboard.tsx`    | The implementation of dashboard      |
-| `src/model/taskModel.ts`          | A model for the data in the widget   |
+| `src/model/listModel.ts`          | A model for the data in the widget   |
 
 # How to add a new widget
 
@@ -58,11 +58,11 @@ To make it easier for you to add a widget, We provide some widget implementation
 
 For details, please refer to the following steps.
 
-1. Copy a new JSX file from the `Task.tsx` file, and modify the file name and the class name.
+1. Copy a new JSX file from the `List.tsx` file, and modify the file name and the class name.
 
-2. Define a data model based on the business scenario, and replace the `TaskModel` in the your JSX file with the new data model just created.
+2. Define a data model based on the business scenario, and replace the `ListModel` in the your JSX file with the new data model just created.
 
-3. Modify the `getData()` method in the widget JSX file to get data the widget needs. For example, you can call Graph API or something else.
+3. Modify the `componentDidMount()` method in the widget JSX file to get data the widget needs. For example, you can call Graph API or something else.
 
 4. Modify the `render()` method in the widget JSX file to render the widget.
 
@@ -89,42 +89,6 @@ For details, please refer to the following steps.
      ```
 
 5. Add the widget to the dashboard.
-
-   - If you want to add the newly created widget to the same line as the sample widget, you can refer to the following code snippet.
-
-      ```tsx
-      <div className="dashboard">
-        <div className="row">
-          <div className="widget">
-            <Task />
-          </div>
-          <div className="widget">
-            <Chart />
-          </div>
-        </div>          
-      </div>
-      ```
-
-     `Task` and `Chart` are in the same line, they each occupy half width of the line. Forthermore, you can modify the `styles` property to change the width of the widget. For example, if you want to make `Chart` occupy 2/3 width of the line, you can modify the `flex` property to `flex: "2"`.
-
-     Additionally, `wrap` property is used to make the widgets in the same line wrap to the next line if there is no enough space for the widgets in the same line. It is recommended to use `wrap` property to make the dashboard more responsive.
-
-   - If you want to add the newly created widget to a new line, you can refer to the following code snippet.
-
-     ```tsx
-      <div className="dashboard">
-        <div className="row">
-          <div className="widget">
-            <Task />
-          </div>
-        </div>
-        <div className="row">         
-          <div className="widget">
-            <Chart />
-          </div>
-        </div>        
-      </div>
-     ```
 
 # How to add a new Graph API call
 
