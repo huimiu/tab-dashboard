@@ -68,53 +68,119 @@ You can use the following steps to add a new widget to the dashboard:
 
 ## Step 1: Create a widget file
 
-Copy a new JSX file from the `List.tsx` file, and modify the file name and the class name.
+Create a JSX file under the `tabs/src/views/widgets` folder for your new widget, or you can just copy a new JSX file from the `tabs/src/views/widgets/SampleWidget.tsx` file, and modify the file name and the class name. Here's a sample widget file:
+
+```tsx
+import React from "react";
+import SampleWidgetModel from "../../models/sampleWidgetModel";
+
+interface IWidgetState {
+  data?: SampleWidgetModel[];
+}
+
+export class Widget1 extends React.Component<{}, IWidgetState> {
+  constructor(props: any) {
+    super(props);
+    this.state = { data: [] };
+  }
+
+  async componentDidMount() {
+    this.setState({ data: getData() });
+  }
+
+  private getData(): SampleWidgetModel[] {
+    ...
+  }
+
+  public render(): JSX.Element {
+    return (
+      <Card>
+        ...
+      </Card>
+    );
+  }
+}
+```
 
 ## Step 2: Define the widget model
 
-Define a data model based on the business scenario, and replace the `ListModel` in the your JSX file with the new data model just created.
+Define a data model based on the business scenario, and put it in `tabs/src/models`, then replace the `SampleWidgetModel` in the your JSX file with the new data model just created.
+
+The widget model defined according to the data you want to display in the widget. Here's a sample data model:
+
+```typescript
+export default interface WidgetModel1 {
+  id: string;
+  ...
+}
+```
 
 ## Step 3: Populate the widget model with data
 
-Modify the `componentDidMount()` method in the widget JSX file to get data the widget needs. For example, you can call Graph API or something else.
+Modify the `getData()` method in the widget JSX file to get data the widget needs. For example, you can call Graph API or something else.
 
 ## Step 4: Customize the widget view
 
-Modify the `render()` method in the widget JSX file to render the widget.
+Modify the `render()` method in the widget JSX file to customize the widget view.
 
-- Modify the `Card.Header` component to customize your widget header. For example, you can modify the `content` property to update the title of your widget. See [Card Header Props](https://fluentsite.z22.web.core.windows.net/0.64.0/components/card/props#card-header) and [Text Props](https://fluentsite.z22.web.core.windows.net/0.64.0/components/text/props) for more details.
+```tsx
+public render(): JSX.Element {
+    return (
+      <Card>
+        <Card.Header>
+          ...
+        </Card.Header>
 
-- Modify the `Card.Body` component to customize your widget body. See [Card Body Props](https://fluentsite.z22.web.core.windows.net/0.64.0/components/card/props#card-body) for more details. For more information about `Flex` layout, please refer to [Flex](https://fluentsite.z22.web.core.windows.net/0.64.0/components/flex/definition).
+        <Card.Body>
+          ...
+        </Card.Body>
 
-- Modify the `Card.Footer` component to customize your widget footer. For example, you can align the footer to the right side by setting the `hAlign` property to `end`. For more information about `Button` style customization, please refer to [Button component definition](https://fluentsite.z22.web.core.windows.net/0.64.0/components/button/definition).
-  ```tsx
-  <Card.Footer fitted>
-    <Flex hAlign="end">
-      <Button
-         text
-         primary
-         icon={<ArrowRightIcon" size="small" />}
-         content="View all"
-         iconPosition="after"
-         size="small"
-         style={{ width: "fit-content"}}
-         onClick={() => {}}
-     />
-    </Flex>
-  </Card.Footer>
-  ```
+        <Card.Footer>
+          ...
+        </Card.Footer>
+      </Card>
+    );
+  }
+```
+
+- Modify the `Card.Header` component to customize your widget header.
+- Modify the `Card.Body` component to customize your widget body.
+- Modify the `Card.Footer` component to customize your widget footer.
 
 ## Step 5: Add the widget to the dashboard
 
-Add the widget to the dashboard.
+To add the widget to the dashboard.
+
+1. Go to `tabs/src/views/Dashboard.tsx`
+2. update your `render()` method to add the widget to the dashboard:
+
+```tsx
+render() {
+  return (
+    <>
+      <div className="dashboard">
+        ...
+        <div className="row">
+           ...        
+           <div className="widget">
+            <Widget1 />
+          </div>
+          ...
+        </div>
+        ...
+      </div>
+    </>
+  );
+}
+```
 
 # How to add a new Graph API call
 
-There are two types of Graph APIs, one will be called from the front-end(most of APIs, use delegated permissions), the other will be called from the back-end(sendActivityNotification, e.g., use application permissions). You can refer to [this tutorial](https://learn.microsoft.com/en-us/graph/api/overview?view=graph-rest-beta) to check permission types of the Graph APIs you want to call. 
+There are two types of Graph APIs, one will be called from the front-end(most of APIs, use delegated permissions), the other will be called from the back-end(sendActivityNotification, e.g., use application permissions). You can refer to [this tutorial](https://learn.microsoft.com/en-us/graph/api/overview?view=graph-rest-beta) to check permission types of the Graph APIs you want to call.
 
 ## From the front-end(use delegated permissions)
 
-If you want to call a Graph API from the front-end tab, you can refer to the following steps. 
+If you want to call a Graph API from the front-end tab, you can refer to the following steps.
 
 1. Consent delegated permissions first.
 
@@ -142,6 +208,7 @@ If you want to call a Graph API from the front-end tab, you can refer to the fol
      // Parse the graphApiResult into a Model you defined, used by the front-end.
    } catch (e) {}
    ```
+
 ## From the back-end(use application permissions)
 
 If you want to call a Graph API from the back-end, you can refer to the following steps. In this tutorial, we use `sendActivityNotification` API for example.
@@ -153,8 +220,9 @@ If you want to call a Graph API from the back-end, you can refer to the followin
 2. In the VS Code side bar, click `Add features` in `Teams Toolkit` > Choose `Azure functions` > Enter the function name
 
 3. You should get the `installation id` of your Dashboard app.
-   
+
    Go [Graph Explorer](https://developer.microsoft.com/en-us/graph/graph-explorer), and use the following api path to get a response.
+
    ```
    https://graph.microsoft.com/v1.0/users/{user-id | user-principal-name}/teamwork/installedApps?$expand=teamsAppDefinition
    ```
@@ -164,39 +232,54 @@ If you want to call a Graph API from the back-end, you can refer to the followin
    <img src="images\graph_explorer.png#pic_center" style="zoom: 40%" />
 
 4. In the `index.ts` under the folder named in step 2, you can add the following code snippet to call `sendActivityNotification`
+
    ```ts
-   try { // do sth here, to call activity notification api
-    //
-    const graphClient_userId: Client = await createMicrosoftGraphClient(teamsfx, ["User.Read"]);
-    const userIdRes = await graphClient_userId.api("/me").get();
-    const userId = userIdRes["id"];
-    // get installationId
-    const installationId = "ZmYxMGY2MjgtYjJjMC00MzRmLTgzZmItNmY3MGZmZWEzNmFkIyMyM2NhNWVlMy1iYWVlLTRiMjItYTA0OC03YjkzZjk0MDRkMTE=";
-    let postbody = {
-      "topic": {
-        "source": "entityUrl",
-        "value": "https://graph.microsoft.com/v1.0/users/"+userId+"/teamwork/installedApps/"+installationId
-      },
-      "activityType": "taskCreated",
-      "previewText": {
-        "content": "New Task Created"
-      },
-      "templateParameters": [
-        {
-            "name": "taskId",
-            "value": "12322"
-        }
-      ]
-    };
-      
-    let teamsfx_app: TeamsFx;
-    teamsfx_app = new TeamsFx(IdentityType.App);  
-    const graphClient: Client = createMicrosoftGraphClient(teamsfx_app, [".default"]);  
-    await graphClient.api("users/"+userId+"/teamwork/sendActivityNotification").post(postbody);     
-   } catch(e) {
-    console.log(e);
+   try {
+     // do sth here, to call activity notification api
+     //
+     const graphClient_userId: Client = await createMicrosoftGraphClient(
+       teamsfx,
+       ["User.Read"]
+     );
+     const userIdRes = await graphClient_userId.api("/me").get();
+     const userId = userIdRes["id"];
+     // get installationId
+     const installationId =
+       "ZmYxMGY2MjgtYjJjMC00MzRmLTgzZmItNmY3MGZmZWEzNmFkIyMyM2NhNWVlMy1iYWVlLTRiMjItYTA0OC03YjkzZjk0MDRkMTE=";
+     let postbody = {
+       topic: {
+         source: "entityUrl",
+         value:
+           "https://graph.microsoft.com/v1.0/users/" +
+           userId +
+           "/teamwork/installedApps/" +
+           installationId,
+       },
+       activityType: "taskCreated",
+       previewText: {
+         content: "New Task Created",
+       },
+       templateParameters: [
+         {
+           name: "taskId",
+           value: "12322",
+         },
+       ],
+     };
+
+     let teamsfx_app: TeamsFx;
+     teamsfx_app = new TeamsFx(IdentityType.App);
+     const graphClient: Client = createMicrosoftGraphClient(teamsfx_app, [
+       ".default",
+     ]);
+     await graphClient
+       .api("users/" + userId + "/teamwork/sendActivityNotification")
+       .post(postbody);
+   } catch (e) {
+     console.log(e);
    }
    ```
+
 5. Call the Azure Function from the front-end. You can refer to [this sample](https://github.com/OfficeDev/TeamsFx-Samples/blob/dev/hello-world-tab-with-backend/tabs/src/components/sample/AzureFunctions.tsx) for some helps.
 
 # Additional resources
@@ -204,4 +287,5 @@ If you want to call a Graph API from the back-end, you can refer to the followin
 - [Fluent UI Northstar](https://fluentsite.z22.web.core.windows.net/0.64.0/)
 - [Fluent UI React Charting Example](https://fluentuipr.z22.web.core.windows.net/heads/master/react-charting/demo/index.html#/)
 - [Flex Layout](https://developer.mozilla.org/en-US/docs/Web/CSS/flex)
+- [Button component definition](https://fluentsite.z22.web.core.windows.net/0.64.0/components/button/definition).
 - [Dashboard sample](https://github.com/huimiu/DashboardDemo)

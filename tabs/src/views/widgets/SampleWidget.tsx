@@ -52,16 +52,14 @@ export class SampleWidget extends React.Component<{}, IWidgetState> {
           <Text weight="semibold" size="large" content="Your widget" />
         </Card.Header>
 
-        {/** Card content */}
-        <Flex fill column gap="gap.small" vAlign="stretch" space="between">
-          <Card.Body>
-            <div>
-              {this.state.data?.map((t: SampleWidgetModel) => {
-                return <Text content={t.content} />;
-              })}
-            </div>
-          </Card.Body>
-        </Flex>
+        {/** Card content */}        
+        <Card.Body>
+          <div>
+            {this.state.data?.map((t: SampleWidgetModel) => {
+              return <Text content={t.content} />;
+            })}
+          </div>
+        </Card.Body>
 
         {/** Card footer */}
         <Card.Footer fitted>
