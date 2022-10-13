@@ -2,44 +2,61 @@ import "./Dashboard.css";
 
 import React from "react";
 
-import { Flex } from "@fluentui/react-northstar";
+import { List } from "./sample/List";
 
-import { Task } from "./sample/Task";
-import { Chart } from "./sample/Chart";
-
-interface IDashboardProp {
-  showLogin?: boolean;
-}
+interface IDashboardProp {}
 
 export default class Dashboard extends React.Component<{}, IDashboardProp> {
   constructor(props: any) {
     super(props);
-    this.state = {
-      showLogin: undefined,
-    };
   }
 
-  async componentDidMount() {
-    this.setState({
-      showLogin: false,
-    });
-  }
+  async componentDidMount() {}
 
   render() {
     return (
       <>
-        {this.state.showLogin === false && (
-          <Flex column padding="padding.medium" gap="gap.medium">
-            <Flex fill gap="gap.small">
-              <Flex styles={{ flex: "1" }}>
-                <Task />
-              </Flex>
-              <Flex styles={{ flex: "1" }}>
-                <Chart />
-              </Flex>
-            </Flex>
-          </Flex>
-        )}
+        <div className="dashboard">
+          <div className="row">
+            <div className="widget">
+              <List />
+            </div>
+          </div>
+        </div>
+
+        {/*        
+         You can display two widgets in one row like this:
+
+          <div className="dashboard">
+            <div className="row">
+              <div className="widget">
+                <List />
+              </div>
+              <div className="widget">
+                <List />
+              </div>
+            </div>
+          </div>
+          
+        */}
+
+        {/*
+          You can display two rows of widgets like this:
+         
+          <div className="dashboard">
+            <div className="row">
+              <div className="widget">
+                <List />
+              </div>      
+            </div>
+            <div className="row">
+              <div className="widget">
+                <List />
+              </div>             
+            </div>
+          </div>
+          
+        */}
       </>
     );
   }

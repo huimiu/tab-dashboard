@@ -1,37 +1,51 @@
 .dashboard {
-  height: 100%;
-  width: 100%;  
-  background-color: #F5F5F5;
-}
-
-.row {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-  height: 350px;
-  width: 100%;
-}
-
-.row-item {  
-  flex: 1 1 auto;
-}
-
-.row-item-2 {  
-  flex: 2 1 auto;
-}
-
-.column {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  height: 100%;
+  overflow-y: auto; /* Support for vertical scrolling  */
+  gap: 20px;    
   width: 100%;
+  height: 100%;
+  padding: 20px;
 }
 
-.column-item {
-  flex: 1 1 auto;
+
+/* Hide the scroll bar  */
+.dashboard::-webkit-scrollbar {
+  visibility: hidden;
 }
 
-.bottom-action {
-  align-self: flex-end;
+.widget {
+  flex: 1;
+  flex-shrink: 1;
+  height: 480px;
+}
+
+.widget2 {
+  flex: 2;
+  flex-shrink: 1;
+  height: 480px;
+}
+
+@media screen and (min-width: 480px) {  
+
+  .row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+  }  
+}
+
+/* Adapted to mobile devices */
+@media screen and (max-width: 480px){
+  
+  .row {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+
 }

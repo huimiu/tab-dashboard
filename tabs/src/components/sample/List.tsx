@@ -9,14 +9,14 @@ import {
 } from "@fluentui/react-icons-northstar";
 import { Button, Card, Flex, Text } from "@fluentui/react-northstar";
 
-import TaskModel from "../../model/taskModel";
+import ListModel from "../../model/listModel";
 
 interface IWidgetState {
-  data?: TaskModel[];
+  data?: ListModel[];
 }
 
-// task dummy data
-const taskData: TaskModel[] = [
+// dummy data
+const data: ListModel[] = [
   {
     id: "t1",
     content: "Duis dignissim elit",
@@ -44,10 +44,10 @@ const taskData: TaskModel[] = [
 ];
 
 /**
- * Defined a widget to show the task list, it's also a react component.
+ * Defined a widget to show a list, it's also a react component.
  * For more information about react component, please refer to https://reactjs.org/docs/react-component.html
  */
-export class Task extends React.Component<{}, IWidgetState> {
+export class List extends React.Component<{}, IWidgetState> {
   constructor(props: any) {
     super(props);
     this.state = {
@@ -61,7 +61,7 @@ export class Task extends React.Component<{}, IWidgetState> {
    * For more information about react lifecycle, please refer to https://reactjs.org/docs/react-component.html#componentdidmount
    */
   async componentDidMount() {
-    this.setState({ data: taskData });
+    this.setState({ data: data });
   }
 
   /**
@@ -72,7 +72,7 @@ export class Task extends React.Component<{}, IWidgetState> {
       <Card fluid elevated styles={{ ":hover": "backgroud-color: #FFFFFF" }}>
         {/** Card header */}
         <Card.Header>
-          <Text weight="semibold" size="large" content="Your tasks" />
+          <Text weight="semibold" size="large" content="List Widget" />
         </Card.Header>
 
         {/** Card content layout */}
@@ -84,10 +84,10 @@ export class Task extends React.Component<{}, IWidgetState> {
           space="between"
           style={{ overflow: "hidden" }}
         >
-          {/** Task list */}
+          {/** List Content */}
           <Card.Body>
             <div>
-              {this.state.data?.map((t: TaskModel) => {
+              {this.state.data?.map((t: ListModel) => {
                 return (
                   <Flex space="between" vAlign="center">
                     <Flex gap="gap.medium" vAlign="center">
@@ -117,7 +117,7 @@ export class Task extends React.Component<{}, IWidgetState> {
             iconPosition="after"
             size="small"
             style={{ width: "fit-content", marginLeft: "-8px" }}
-            onClick={() => {}} // navigate to task page
+            onClick={() => {}} // navigate to detailed page
           />
         </Card.Footer>
       </Card>
