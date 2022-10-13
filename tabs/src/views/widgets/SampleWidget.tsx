@@ -2,7 +2,11 @@ import "../Dashboard.css";
 
 import React from "react";
 
-import { ArrowRightIcon } from "@fluentui/react-icons-northstar";
+import {
+  ArrowRightIcon,
+  CircleIcon,
+  StarIcon,
+} from "@fluentui/react-icons-northstar";
 import { Button, Card, Flex, Text } from "@fluentui/react-northstar";
 
 import SampleWidgetModel from "../../models/sampleWidgetModel";
@@ -49,17 +53,31 @@ export class SampleWidget extends React.Component<{}, IWidgetState> {
       <Card fluid elevated styles={{ ":hover": "backgroud-color: #FFFFFF" }}>
         {/** Card header */}
         <Card.Header>
-          <Text weight="semibold" size="large" content="Your widget" />
+          <Text weight="semibold" size="large" content="List Widget" />
         </Card.Header>
 
-        {/** Card content */}        
-        <Card.Body>
-          <div>
-            {this.state.data?.map((t: SampleWidgetModel) => {
-              return <Text content={t.content} />;
-            })}
-          </div>
-        </Card.Body>
+        {/** Card content layout */}
+        <Flex
+          fill
+          column
+          gap="gap.small"
+          vAlign="stretch"
+          space="between"
+          style={{ overflow: "hidden" }}
+        >
+          {/** List Content */}
+          <Card.Body>
+            <Flex column gap="gap.small">
+              {this.state.data?.map((t: SampleWidgetModel) => {
+                return (
+                  <Flex gap="gap.medium" vAlign="center">
+                    <Text content={t.content} />
+                  </Flex>
+                );
+              })}
+            </Flex>
+          </Card.Body>
+        </Flex>
 
         {/** Card footer */}
         <Card.Footer fitted>
@@ -70,6 +88,7 @@ export class SampleWidget extends React.Component<{}, IWidgetState> {
             content="View all"
             iconPosition="after"
             size="small"
+            style={{ width: "fit-content"}}
             onClick={() => {}} // navigate to detailed page
           />
         </Card.Footer>
