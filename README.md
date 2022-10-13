@@ -182,13 +182,17 @@ There are two types of Graph APIs, one will be called from the front-end(most of
 
 If you want to call a Graph API from the front-end tab, you can refer to the following steps.
 
-1. Consent delegated permissions first.
+1. [Step 1: Consent delegated permissions first](#step-1-consent-delegated-permissions-first)
+2. [Step 2: Create a graph client by adding the scope related to the Graph API you want to call](#step-2-create-a-graph-client-by-adding-the-scope-related-to-the-graph-api-you-want-to-call)
+3. [Step 3: Call the Graph API, and parse the response into a certain model, which will be used by front-end](#step-3-call-the-graph-api-and-parse-the-response-into-a-certain-model-which-will-be-used-by-front-end)
+
+### Step 1: Consent delegated permissions first
 
    You can call [`addNewScope(scopes: string[])`](/tabs/src/middlewares/addNewScopes.ts) to consent the scopes of permissions you want to add. And the consented status will be preserved in a global context [`FxContext`](/tabs/src/middlewares/singletonContext.ts).
 
    You can refer to [the Graph API V1.0](https://learn.microsoft.com/en-us/graph/api/overview?view=graph-rest-1.0) to get the `scope name of the permission` related to the Graph API you want to call.
 
-2. Create a graph client by adding the scope related to the Graph API you want to call.
+### Step 2: Create a graph client by adding the scope related to the Graph API you want to call
 
    You can refer to the following code snippet:
 
@@ -198,7 +202,7 @@ If you want to call a Graph API from the front-end tab, you can refer to the fol
    const graphClient: Client = createMicrosoftGraphClient(teamsfx, scope);
    ```
 
-3. Call the Graph API, and parse the response into a certain model, which will be used by front-end.
+### Step 3: Call the Graph API, and parse the response into a certain model, which will be used by front-end
 
    You can refer to the following code snippet:
 
@@ -213,13 +217,22 @@ If you want to call a Graph API from the front-end tab, you can refer to the fol
 
 If you want to call a Graph API from the back-end, you can refer to the following steps. In this tutorial, we use `sendActivityNotification` API for example.
 
-1. Consent application permissions first.
+1. [Step 1: Consent application permissions first](#step-1-consent-application-permissions-first)
+2. [Step 2: Add an Azure Function](#step-2-add-an-azure-function)
+3. [Step 3: Get the `installation id` of your Dashboard app](#step-3-get-the-installation-id-of-your-dashboard-app)
+4. [Step 4: Add your logic in Azure Function](#step-4-add-your-logic-in-azure-function)
+5. [Step 5: Call the Azure Function from the front-end](#step-5-call-the-azure-function-from-the-front-end)
+
+### Step 1: Consent application permissions first
 
    Go to [Azure portal](https://portal.azure.com/) > Click `Azure Active Directory` > Click `App registrations` in the side bar > Click your Dashboard app > Click `API permissions` in the side bar > Click `+Add a permission` > Choose `Microsoft Graph` > Choose `Application permissions` > Find the permissions you need > Click `Add permissions` button in the bottom > Click `✔Grant admin consent for XXX` and then click `Yes` button to finish the admin consent
 
-2. In the VS Code side bar, click `Add features` in `Teams Toolkit` > Choose `Azure functions` > Enter the function name
+### Step 2: Add an Azure Function
+   In the VS Code side bar, click `Add features` in `Teams Toolkit` > Choose `Azure functions` > Enter the function name
 
-3. You should get the `installation id` of your Dashboard app.
+   <img src="images\add_azFunction.png" style="zoom: 42%">
+
+### Step 3: Get the `installation id` of your Dashboard app
 
    Go [Graph Explorer](https://developer.microsoft.com/en-us/graph/graph-explorer), and use the following api path to get a response.
 
@@ -229,10 +242,11 @@ If you want to call a Graph API from the back-end, you can refer to the followin
 
    In the response, you should find the information of your Dashboard app, and then record the `id` of it as `installationId`, which will be used in step 4.
 
-   <img src="images\graph_explorer.png#pic_center" style="zoom: 40%" />
+   <img src="images\graph_explorer.png" style="zoom: 40%" />
 
-4. In the `index.ts` under the folder named in step 2, you can add the following code snippet to call `sendActivityNotification`
+### Step 4: Add your logic in Azure Function
 
+   In the `index.ts` under the folder named in step 2, you can add the following code snippet to call `sendActivityNotification`
    ```ts
    try {
      // do sth here, to call activity notification api
@@ -280,7 +294,8 @@ If you want to call a Graph API from the back-end, you can refer to the followin
    }
    ```
 
-5. Call the Azure Function from the front-end. You can refer to [this sample](https://github.com/OfficeDev/TeamsFx-Samples/blob/dev/hello-world-tab-with-backend/tabs/src/components/sample/AzureFunctions.tsx) for some helps.
+### Step 5: Call the Azure Function from the front-end
+   Call the Azure Function from the front-end. You can refer to [this sample](https://github.com/OfficeDev/TeamsFx-Samples/blob/dev/hello-world-tab-with-backend/tabs/src/components/sample/AzureFunctions.tsx) for some helps.
 
 # Additional resources
 
