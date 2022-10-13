@@ -92,11 +92,17 @@ For details, please refer to the following steps.
 
 # How to add a new Graph API call
 
-1. Consent scope first.
+There are two types of Graph APIs, one will be called from the front-end(most of APIs, use delegated permissions), the other will be called from the back-end(sendActivityNotification, e.g., use application permissions). You can refer to [this tutorial](https://learn.microsoft.com/en-us/graph/api/overview?view=graph-rest-beta) to check permission types of the Graph APIs you want to call. 
+
+## From the front-end(use delegated permissions)
+
+If you want to call a Graph API from the front-end tab, you can refer to the following steps. 
+
+1. Consent delegated permissions first.
 
    You can call [`addNewScope(scopes: string[])`](/tabs/src/service/AddNewScopes.ts) to consent the scopes of permissions you want to add. And the consented status will be preserved in a global context [`FxContext`](/tabs/src/components/singletonContext.ts).
 
-   You can refer to [the Graph API V1.0](https://learn.microsoft.com/en-us/graph/api/overview?view=graph-rest-1.0) to get the `scope name of the permission` related to the graph api you want to call.
+   You can refer to [the Graph API V1.0](https://learn.microsoft.com/en-us/graph/api/overview?view=graph-rest-1.0) to get the `scope name of the permission` related to the Graph API you want to call.
 
 2. Create a graph client by adding the scope related to the Graph API you want to call.
 
@@ -118,6 +124,62 @@ For details, please refer to the following steps.
      // Parse the graphApiResult into a Model you defined, used by the front-end.
    } catch (e) {}
    ```
+## From the back-end(use application permissions)
+
+If you want to call a Graph API from the back-end, you can refer to the following steps. In this tutorial, we use `sendActivityNotification` API for example.
+
+1. Consent application permissions first.
+
+   Go to [Azure portal](https://portal.azure.com/) > Click `Azure Active Directory` > Click `App registrations` in the side bar > Click your Dashboard app > Click `API permissions` in the side bar > Click `+Add a permission` > Choose `Microsoft Graph` > Choose `Application permissions` > Find the permissions you need > Click `Add permissions` button in the bottom > Click `✔Grant admin consent for XXX` and then click `Yes` button to finish the admin consent
+
+2. In the VS Code side bar, click `Add features` in `Teams Toolkit` > Choose `Azure functions` > Enter the function name
+
+3. You should get the `installation id` of your Dashboard app.
+   
+   Go [Graph Explorer](https://developer.microsoft.com/en-us/graph/graph-explorer), and use the following api path to get a response.
+   ```
+   https://graph.microsoft.com/v1.0/users/{user-id | user-principal-name}/teamwork/installedApps?$expand=teamsAppDefinition
+   ```
+
+   In the response, you should find the information of your Dashboard app, and then record the `id` of it as `installationId`, which will be used in step 4.
+
+   <img src="images\graph_explorer.png#pic_center" style="zoom: 40%" />
+
+4. In the `index.ts` under the folder named in step 2, you can add the following code snippet to call `sendActivityNotification`
+   ```ts
+   try { // do sth here, to call activity notification api
+    //
+    const graphClient_userId: Client = await createMicrosoftGraphClient(teamsfx, ["User.Read"]);
+    const userIdRes = await graphClient_userId.api("/me").get();
+    const userId = userIdRes["id"];
+    // get installationId
+    const installationId = "ZmYxMGY2MjgtYjJjMC00MzRmLTgzZmItNmY3MGZmZWEzNmFkIyMyM2NhNWVlMy1iYWVlLTRiMjItYTA0OC03YjkzZjk0MDRkMTE=";
+    let postbody = {
+      "topic": {
+        "source": "entityUrl",
+        "value": "https://graph.microsoft.com/v1.0/users/"+userId+"/teamwork/installedApps/"+installationId
+      },
+      "activityType": "taskCreated",
+      "previewText": {
+        "content": "New Task Created"
+      },
+      "templateParameters": [
+        {
+            "name": "taskId",
+            "value": "12322"
+        }
+      ]
+    };
+      
+    let teamsfx_app: TeamsFx;
+    teamsfx_app = new TeamsFx(IdentityType.App);  
+    const graphClient: Client = createMicrosoftGraphClient(teamsfx_app, [".default"]);  
+    await graphClient.api("users/"+userId+"/teamwork/sendActivityNotification").post(postbody);     
+   } catch(e) {
+    console.log(e);
+   }
+   ```
+5. Call the Azure Function from the front-end. You can refer to [this sample](https://github.com/OfficeDev/TeamsFx-Samples/blob/dev/hello-world-tab-with-backend/tabs/src/components/sample/AzureFunctions.tsx) for some helps.
 
 # See also
 
