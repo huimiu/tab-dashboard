@@ -1,5 +1,5 @@
-import { loginAction } from "../service/login";
-import { FxContext } from "../components/singletonContext";
+import { loginAction } from "./login";
+import { FxContext } from "./singletonContext";
 import { ErrorWithCode } from "@microsoft/teamsfx";
 
 export async function addNewScope(addscopes: string[]) {

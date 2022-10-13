@@ -2,12 +2,11 @@
 import { Provider, teamsTheme, Loader } from "@fluentui/react-northstar";
 import { HashRouter as Router, Redirect, Route } from "react-router-dom";
 import { useTeamsFx } from "@microsoft/teamsfx-react";
-import Privacy from "./Privacy";
-import TermsOfUse from "./TermsOfUse";
-import "./App.css";
-import TabConfig from "./TabConfig";
-import { TeamsFxContext } from "./Context";
-import Dashboard from "./Dashboard";
+import Privacy from "./views/Privacy";
+import TermsOfUse from "./views/TermsOfUse";
+import TabConfig from "./views/TabConfig";
+import { TeamsFxContext } from "./middlewares/context";
+import Dashboard from "./views/Dashboard";
 
 /**
  * The main app which handles the initialization and routing

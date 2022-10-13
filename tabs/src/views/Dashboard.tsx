@@ -2,7 +2,7 @@ import "./Dashboard.css";
 
 import React from "react";
 
-import { List } from "./sample/List";
+import { SampleWidget } from "../views/widgets/SampleWidget";
 
 interface IDashboardProp {}
 
@@ -19,13 +19,13 @@ export default class Dashboard extends React.Component<{}, IDashboardProp> {
         <div className="dashboard">
           <div className="row">
             <div className="widget">
-              <List />
+              <SampleWidget />
             </div>
           </div>
         </div>
 
         {/*        
-         You can display two widgets in one row like this:
+          You can display two widgets in one row like this:
 
           <div className="dashboard">
             <div className="row">

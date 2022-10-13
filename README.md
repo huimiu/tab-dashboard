@@ -10,23 +10,17 @@ This app also supported teams different themes, including dark theme and high co
 | :----------------------------: | :--------------------------: |
 | ![](images/dashboard-dark.png) | ![](images/dashboard-hc.png) |
 
+# Prerequisites
+
+- [NodeJS](https://nodejs.org/en/), fully tested on NodeJS 14, 16
+- A Microsoft 365 account. If you do not have Microsoft 365 account, apply one from [Microsoft 365 developer program](https://developer.microsoft.com/en-us/microsoft-365/dev-program)
+- [Teams Toolkit Visual Studio Code Extension](https://aka.ms/teams-toolkit) or [TeamsFx CLI](https://aka.ms/teamsfx-cli)
+
 # Getting Started
 
 Run your app with local debugging by pressing `F5` in VSCode. Select `Debug (Edge)` or `Debug (Chrome)`.
 
 **Congratulations**! You are running an application that can now show a dashboard in Teams.
-
-> **Prerequisites**
->
-> To run locally, you will need:
->
-> - [NodeJS](https://nodejs.org/en/), fully tested on NodeJS 14, 16
-> - A Microsoft 365 account. If you do not have Microsoft 365 account, apply one from [Microsoft 365 developer program](https://developer.microsoft.com/en-us/microsoft-365/dev-program)
-> - [Teams Toolkit Visual Studio Code Extension](https://aka.ms/teams-toolkit) or [TeamsFx CLI](https://aka.ms/teamsfx-cli)
->
-> **Note**
->
-> Your app can be installed into a team, or a group chat, or as personal app. See [Installation and Uninstallation](https://aka.ms/teamsfx-command-response#customize-installation).
 
 # Understanding the code
 
@@ -43,52 +37,76 @@ The core dashboard implementation is in `tabs` folder.
 
 The following files provide the business logic for the dashboard tab. These files can be updated to fit your business logic requirements. The default implementation provides a starting point to help you get started.
 
-| File                              | Contents                             |
-| --------------------------------- | ------------------------------------ |
-| `src/index.ts`                    | Application entry point              |
-| `src/components/sample/List.tsx`  | A sample list widget implementation  |
-| `src/components/sample/Chart.tsx` | A sample chart widget implementation |
-| `src/components/Dashboard.css`    | The dashbaord style file             |
-| `src/components/Dashboard.tsx`    | The implementation of dashboard      |
-| `src/model/listModel.ts`          | A model for the data in the widget   |
+| File                                 | Contents                             |
+| ------------------------------------ | ------------------------------------ |
+| `src/views/Dashboard.css`            | The dashbaord style file             |
+| `src/views/Dashboard.tsx`            | The implementation of dashboard      |
+| `src/views/widgets/sampleWidget.tsx` | A sample widget implementation       |
+| `src/models/sampleWidgetModel.tsx`   | Data model for the sample widget     |
+| `src/services/sampleRequest.tsx`     | A sample data retrive implementation |
+
+The following files are project-related files. You generally will not need to customize these files.
+
+| File                                  | Contents                |
+| ------------------------------------- | ----------------------- |
+| `src/index.tsx`                       | Application entry point |
+| `src/App.tsx`                         | Application route       |
+| `src/middlewares/addNewScopes.ts`     |                         |
+| `src/middlewares/context.ts`          |                         |
+| `src/middlewares/login.ts`            |                         |
+| `src/middlewares/singletonContext.ts` |                         |
 
 # How to add a new widget
 
-To make it easier for you to add a widget, We provide some widget implementation examples under `src/components/sample` folder. You can copy any file and rename it, then update the `src/components/Dashboard.tsx` file to add the new widget to the dashboard.
+You can use the following steps to add a new widget to the dashboard:
 
-For details, please refer to the following steps.
+1. [Step 1: Create a widget file](#step-1-create-a-widget-file)
+2. [Step 2: Define the widget model](#step-2-define-the-widget-model)
+3. [Step 3: Populate the widget model with data](#step-3-populate-the-widget-model-with-data)
+4. [Step 4: Customize the widget view](#step-4-customize-the-widget-view)
+5. [Step 5: Add the widget to the dashboard](#step-5-add-the-widget-to-the-dashboard)
 
-1. Copy a new JSX file from the `List.tsx` file, and modify the file name and the class name.
+## Step 1: Create a widget file
 
-2. Define a data model based on the business scenario, and replace the `ListModel` in the your JSX file with the new data model just created.
+Copy a new JSX file from the `List.tsx` file, and modify the file name and the class name.
 
-3. Modify the `componentDidMount()` method in the widget JSX file to get data the widget needs. For example, you can call Graph API or something else.
+## Step 2: Define the widget model
 
-4. Modify the `render()` method in the widget JSX file to render the widget.
+Define a data model based on the business scenario, and replace the `ListModel` in the your JSX file with the new data model just created.
 
-   - Modify the `Card.Header` component to customize your widget header. For example, you can modify the `content` property to update the title of your widget. See [Card Header Props](https://fluentsite.z22.web.core.windows.net/0.64.0/components/card/props#card-header) and [Text Props](https://fluentsite.z22.web.core.windows.net/0.64.0/components/text/props) for more details.
+## Step 3: Populate the widget model with data
 
-   - Modify the `Card.Body` component to customize your widget body. See [Card Body Props](https://fluentsite.z22.web.core.windows.net/0.64.0/components/card/props#card-body) for more details. For more information about `Flex` layout, please refer to [Flex](https://fluentsite.z22.web.core.windows.net/0.64.0/components/flex/definition).
+Modify the `componentDidMount()` method in the widget JSX file to get data the widget needs. For example, you can call Graph API or something else.
 
-   - Modify the `Card.Footer` component to customize your widget footer. For example, you can align the footer to the right side by setting the `hAlign` property to `end`. For more information about `Button` style customization, please refer to [Button component definition](https://fluentsite.z22.web.core.windows.net/0.64.0/components/button/definition).
-     ```tsx
-     <Card.Footer fitted>
-       <Flex hAlign="end">
-         <Button
-            text
-            primary
-            icon={<ArrowRightIcon" size="small" />}
-            content="View all"
-            iconPosition="after"
-            size="small"
-            style={{ width: "fit-content"}}
-            onClick={() => {}}
-        />
-       </Flex>
-     </Card.Footer>
-     ```
+## Step 4: Customize the widget view
 
-5. Add the widget to the dashboard.
+Modify the `render()` method in the widget JSX file to render the widget.
+
+- Modify the `Card.Header` component to customize your widget header. For example, you can modify the `content` property to update the title of your widget. See [Card Header Props](https://fluentsite.z22.web.core.windows.net/0.64.0/components/card/props#card-header) and [Text Props](https://fluentsite.z22.web.core.windows.net/0.64.0/components/text/props) for more details.
+
+- Modify the `Card.Body` component to customize your widget body. See [Card Body Props](https://fluentsite.z22.web.core.windows.net/0.64.0/components/card/props#card-body) for more details. For more information about `Flex` layout, please refer to [Flex](https://fluentsite.z22.web.core.windows.net/0.64.0/components/flex/definition).
+
+- Modify the `Card.Footer` component to customize your widget footer. For example, you can align the footer to the right side by setting the `hAlign` property to `end`. For more information about `Button` style customization, please refer to [Button component definition](https://fluentsite.z22.web.core.windows.net/0.64.0/components/button/definition).
+  ```tsx
+  <Card.Footer fitted>
+    <Flex hAlign="end">
+      <Button
+         text
+         primary
+         icon={<ArrowRightIcon" size="small" />}
+         content="View all"
+         iconPosition="after"
+         size="small"
+         style={{ width: "fit-content"}}
+         onClick={() => {}}
+     />
+    </Flex>
+  </Card.Footer>
+  ```
+
+## Step 5: Add the widget to the dashboard
+
+Add the widget to the dashboard.
 
 # How to add a new Graph API call
 
@@ -119,7 +137,7 @@ For details, please refer to the following steps.
    } catch (e) {}
    ```
 
-# See also
+# Additional resources
 
 - [Fluent UI Northstar](https://fluentsite.z22.web.core.windows.net/0.64.0/)
 - [Fluent UI React Charting Example](https://fluentuipr.z22.web.core.windows.net/heads/master/react-charting/demo/index.html#/)

@@ -1,4 +1,4 @@
-import { FxContext } from "../components/singletonContext";
+import { FxContext } from "./singletonContext";
 
 export function loginAction(scope: string[]) {
   try {
