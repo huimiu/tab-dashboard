@@ -221,7 +221,8 @@ If you want to call a Graph API from the back-end, you can refer to the followin
 2. [Step 2: Add an Azure Function](#step-2-add-an-azure-function)
 3. [Step 3: Get the `installation id` of your Dashboard app](#step-3-get-the-installation-id-of-your-dashboard-app)
 4. [Step 4: Add your logic in Azure Function](#step-4-add-your-logic-in-azure-function)
-5. [Step 5: Call the Azure Function from the front-end](#step-5-call-the-azure-function-from-the-front-end)
+5. [Step 5: Edit manifest file](#step-5-edit-manifest-file)
+6. [Step 6: Call the Azure Function from the front-end](#step-5-call-the-azure-function-from-the-front-end)
 
 ### Step 1: Consent application permissions first
 
@@ -294,8 +295,42 @@ If you want to call a Graph API from the back-end, you can refer to the followin
    }
    ```
 
-### Step 5: Call the Azure Function from the front-end
-   Call the Azure Function from the front-end. You can refer to [this sample](https://github.com/OfficeDev/TeamsFx-Samples/blob/dev/hello-world-tab-with-backend/tabs/src/components/sample/AzureFunctions.tsx) for some helps.
+### Step 5: Edit manifest file
+  In the [templates\appPackage\manifest.template.json](templates\appPackage\manifest.template.json), you should add the following properties, which are align with properties in `postbody` in Step 4.
+  ```json
+  "activities": {
+    "activityTypes": [
+      {
+        "type": "taskCreated",
+        "description": "Task Created",
+        "templateText": "{actor} created task {taskId}"
+      }
+    ]
+  }
+  ```
+
+### Step 6: Call the Azure Function from the front-end
+  Call the Azure Function from the front-end. You can refer to the following code snippet to call the Azure Function.
+
+  ```ts
+  const functionName = process.env.REACT_APP_FUNC_NAME || "myFunc";
+  async function callFunction(teamsfx?: TeamsFx) {
+    if (!teamsfx) {
+      throw new Error("TeamsFx SDK is not initialized.");
+    }
+    try {
+      const credential = teamsfx.getCredential();
+      const apiBaseUrl = teamsfx.getConfig("apiEndpoint") + "/api/";
+      // createApiClient(...) creates an Axios instance which uses BearerTokenAuthProvider to inject token to request header
+      const apiClient = createApiClient(
+        apiBaseUrl,
+        new BearerTokenAuthProvider(async () => (await credential.getToken(""))!.token));
+      const response = await apiClient.get(functionName);
+      return response.data;
+    } catch (e) {}
+  }
+  ```
+  Refer to [this sample](https://github.com/OfficeDev/TeamsFx-Samples/blob/dev/hello-world-tab-with-backend/tabs/src/components/sample/AzureFunctions.tsx) for some helps. And you can read [this doc](https://learn.microsoft.com/en-us/azure/azure-functions/functions-reference?tabs=blob) for more details. 
 
 # Additional resources
 
