@@ -41,113 +41,73 @@ The following files provide the business logic for the dashboard tab. These file
 | ------------------------------------ | ------------------------------------ |
 | `src/views/Dashboard.css`            | The dashbaord style file             |
 | `src/views/Dashboard.tsx`            | The implementation of dashboard      |
-| `src/views/widgets/sampleWidget.tsx` | A sample widget implementation       |
+| `src/views/widgets/SampleWidget.tsx` | A sample widget implementation       |
 | `src/models/sampleWidgetModel.tsx`   | Data model for the sample widget     |
 | `src/services/sampleRequest.tsx`     | A sample data retrive implementation |
 
 The following files are project-related files. You generally will not need to customize these files.
 
-| File                                  | Contents                |
-| ------------------------------------- | ----------------------- |
-| `src/index.tsx`                       | Application entry point |
-| `src/App.tsx`                         | Application route       |
-| `src/middlewares/addNewScopes.ts`     |                         |
-| `src/middlewares/context.ts`          |                         |
-| `src/middlewares/login.ts`            |                         |
-| `src/middlewares/singletonContext.ts` |                         |
+| File                               | Contents                                         |
+| ---------------------------------- | ------------------------------------------------ |
+| `src/index.tsx`                    | Application entry point                          |
+| `src/App.tsx`                      | Application route                                |
+| `src/internal/addNewScopes.ts`     | Implementation of new scopes add                 |
+| `src/internal/context.ts`          | TeamsFx Context                                  |
+| `src/internal/login.ts`            | Implementation of login                          |
+| `src/internal/singletonContext.ts` | Implementation of the TeamsFx instance singleton |
+| `src/internal/Widget.tsx`          | A abstract class that defines the widget         |
 
 # How to add a new widget
 
 You can use the following steps to add a new widget to the dashboard:
 
-1. [Step 1: Create a widget file](#step-1-create-a-widget-file)
-2. [Step 2: Define the widget model](#step-2-define-the-widget-model)
-3. [Step 3: Populate the widget model with data](#step-3-populate-the-widget-model-with-data)
-4. [Step 4: Customize the widget view](#step-4-customize-the-widget-view)
-5. [Step 5: Add the widget to the dashboard](#step-5-add-the-widget-to-the-dashboard)
+1. [Step 1: Define the widget model](#step-1-define-the-widget-model)
+2. [Step 2: Create a widget file](#step-2-create-a-widget-file)
+3. [Step 3: Add the widget to the dashboard](#step-3-add-the-widget-to-the-dashboard)
 
-## Step 1: Create a widget file
+## Step 1: Define the widget model
 
-Create a JSX file under the `tabs/src/views/widgets` folder for your new widget, or you can just copy a new JSX file from the `tabs/src/views/widgets/SampleWidget.tsx` file, and modify the file name and the class name. Here's a sample widget file:
-
-```tsx
-import React from "react";
-import SampleWidgetModel from "../../models/sampleWidgetModel";
-
-interface IWidgetState {
-  data?: SampleWidgetModel[];
-}
-
-export class Widget1 extends React.Component<{}, IWidgetState> {
-  constructor(props: any) {
-    super(props);
-    this.state = { data: [] };
-  }
-
-  async componentDidMount() {
-    this.setState({ data: getData() });
-  }
-
-  private getData(): SampleWidgetModel[] {
-    ...
-  }
-
-  public render(): JSX.Element {
-    return (
-      <Card>
-        ...
-      </Card>
-    );
-  }
-}
-```
-
-## Step 2: Define the widget model
-
-Define a data model based on the business scenario, and put it in `tabs/src/models`, then replace the `SampleWidgetModel` in the your JSX file with the new data model just created.
-
-The widget model defined according to the data you want to display in the widget. Here's a sample data model:
+Define a data model based on the business scenario, and put it in `tabs/src/models`.The widget model defined according to the data you want to display in the widget. Here's a sample data model:
 
 ```typescript
-export default interface WidgetModel1 {
+export interface ModelItem {
   id: string;
-  ...
+  name: string;
+}
+
+export interface YourWidgetModel {
+  items: ModelItem[];
 }
 ```
 
-## Step 3: Populate the widget model with data
+## Step 2: Create a widget file
 
-Modify the `getData()` method in the widget JSX file to get data the widget needs. For example, you can call Graph API or something else.
-
-## Step 4: Customize the widget view
-
-Modify the `render()` method in the widget JSX file to customize the widget view.
+Create a widget file in `tabs/src/views/widgets`. Extend the `Widget` class and implement all the abstract methods. Here's a sample widget implementation:
 
 ```tsx
-public render(): JSX.Element {
-    return (
-      <Card>
-        <Card.Header>
-          ...
-        </Card.Header>
-
-        <Card.Body>
-          ...
-        </Card.Body>
-
-        <Card.Footer>
-          ...
-        </Card.Footer>
-      </Card>
-    );
+export class YourWidget extends Widget<YourWidgetModel> {
+  
+  getData() {
+    return null;
   }
+  
+  headerContent(): ReactNode {
+    return "Widget Header";
+  }
+
+  bodyContent(): JSX.Element {
+    return <div>Hello World!</div>;
+  }
+
+  footerContent(): ReactNode {
+    return "View details";
+  }
+  
+}
 ```
 
-- Modify the `Card.Header` component to customize your widget header.
-- Modify the `Card.Body` component to customize your widget body.
-- Modify the `Card.Footer` component to customize your widget footer.
 
-## Step 5: Add the widget to the dashboard
+## Step 3: Add the widget to the dashboard
 
 To add the widget to the dashboard.
 
@@ -161,9 +121,9 @@ render() {
       <div className="dashboard">
         ...
         <div className="row">
-           ...        
+           ...
            <div className="widget">
-            <Widget1 />
+            <YourWidget />
           </div>
           ...
         </div>
@@ -188,30 +148,30 @@ If you want to call a Graph API from the front-end tab, you can refer to the fol
 
 ### Step 1: Consent delegated permissions first
 
-   You can call [`addNewScope(scopes: string[])`](/tabs/src/middlewares/addNewScopes.ts) to consent the scopes of permissions you want to add. And the consented status will be preserved in a global context [`FxContext`](/tabs/src/middlewares/singletonContext.ts).
+You can call [`addNewScope(scopes: string[])`](/tabs/src/middlewares/addNewScopes.ts) to consent the scopes of permissions you want to add. And the consented status will be preserved in a global context [`FxContext`](/tabs/src/middlewares/singletonContext.ts).
 
-   You can refer to [the Graph API V1.0](https://learn.microsoft.com/en-us/graph/api/overview?view=graph-rest-1.0) to get the `scope name of the permission` related to the Graph API you want to call.
+You can refer to [the Graph API V1.0](https://learn.microsoft.com/en-us/graph/api/overview?view=graph-rest-1.0) to get the `scope name of the permission` related to the Graph API you want to call.
 
 ### Step 2: Create a graph client by adding the scope related to the Graph API you want to call
 
-   You can refer to the following code snippet:
+You can refer to the following code snippet:
 
-   ```ts
-   let teamsfx: TeamsFx;
-   teamsfx = FxContext.getInstance().getTeamsFx();
-   const graphClient: Client = createMicrosoftGraphClient(teamsfx, scope);
-   ```
+```ts
+let teamsfx: TeamsFx;
+teamsfx = FxContext.getInstance().getTeamsFx();
+const graphClient: Client = createMicrosoftGraphClient(teamsfx, scope);
+```
 
 ### Step 3: Call the Graph API, and parse the response into a certain model, which will be used by front-end
 
-   You can refer to the following code snippet:
+You can refer to the following code snippet:
 
-   ```ts
-   try {
-     const graphApiResult = await graphClient.api("<GRAPH_API_PATH>").get();
-     // Parse the graphApiResult into a Model you defined, used by the front-end.
-   } catch (e) {}
-   ```
+```ts
+try {
+  const graphApiResult = await graphClient.api("<GRAPH_API_PATH>").get();
+  // Parse the graphApiResult into a Model you defined, used by the front-end.
+} catch (e) {}
+```
 
 ## From the back-end(use application permissions)
 
@@ -225,77 +185,79 @@ If you want to call a Graph API from the back-end, you can refer to the followin
 
 ### Step 1: Consent application permissions first
 
-   Go to [Azure portal](https://portal.azure.com/) > Click `Azure Active Directory` > Click `App registrations` in the side bar > Click your Dashboard app > Click `API permissions` in the side bar > Click `+Add a permission` > Choose `Microsoft Graph` > Choose `Application permissions` > Find the permissions you need > Click `Add permissions` button in the bottom > Click `✔Grant admin consent for XXX` and then click `Yes` button to finish the admin consent
+Go to [Azure portal](https://portal.azure.com/) > Click `Azure Active Directory` > Click `App registrations` in the side bar > Click your Dashboard app > Click `API permissions` in the side bar > Click `+Add a permission` > Choose `Microsoft Graph` > Choose `Application permissions` > Find the permissions you need > Click `Add permissions` button in the bottom > Click `✔Grant admin consent for XXX` and then click `Yes` button to finish the admin consent
 
 ### Step 2: Add an Azure Function
-   In the VS Code side bar, click `Add features` in `Teams Toolkit` > Choose `Azure functions` > Enter the function name
+
+In the VS Code side bar, click `Add features` in `Teams Toolkit` > Choose `Azure functions` > Enter the function name
 
    <img src="images\add_azFunction.png" style="zoom: 42%">
 
 ### Step 3: Get the `installation id` of your Dashboard app
 
-   Go [Graph Explorer](https://developer.microsoft.com/en-us/graph/graph-explorer), and use the following api path to get a response.
+Go [Graph Explorer](https://developer.microsoft.com/en-us/graph/graph-explorer), and use the following api path to get a response.
 
-   ```
-   https://graph.microsoft.com/v1.0/users/{user-id | user-principal-name}/teamwork/installedApps?$expand=teamsAppDefinition
-   ```
+```
+https://graph.microsoft.com/v1.0/users/{user-id | user-principal-name}/teamwork/installedApps?$expand=teamsAppDefinition
+```
 
-   In the response, you should find the information of your Dashboard app, and then record the `id` of it as `installationId`, which will be used in step 4.
+In the response, you should find the information of your Dashboard app, and then record the `id` of it as `installationId`, which will be used in step 4.
 
    <img src="images\graph_explorer.png" style="zoom: 40%" />
 
 ### Step 4: Add your logic in Azure Function
 
-   In the `index.ts` under the folder named in step 2, you can add the following code snippet to call `sendActivityNotification`
-   ```ts
-   try {
-     // do sth here, to call activity notification api
-     //
-     const graphClient_userId: Client = await createMicrosoftGraphClient(
-       teamsfx,
-       ["User.Read"]
-     );
-     const userIdRes = await graphClient_userId.api("/me").get();
-     const userId = userIdRes["id"];
-     // get installationId
-     const installationId =
-       "ZmYxMGY2MjgtYjJjMC00MzRmLTgzZmItNmY3MGZmZWEzNmFkIyMyM2NhNWVlMy1iYWVlLTRiMjItYTA0OC03YjkzZjk0MDRkMTE=";
-     let postbody = {
-       topic: {
-         source: "entityUrl",
-         value:
-           "https://graph.microsoft.com/v1.0/users/" +
-           userId +
-           "/teamwork/installedApps/" +
-           installationId,
-       },
-       activityType: "taskCreated",
-       previewText: {
-         content: "New Task Created",
-       },
-       templateParameters: [
-         {
-           name: "taskId",
-           value: "12322",
-         },
-       ],
-     };
+In the `index.ts` under the folder named in step 2, you can add the following code snippet to call `sendActivityNotification`
 
-     let teamsfx_app: TeamsFx;
-     teamsfx_app = new TeamsFx(IdentityType.App);
-     const graphClient: Client = createMicrosoftGraphClient(teamsfx_app, [
-       ".default",
-     ]);
-     await graphClient
-       .api("users/" + userId + "/teamwork/sendActivityNotification")
-       .post(postbody);
-   } catch (e) {
-     console.log(e);
-   }
-   ```
+```ts
+try {
+  // do sth here, to call activity notification api
+  //
+  const graphClient_userId: Client = await createMicrosoftGraphClient(teamsfx, [
+    "User.Read",
+  ]);
+  const userIdRes = await graphClient_userId.api("/me").get();
+  const userId = userIdRes["id"];
+  // get installationId
+  const installationId =
+    "ZmYxMGY2MjgtYjJjMC00MzRmLTgzZmItNmY3MGZmZWEzNmFkIyMyM2NhNWVlMy1iYWVlLTRiMjItYTA0OC03YjkzZjk0MDRkMTE=";
+  let postbody = {
+    topic: {
+      source: "entityUrl",
+      value:
+        "https://graph.microsoft.com/v1.0/users/" +
+        userId +
+        "/teamwork/installedApps/" +
+        installationId,
+    },
+    activityType: "taskCreated",
+    previewText: {
+      content: "New Task Created",
+    },
+    templateParameters: [
+      {
+        name: "taskId",
+        value: "12322",
+      },
+    ],
+  };
+
+  let teamsfx_app: TeamsFx;
+  teamsfx_app = new TeamsFx(IdentityType.App);
+  const graphClient: Client = createMicrosoftGraphClient(teamsfx_app, [
+    ".default",
+  ]);
+  await graphClient
+    .api("users/" + userId + "/teamwork/sendActivityNotification")
+    .post(postbody);
+} catch (e) {
+  console.log(e);
+}
+```
 
 ### Step 5: Call the Azure Function from the front-end
-   Call the Azure Function from the front-end. You can refer to [this sample](https://github.com/OfficeDev/TeamsFx-Samples/blob/dev/hello-world-tab-with-backend/tabs/src/components/sample/AzureFunctions.tsx) for some helps.
+
+Call the Azure Function from the front-end. You can refer to [this sample](https://github.com/OfficeDev/TeamsFx-Samples/blob/dev/hello-world-tab-with-backend/tabs/src/components/sample/AzureFunctions.tsx) for some helps.
 
 # Additional resources
 

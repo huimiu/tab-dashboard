@@ -5,7 +5,7 @@ import { useTeamsFx } from "@microsoft/teamsfx-react";
 import Privacy from "./views/Privacy";
 import TermsOfUse from "./views/TermsOfUse";
 import TabConfig from "./views/TabConfig";
-import { TeamsFxContext } from "./middlewares/context";
+import { TeamsFxContext } from "./internal/context";
 import Dashboard from "./views/Dashboard";
 
 /**
