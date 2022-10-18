@@ -26,28 +26,36 @@ export abstract class Widget<T> extends React.Component<{}, { data?: T }> {
   }
 
   /**
-   * Get data required by the widget, you can get data from a api call or static data stored in a file. Modify this method according to your needs.
+   * Get data required by the widget, you can get data from a api call or static data stored in a file. Override this method according to your needs.
    * @returns data for the widget
    */
-  abstract getData(): T;
+  protected getData(): T | undefined {
+    return undefined;
+  };
 
   /**
-   * Implement this method to customize the widget header.
+   * Override this method to customize the widget header.
    * @returns react node for the widget header
    */
-  abstract headerContent(): ReactNode;
+  protected headerContent(): ReactNode {
+    return undefined;
+  };
 
   /**
-   * Implement this method to customize the widget body.
+   * Override this method to customize the widget body.
    * @returns JSX component for the widget body
    */
-  abstract bodyContent(): JSX.Element;
+  protected bodyContent(): JSX.Element | undefined {
+    return undefined;
+  };
 
   /**
-   * Implement this method to customize the widget footer.
+   * Override this method to customize the widget footer.
    * @returns react node for the widget footer
    */
-  abstract footerContent(): ReactNode;
+  protected footerContent(): ReactNode {
+    return undefined;
+  };
 
   /**
    * Define your widget layout, you can edit the code here to customize your widget.

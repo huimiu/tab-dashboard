@@ -86,26 +86,31 @@ Create a widget file in `tabs/src/views/widgets`. Extend the `Widget` class and 
 
 ```tsx
 export class YourWidget extends Widget<YourWidgetModel> {
-  
-  getData() {
-    return null;
+  getData(): T | undefined {
+    return undefined;
   }
-  
+
   headerContent(): ReactNode {
     return "Widget Header";
   }
 
-  bodyContent(): JSX.Element {
+  bodyContent(): JSX.Element | undefined {
     return <div>Hello World!</div>;
   }
 
   footerContent(): ReactNode {
     return "View details";
   }
-  
 }
 ```
 
+> Please note:
+>
+> - The `getData()` method is used to get the data for the widget. You can implement it to get data from the backend service or from the Microsoft Graph API.
+>
+> - The `headerContent()`, `bodyContent()`, and `footerContent()` methods are used to define the content of the widget header, body, and footer. You can customize the content based on your business scenario.
+>
+> - All the methods are optional. You can implement the methods you need. If you don't implement a method, the default implementation will be used.
 
 ## Step 3: Add the widget to the dashboard
 
@@ -257,41 +262,48 @@ try {
 ```
 
 ### Step 5: Edit manifest file
-  In the [templates\appPackage\manifest.template.json](templates\appPackage\manifest.template.json), you should add the following properties, which are align with properties in `postbody` in Step 4.
-  ```json
-  "activities": {
-    "activityTypes": [
-      {
-        "type": "taskCreated",
-        "description": "Task Created",
-        "templateText": "{actor} created task {taskId}"
-      }
-    ]
-  }
-  ```
+
+In the [templates\appPackage\manifest.template.json](templates\appPackage\manifest.template.json), you should add the following properties, which are align with properties in `postbody` in Step 4.
+
+```json
+"activities": {
+  "activityTypes": [
+    {
+      "type": "taskCreated",
+      "description": "Task Created",
+      "templateText": "{actor} created task {taskId}"
+    }
+  ]
+}
+```
 
 ### Step 6: Call the Azure Function from the front-end
-  Call the Azure Function from the front-end. You can refer to the following code snippet to call the Azure Function.
 
-  ```ts
-  const functionName = process.env.REACT_APP_FUNC_NAME || "myFunc";
-  async function callFunction(teamsfx?: TeamsFx) {
-    if (!teamsfx) {
-      throw new Error("TeamsFx SDK is not initialized.");
-    }
-    try {
-      const credential = teamsfx.getCredential();
-      const apiBaseUrl = teamsfx.getConfig("apiEndpoint") + "/api/";
-      // createApiClient(...) creates an Axios instance which uses BearerTokenAuthProvider to inject token to request header
-      const apiClient = createApiClient(
-        apiBaseUrl,
-        new BearerTokenAuthProvider(async () => (await credential.getToken(""))!.token));
-      const response = await apiClient.get(functionName);
-      return response.data;
-    } catch (e) {}
+Call the Azure Function from the front-end. You can refer to the following code snippet to call the Azure Function.
+
+```ts
+const functionName = process.env.REACT_APP_FUNC_NAME || "myFunc";
+async function callFunction(teamsfx?: TeamsFx) {
+  if (!teamsfx) {
+    throw new Error("TeamsFx SDK is not initialized.");
   }
-  ```
-  Refer to [this sample](https://github.com/OfficeDev/TeamsFx-Samples/blob/dev/hello-world-tab-with-backend/tabs/src/components/sample/AzureFunctions.tsx) for some helps. And you can read [this doc](https://learn.microsoft.com/en-us/azure/azure-functions/functions-reference?tabs=blob) for more details. 
+  try {
+    const credential = teamsfx.getCredential();
+    const apiBaseUrl = teamsfx.getConfig("apiEndpoint") + "/api/";
+    // createApiClient(...) creates an Axios instance which uses BearerTokenAuthProvider to inject token to request header
+    const apiClient = createApiClient(
+      apiBaseUrl,
+      new BearerTokenAuthProvider(
+        async () => (await credential.getToken(""))!.token
+      )
+    );
+    const response = await apiClient.get(functionName);
+    return response.data;
+  } catch (e) {}
+}
+```
+
+Refer to [this sample](https://github.com/OfficeDev/TeamsFx-Samples/blob/dev/hello-world-tab-with-backend/tabs/src/components/sample/AzureFunctions.tsx) for some helps. And you can read [this doc](https://learn.microsoft.com/en-us/azure/azure-functions/functions-reference?tabs=blob) for more details.
 
 # Additional resources
 

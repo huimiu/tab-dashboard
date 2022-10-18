@@ -17,7 +17,7 @@ export class SampleWidget extends Widget<SampleWidgetModel> {
    * Get data required by the widget, you can get data from a api call or static data stored in a file.
    * @returns The data required by the widget to render.
    */
-  getData(): SampleWidgetModel {
+  getData(): SampleWidgetModel | undefined {
     return getSampleData();
   }
 
@@ -33,7 +33,7 @@ export class SampleWidget extends Widget<SampleWidgetModel> {
    * Define the widget body.
    * @returns The body content, all JSX.Element types are supported.
    */
-  bodyContent(): JSX.Element {
+  bodyContent(): JSX.Element | undefined {
     return (
       <Flex fill column gap="gap.small" vAlign="stretch" space="between">
         {this.state.data &&
