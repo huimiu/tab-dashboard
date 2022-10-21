@@ -1,63 +1,31 @@
-import "./Dashboard.css";
+import React, { useRef, useLayoutEffect } from "react";
 
-import React from "react";
+import { dashboardStyles } from "./Dashboard.styles";
+import { ListWidget } from "./widgets/ListWidget";
 
-import { SampleWidget } from "../views/widgets/SampleWidget";
-
-interface IDashboardProp {}
-
-export default class Dashboard extends React.Component<{}, IDashboardProp> {
+export class Dashboard extends React.Component {
   constructor(props: any) {
     super(props);
+    this.state = {
+      isMobile: undefined,
+    };
   }
 
-  async componentDidMount() {}
+  protected dashboardLayout(): JSX.Element | void {}
 
   render() {
+    const ref = useRef<HTMLDivElement>(null);
+    useLayoutEffect(() => {
+      this.setState({
+        isMobile: ref.current && ref.current.offsetWidth < 512,
+      });
+    });
+
     return (
-      <>
-        <div className="dashboard">
-          <div className="row">
-            <div className="widget">
-              <SampleWidget />
-            </div>
-          </div>
-        </div>
-
-        {/*        
-          You can display two widgets in one row like this:
-
-          <div className="dashboard">
-            <div className="row">
-              <div className="widget">
-                <List />
-              </div>
-              <div className="widget">
-                <List />
-              </div>
-            </div>
-          </div>
-          
-        */}
-
-        {/*
-          You can display two rows of widgets like this:
-         
-          <div className="dashboard">
-            <div className="row">
-              <div className="widget">
-                <List />
-              </div>      
-            </div>
-            <div className="row">
-              <div className="widget">
-                <List />
-              </div>             
-            </div>
-          </div>
-          
-        */}
-      </>
+      <div ref={ref} style={dashboardStyles()}>
+        <ListWidget />
+        <ListWidget />
+      </div>
     );
   }
 }

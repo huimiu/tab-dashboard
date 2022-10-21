@@ -1,14 +1,16 @@
-import React, { ReactNode } from "react";
+import React from "react";
 
-import { ArrowRightIcon } from "@fluentui/react-icons-northstar";
-import { Button, Card, Flex, Text } from "@fluentui/react-northstar";
+import { Card, Flex } from "@fluentui/react-northstar";
 
 /**
  * Defined a widget, it's also a react component.
  * For more information about react component, please refer to https://reactjs.org/docs/react-component.html
  * T is the model type of the widget.
  */
-export abstract class Widget<T> extends React.Component<{}, { data?: T }> {
+export abstract class Widget<T> extends React.Component<
+  {},
+  { data?: T | void }
+> {
   constructor(props: any) {
     super(props);
     this.state = {
@@ -29,33 +31,25 @@ export abstract class Widget<T> extends React.Component<{}, { data?: T }> {
    * Get data required by the widget, you can get data from a api call or static data stored in a file. Override this method according to your needs.
    * @returns data for the widget
    */
-  protected getData(): T | undefined {
-    return undefined;
-  };
+  protected getData(): T | void {}
 
   /**
    * Override this method to customize the widget header.
-   * @returns react node for the widget header
+   * @returns JSX component for the widget body
    */
-  protected headerContent(): ReactNode {
-    return undefined;
-  };
+  protected headerContent(): JSX.Element | void {}
 
   /**
    * Override this method to customize the widget body.
    * @returns JSX component for the widget body
    */
-  protected bodyContent(): JSX.Element | undefined {
-    return undefined;
-  };
+  protected bodyContent(): JSX.Element | void {}
 
   /**
    * Override this method to customize the widget footer.
    * @returns react node for the widget footer
    */
-  protected footerContent(): ReactNode {
-    return undefined;
-  };
+  protected footerContent(): JSX.Element | void {}
 
   /**
    * Define your widget layout, you can edit the code here to customize your widget.
@@ -64,28 +58,15 @@ export abstract class Widget<T> extends React.Component<{}, { data?: T }> {
     return (
       <Card fluid elevated styles={{ ":hover": "backgroud-color: #FFFFFF" }}>
         {/** Card header */}
-        <Card.Header>
-          <Text weight="semibold" size="large" content={this.headerContent()} />
-        </Card.Header>
+        <Card.Header>{this.headerContent()}</Card.Header>
 
         {/** Card content */}
-        <Flex fill column gap="gap.small" vAlign="stretch" space="between">
+        <Flex fill column gap="gap.medium" vAlign="stretch">
           <Card.Body>{this.bodyContent()}</Card.Body>
         </Flex>
 
         {/** Card footer */}
-        <Card.Footer fitted>
-          <Button
-            text
-            primary
-            icon={<ArrowRightIcon size="small" />}
-            content={this.footerContent()}
-            iconPosition="after"
-            size="small"
-            style={{ width: "fit-content" }}
-            onClick={() => {}} // navigate to detailed page
-          />
-        </Card.Footer>
+        <Card.Footer fitted>{this.footerContent()}</Card.Footer>
       </Card>
     );
   }

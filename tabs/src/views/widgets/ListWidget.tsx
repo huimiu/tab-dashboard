@@ -1,18 +1,15 @@
-import React from "react";
+import React from 'react';
 
-import { Flex, Text } from "@fluentui/react-northstar";
+import { Button, Flex, Text } from '@fluentui/react-northstar';
 
-import { Widget } from "../../internal/Widget";
-import {
-  SampleModelItem,
-  SampleWidgetModel,
-} from "../../models/sampleWidgetModel";
-import { getSampleData } from "../../services/sampleRequest";
+import { SampleModelItem, SampleWidgetModel } from '../../models/sampleWidgetModel';
+import { getSampleData } from '../../services/sampleRequest';
+import { Widget } from '../Widget';
 
 /**
- * Extends the widget class to implement a sample widget.
+ * Extends the Widget class to implement a list widget.
  */
-export class SampleWidget extends Widget<SampleWidgetModel> {
+export class ListWidget extends Widget<SampleWidgetModel> {
   /**
    * Get data required by the widget, you can get data from a api call or static data stored in a file.
    * @returns The data required by the widget to render.
@@ -25,8 +22,12 @@ export class SampleWidget extends Widget<SampleWidgetModel> {
    * Define the widget header.
    * @returns The header content, all ReactNode types are supported.
    */
-  headerContent(): React.ReactNode {
-    return "Sample Widget";
+  headerContent(): JSX.Element | undefined {
+    return (
+      <>
+        <Text weight="semibold" size="large" content="Sample Widget" />
+      </>
+    );
   }
 
   /**
@@ -52,7 +53,17 @@ export class SampleWidget extends Widget<SampleWidgetModel> {
    * Define the widget footer.
    * @returns The footer content, all ReactNode types are supported.
    */
-  footerContent(): React.ReactNode {
-    return "View details";
+  footerContent(): JSX.Element | undefined {
+    return (
+      <>
+        <Button
+          primary
+          content="View Details"
+          size="medium"
+          style={{ width: "fit-content" }}
+          onClick={() => {}} // navigate to detailed page
+        />
+      </>
+    );
   }
 }
