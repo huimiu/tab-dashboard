@@ -170,20 +170,28 @@ Create a widget file in `tabs/src/views/widgets`. Extend the `Widget` class and 
 
 ```tsx
 export class YourWidget extends Widget<YourWidgetModel> {
-  getData(): T | undefined {
-    return undefined;
+  getData(): YourWidgetModel | void {
+    return getYourWidgetData();
   }
 
-  headerContent(): ReactNode {
-    return "Widget Header";
+  headerContent(): JSX.Element | void {
+    return <Text weight="semibold" size="large" content="Your Widget" />;
   }
 
-  bodyContent(): JSX.Element | undefined {
+  bodyContent(): JSX.Element | void {
     return <div>Hello World!</div>;
   }
 
-  footerContent(): ReactNode {
-    return "View details";
+  footerContent(): JSX.Element | void {
+    return (
+      <Button
+        primary
+        content="View Details"
+        size="medium"
+        style={{ width: "fit-content" }}
+        onClick={() => {}} // navigate to detailed page
+      />
+    );
   }
 }
 ```

@@ -23,11 +23,7 @@ export class ListWidget extends Widget<SampleWidgetModel> {
    * @returns The header content, all ReactNode types are supported.
    */
   headerContent(): JSX.Element | undefined {
-    return (
-      <>
-        <Text weight="semibold" size="large" content="List Widget" />
-      </>
-    );
+    return <Text weight="semibold" size="large" content="List Widget" />;
   }
 
   /**
@@ -55,15 +51,13 @@ export class ListWidget extends Widget<SampleWidgetModel> {
    */
   footerContent(): JSX.Element | undefined {
     return (
-      <>
-        <Button
-          primary
-          content="View Details"
-          size="medium"
-          style={{ width: "fit-content" }}
-          onClick={() => {}} // navigate to detailed page
-        />
-      </>
+      <Button
+        primary
+        content="View Details"
+        size="medium"
+        style={{ width: "fit-content" }}
+        onClick={() => {}} // navigate to detailed page
+      />
     );
   }
 }
