@@ -28,6 +28,30 @@ export abstract class Widget<T> extends React.Component<
   }
 
   /**
+   * Define your widget layout, you can edit the code here to customize your widget.
+   */
+  render() {
+    return (
+      <Card fluid elevated styles={{ ":hover": "backgroud-color: #FFFFFF" }}>
+        {/** Card header */}
+        {this.headerContent() && (
+          <Card.Header>{this.headerContent()}</Card.Header>
+        )}
+
+        {/** Card content */}
+        <Flex fill column gap="gap.medium" vAlign="stretch">
+          {this.bodyContent() && <Card.Body>{this.bodyContent()}</Card.Body>}
+        </Flex>
+
+        {/** Card footer */}
+        {this.footerContent() && (
+          <Card.Footer fitted>{this.footerContent()}</Card.Footer>
+        )}
+      </Card>
+    );
+  }
+
+  /**
    * Get data required by the widget, you can get data from a api call or static data stored in a file. Override this method according to your needs.
    * @returns data for the widget
    */
@@ -50,24 +74,4 @@ export abstract class Widget<T> extends React.Component<
    * @returns react node for the widget footer
    */
   protected footerContent(): JSX.Element | void {}
-
-  /**
-   * Define your widget layout, you can edit the code here to customize your widget.
-   */
-  render() {
-    return (
-      <Card fluid elevated styles={{ ":hover": "backgroud-color: #FFFFFF" }}>
-        {/** Card header */}
-        <Card.Header>{this.headerContent()}</Card.Header>
-
-        {/** Card content */}
-        <Flex fill column gap="gap.medium" vAlign="stretch">
-          <Card.Body>{this.bodyContent()}</Card.Body>
-        </Flex>
-
-        {/** Card footer */}
-        <Card.Footer fitted>{this.footerContent()}</Card.Footer>
-      </Card>
-    );
-  }
 }

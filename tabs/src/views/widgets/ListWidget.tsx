@@ -25,7 +25,7 @@ export class ListWidget extends Widget<SampleWidgetModel> {
   headerContent(): JSX.Element | undefined {
     return (
       <>
-        <Text weight="semibold" size="large" content="Sample Widget" />
+        <Text weight="semibold" size="large" content="List Widget" />
       </>
     );
   }

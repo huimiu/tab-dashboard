@@ -37,13 +37,16 @@ The core dashboard implementation is in `tabs` folder.
 
 The following files provide the business logic for the dashboard tab. These files can be updated to fit your business logic requirements. The default implementation provides a starting point to help you get started.
 
-| File                                 | Contents                             |
-| ------------------------------------ | ------------------------------------ |
-| `src/views/Dashboard.css`            | The dashbaord style file             |
-| `src/views/Dashboard.tsx`            | The implementation of dashboard      |
-| `src/views/widgets/SampleWidget.tsx` | A sample widget implementation       |
-| `src/models/sampleWidgetModel.tsx`   | Data model for the sample widget     |
-| `src/services/sampleRequest.tsx`     | A sample data retrive implementation |
+| File                                       | Contents                                                                                                       |
+| ------------------------------------------ | -------------------------------------------------------------------------------------------------------------- |
+| `src/views/Dashboard.styles.ts`            | The dashbaord style file                                                                                       |
+| `src/views/Dashboard.tsx`                  | A Dashboard implementation base class, you can inherit this class to customize and create your own dashboards  |
+| `src/views/dashboards/SampleDashboard.tsx` | A sample dashboard layout implementation                                                                       |
+| `src/views/Widget.tsx`                     | An abstract class that defines the widget, you can inherit this class to customize and create your own widgets |
+| `src/views/widgets/SampleWidget.tsx`       | A sample widget implementation                                                                                 |
+| `src/views/widgets/ListWidget.tsx`         | A List widget implementation                                                                                   |
+| `src/models/sampleWidgetModel.tsx`         | Data model for the sample widget                                                                               |
+| `src/services/sampleRequest.tsx`           | A sample data retrive implementation                                                                           |
 
 The following files are project-related files. You generally will not need to customize these files.
 
@@ -55,7 +58,88 @@ The following files are project-related files. You generally will not need to cu
 | `src/internal/context.ts`          | TeamsFx Context                                  |
 | `src/internal/login.ts`            | Implementation of login                          |
 | `src/internal/singletonContext.ts` | Implementation of the TeamsFx instance singleton |
-| `src/internal/Widget.tsx`          | A abstract class that defines the widget         |
+
+# How to add a new dashboard
+
+You can use the following steps to add a new dashboard layout:
+
+1. [Step 1: Create a dashboard class](#step-1-define-the-widget-model)
+2. [Step 2: Override methods to customize dashboard layout](#step-2-override-methods-to-customize-dashboard-layout)
+3. [Step 3: Add a route for the new dashboard](#step-3-add-a-route-for-the-new-dashboard)
+4. [Step 4: Modify manifest to add a new dashboard tab](#step-4-modify-manifest-to-add-a-new-dashboard-tab)
+
+## Step 1: Create a dashboard class
+
+Create a file with the extension `.tsx` for your dashboard in the `tabs/src/views/dashboards` directory. For example, `YourDashboard.tsx`. Then, create a class that extends the `Dashboard` class.
+
+```tsx
+export default class YourDashboard extends Dashboard {}
+```
+
+## Step 2: Override methods to customize dashboard layout
+
+Dashboard class provides some methods that you can override to customize the dashboard layout. The following table lists the methods that you can override.
+
+| Methods             | Function                                                                          |
+| ------------------- | --------------------------------------------------------------------------------- |
+| `rowHeights()`      | Customize the height of each row of the dashboard                                 |
+| `columnWidths()`    | Customize how many columns the dashboard has at most and the width of each column |
+| `dashboardLayout()` | Define widgets layout                                                             |
+
+Here is an example to customize the dashboard layout.
+
+```tsx
+export default class YourDashboard extends Dashboard {
+  protected rowHeights(): string | undefined {
+    return "500px";
+  }
+
+  protected columnWidths(): string | undefined {
+    return "4fr 6fr";
+  }
+
+  protected dashboardLayout(): void | JSX.Element {
+    return (
+      <>
+        <SampleWidget />
+        <div style={oneColumn("6fr 4fr")}>
+          <SampleWidget />
+          <SampleWidget />
+        </div>
+      </>
+    );
+  }
+}
+```
+
+> Note: All methods are optional. If you do not override any method, the default dashboard layout will be used.
+
+## Step 3: Add a route for the new dashboard
+Open the `tabs/src/App.tsx` file, and add a route for the new dashboard. Here is an example:
+
+```tsx
+import YourDashboard from "./views/dashboards/YourDashboard";
+
+export default function App() {
+  ...
+  <Route exact path="/yourdashboard" component={YourDashboard} />
+  ...
+}
+```
+
+## Step 4: Modify manifest to add a new dashboard tab
+
+Open the `templates/appPackage/manifest.template.json` file, and add a new dashboard tab under the `staticTabs`. Here is an example:
+
+```json
+{
+  "name": "Your Dashboard",
+  "entityId": "yourdashboard",
+  "contentUrl": "{{state.fx-resource-frontend-hosting.endpoint}}{{state.fx-resource-frontend-hosting.indexPath}}/yourdashboard",
+  "websiteUrl": "{{state.fx-resource-frontend-hosting.endpoint}}{{state.fx-resource-frontend-hosting.indexPath}}/yourdashboard",
+  "scopes": ["personal"]
+}
+```
 
 # How to add a new widget
 
@@ -116,23 +200,30 @@ export class YourWidget extends Widget<YourWidgetModel> {
 
 To add the widget to the dashboard.
 
-1. Go to `tabs/src/views/Dashboard.tsx`
-2. update your `render()` method to add the widget to the dashboard:
+1. Go to `tabs/src/views/dashboards/YourDashboard.tsx`
+2. update your `dashboardLayout()` method to add the widget to the dashboard:
 
 ```tsx
-render() {
+protected dashboardLayout(): void | JSX.Element {
   return (
     <>
-      <div className="dashboard">
-        ...
-        <div className="row">
-           ...
-           <div className="widget">
-            <YourWidget />
-          </div>
-          ...
-        </div>
-        ...
+      <SampleWidget />
+      <YourWidget />
+    </>
+  );
+}
+```
+
+> Note: If you want put your widget in a column, you can use the `oneColumn()` method to define the column layout. Here is an example:
+
+```tsx
+protected dashboardLayout(): void | JSX.Element {
+  return (
+    <>
+      <SampleWidget />
+      <div style={oneColumn("6fr 4fr")}>
+        <SampleWidget />
+        <YourWidget />
       </div>
     </>
   );

@@ -6,7 +6,7 @@ import Privacy from "./views/Privacy";
 import TermsOfUse from "./views/TermsOfUse";
 import TabConfig from "./views/TabConfig";
 import { TeamsFxContext } from "./internal/context";
-import Dashboard from "./views/Dashboard";
+import SampleDashboard from "./views/dashboards/SampleDashboard";
 
 /**
  * The main app which handles the initialization and routing
@@ -30,7 +30,7 @@ export default function App() {
             <>
               <Route exact path="/privacy" component={Privacy} />
               <Route exact path="/termsofuse" component={TermsOfUse} />
-              <Route exact path="/dashboard" component={Dashboard} />
+              <Route exact path="/dashboard" component={SampleDashboard} />
               <Route exact path="/config" component={TabConfig} />
             </>
           )}
