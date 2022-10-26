@@ -1,10 +1,10 @@
-import React from 'react';
+import { CSSProperties } from 'react';
 
-import { Button, Flex, Text } from '@fluentui/react-northstar';
+import { Button, Flex, ListIcon, MoreIcon, Text } from '@fluentui/react-northstar';
 
 import { SampleModelItem, SampleWidgetModel } from '../../models/sampleWidgetModel';
 import { getSampleData } from '../../services/sampleRequest';
-import { Widget } from '../Widget';
+import { Widget } from '../lib/Widget';
 
 /**
  * Extends the Widget class to implement a list widget.
@@ -23,7 +23,22 @@ export class ListWidget extends Widget<SampleWidgetModel> {
    * @returns The header content, all ReactNode types are supported.
    */
   headerContent(): JSX.Element | undefined {
-    return <Text weight="semibold" size="large" content="List Widget" />;
+    return (
+      <div style={headerContentStyle()}>
+        <ListIcon size="large" />
+        <Text
+          styles={{
+            fontWeight: "600",
+            lineHeight: "16px",
+            fontstyle: "normal",
+            fontSize: "12px",
+            fontFamily: "Segoe UI",
+          }}
+          content="Your List"
+        />
+        <MoreIcon outline size="large" />
+      </div>
+    );
   }
 
   /**
@@ -61,3 +76,10 @@ export class ListWidget extends Widget<SampleWidgetModel> {
     );
   }
 }
+
+const headerContentStyle = (): CSSProperties => ({
+  display: "grid",
+  gap: "8px",
+  gridTemplateColumns: "min-content 1fr min-content",
+  alignItems: "center",
+});

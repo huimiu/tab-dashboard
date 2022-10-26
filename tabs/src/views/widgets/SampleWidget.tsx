@@ -1,4 +1,4 @@
-import { Widget } from "../Widget";
+import { Widget } from "../lib/Widget";
 import { Text } from "@fluentui/react-northstar";
 
 export default class SampleWidget extends Widget<void> {

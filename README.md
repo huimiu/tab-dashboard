@@ -39,10 +39,10 @@ The following files provide the business logic for the dashboard tab. These file
 
 | File                                       | Contents                                                                                                       |
 | ------------------------------------------ | -------------------------------------------------------------------------------------------------------------- |
-| `src/views/Dashboard.styles.ts`            | The dashbaord style file                                                                                       |
-| `src/views/Dashboard.tsx`                  | A Dashboard implementation base class, you can inherit this class to customize and create your own dashboards  |
+| `src/views/lib/Dashboard.styles.ts`        | The dashbaord style file                                                                                       |
+| `src/views/lib/Dashboard.tsx`              | A Dashboard implementation base class, you can inherit this class to customize and create your own dashboards  |
 | `src/views/dashboards/SampleDashboard.tsx` | A sample dashboard layout implementation                                                                       |
-| `src/views/Widget.tsx`                     | An abstract class that defines the widget, you can inherit this class to customize and create your own widgets |
+| `src/views/lib/Widget.tsx`                 | An abstract class that defines the widget, you can inherit this class to customize and create your own widgets |
 | `src/views/widgets/SampleWidget.tsx`       | A sample widget implementation                                                                                 |
 | `src/views/widgets/ListWidget.tsx`         | A List widget implementation                                                                                   |
 | `src/models/sampleWidgetModel.tsx`         | Data model for the sample widget                                                                               |
@@ -115,6 +115,7 @@ export default class YourDashboard extends Dashboard {
 > Note: All methods are optional. If you do not override any method, the default dashboard layout will be used.
 
 ## Step 3: Add a route for the new dashboard
+
 Open the `tabs/src/App.tsx` file, and add a route for the new dashboard. Here is an example:
 
 ```tsx

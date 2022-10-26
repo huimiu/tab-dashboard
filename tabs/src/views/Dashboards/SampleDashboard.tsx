@@ -1,5 +1,6 @@
-import { Dashboard } from '../Dashboard';
-import { oneColumn } from '../Dashboard.styles';
+import { Dashboard } from '../lib/Dashboard';
+import { oneColumn } from '../lib/Dashboard.styles';
+import { ListWidget } from '../widgets/ListWidget';
 import SampleWidget from '../widgets/SampleWidget';
 
 export default class SampleDashboard extends Dashboard {
@@ -15,7 +16,7 @@ export default class SampleDashboard extends Dashboard {
   protected dashboardLayout(): void | JSX.Element {
     return (
       <>
-        <SampleWidget />
+        <ListWidget />
         <div style={oneColumn("6fr 4fr")}>
           <SampleWidget />
           <SampleWidget />
