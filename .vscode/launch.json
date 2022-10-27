@@ -9,8 +9,7 @@
             "presentation": {
                 "group": "remote",
                 "order": 1
-            },
-            "internalConsoleOptions": "neverOpen"
+            }
         },
         {
             "name": "Launch Remote (Chrome)",
@@ -20,8 +19,7 @@
             "presentation": {
                 "group": "remote",
                 "order": 2
-            },
-            "internalConsoleOptions": "neverOpen"
+            }
         },
         {
             "name": "Attach to Frontend (Edge)",
@@ -31,8 +29,7 @@
             "presentation": {
                 "group": "all",
                 "hidden": true
-            },
-            "internalConsoleOptions": "neverOpen"
+            }
         },
         {
             "name": "Attach to Frontend (Chrome)",
@@ -42,8 +39,7 @@
             "presentation": {
                 "group": "all",
                 "hidden": true
-            },
-            "internalConsoleOptions": "neverOpen"
+            }
         }
     ],
     "compounds": [

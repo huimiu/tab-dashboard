@@ -42,9 +42,5 @@
     }
   ],
   "permissions": ["identity", "messageTeamMembers"],
-  "validDomains": ["{{state.fx-resource-frontend-hosting.domain}}"],
-  "webApplicationInfo": {
-    "id": "{{state.fx-resource-aad-app-for-teams.clientId}}",
-    "resource": "{{state.fx-resource-aad-app-for-teams.applicationIdUris}}"
-  }
+  "validDomains": ["{{state.fx-resource-frontend-hosting.domain}}"]
 }
