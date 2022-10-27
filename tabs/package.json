@@ -4,7 +4,8 @@
     "private": true,
     "dependencies": {
         "@fluentui/react": "^8.96.2",
-        "@fluentui/react-charting": "^5.13.5",
+        "@fluentui/react-charting": "^5.14.7",
+        "@fluentui/react-icons": "^2.0.185",
         "@fluentui/react-northstar": "^0.62.0",
         "@microsoft/mgt-element": "2.4.1-next.teamsfx.8d56785",
         "@microsoft/mgt-react": "2.4.1-next.teamsfx.8d56785",

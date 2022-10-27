@@ -6,7 +6,7 @@ import Privacy from "./views/Privacy";
 import TermsOfUse from "./views/TermsOfUse";
 import TabConfig from "./views/TabConfig";
 import { TeamsFxContext } from "./internal/context";
-import SampleDashboard from "./views/Dashboards/SampleDashboard";
+import SampleDashboard from "./views/dashboards/SampleDashboard";
 
 /**
  * The main app which handles the initialization and routing
