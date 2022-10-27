@@ -1,10 +1,10 @@
-import { CSSProperties } from 'react';
-
-import { Button, Flex, ListIcon, MoreIcon, Text } from '@fluentui/react-northstar';
+import { Button, Divider, ListIcon, MoreIcon, Text } from '@fluentui/react-northstar';
 
 import { SampleModelItem, SampleWidgetModel } from '../../models/sampleWidgetModel';
 import { getSampleData } from '../../services/sampleRequest';
 import { Widget } from '../lib/Widget';
+import { headerContentStyle, headerTextStyle } from '../lib/Widget.styles';
+import { itemSubtitleStyle, itemTitleStyle } from '../styles/ListWidget.styles';
 
 /**
  * Extends the Widget class to implement a list widget.
@@ -26,17 +26,8 @@ export class ListWidget extends Widget<SampleWidgetModel> {
     return (
       <div style={headerContentStyle()}>
         <ListIcon size="large" />
-        <Text
-          styles={{
-            fontWeight: "600",
-            lineHeight: "16px",
-            fontstyle: "normal",
-            fontSize: "12px",
-            fontFamily: "Segoe UI",
-          }}
-          content="Your List"
-        />
-        <MoreIcon outline size="large" />
+        <Text style={headerTextStyle()} content="Your List" />
+        <Button icon={<MoreIcon size="large" />} iconOnly text title="more" />
       </div>
     );
   }
@@ -47,16 +38,18 @@ export class ListWidget extends Widget<SampleWidgetModel> {
    */
   bodyContent(): JSX.Element | undefined {
     return (
-      <Flex fill column gap="gap.small" vAlign="stretch" space="between">
+      <div style={{ display: "grid", gap: "0.5rem" }}>
         {this.state.data &&
           this.state.data.items.map((t: SampleModelItem) => {
             return (
-              <Flex gap="gap.medium" vAlign="center">
-                <Text content={t.content} />
-              </Flex>
+              <div style={{ display: "grid" }}>
+                <Divider style={{ marginBottom: "0.5rem" }} />
+                <Text content={t.title} style={itemTitleStyle()} />
+                <Text content={t.content} style={itemSubtitleStyle()} />
+              </div>
             );
           })}
-      </Flex>
+      </div>
     );
   }
 
@@ -76,10 +69,3 @@ export class ListWidget extends Widget<SampleWidgetModel> {
     );
   }
 }
-
-const headerContentStyle = (): CSSProperties => ({
-  display: "grid",
-  gap: "8px",
-  gridTemplateColumns: "min-content 1fr min-content",
-  alignItems: "center",
-});

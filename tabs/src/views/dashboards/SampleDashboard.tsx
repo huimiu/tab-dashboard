@@ -1,7 +1,7 @@
 import { Dashboard } from '../lib/Dashboard';
 import { oneColumn } from '../lib/Dashboard.styles';
+import ChartWidget from '../widgets/ChartWidget';
 import { ListWidget } from '../widgets/ListWidget';
-import SampleWidget from '../widgets/SampleWidget';
 
 export default class SampleDashboard extends Dashboard {
   
@@ -18,8 +18,8 @@ export default class SampleDashboard extends Dashboard {
       <>
         <ListWidget />
         <div style={oneColumn("6fr 4fr")}>
-          <SampleWidget />
-          <SampleWidget />
+          <ChartWidget />
+          <ListWidget />
         </div>
       </>
     );
