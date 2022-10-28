@@ -1,6 +1,8 @@
-import React, { Component } from "react";
-import { dashboardStyles } from "./Dashboard.styles";
-import { Image } from "@fluentui/react-northstar";
+import React, { Component } from 'react';
+
+import { Image } from '@fluentui/react-northstar';
+
+import { dashboardStyles } from './Dashboard.styles';
 
 interface IDashboardState {
   isMobile?: boolean;
@@ -27,6 +29,11 @@ export class Dashboard extends Component<{}, IDashboardState> {
     this.ref = React.createRef<HTMLDivElement>();
   }
 
+  /**
+   * This method is invoked immediately after a component is mounted.
+   * It's a good place to fetch data from server.
+   * For more information about react lifecycle, please refer to https://reactjs.org/docs/react-component.html#componentdidmount
+   */
   componentDidMount(): void {
     // Observe the dashboard div for resize events
     const observer = new ResizeObserver((entries) => {
@@ -40,6 +47,10 @@ export class Dashboard extends Component<{}, IDashboardState> {
     observer.observe(this.ref.current!);
   }
 
+  /**
+   * This method is invoked immediately when a component will be unmounted.
+   * It's a good place to clean up the resources.
+   */
   componentWillUnmount(): void {
     // Unobserve the dashboard div for resize events
     if (this.state.observer && this.ref.current) {
@@ -47,16 +58,9 @@ export class Dashboard extends Component<{}, IDashboardState> {
     }
   }
 
-  protected rowHeights(): string | undefined {
-    return undefined;
-  }
-
-  protected columnWidths(): string | undefined {
-    return undefined;
-  }
-
-  protected dashboardLayout(): JSX.Element | void {}
-
+  /**
+   * Define thie dashboard default layout, you can edit the code here to customize your dashboard layout.
+   */
   render() {
     return (
       <>
@@ -74,4 +78,26 @@ export class Dashboard extends Component<{}, IDashboardState> {
       </>
     );
   }
+
+  /**
+   * Implement this method to define the row heights of the dashboard.
+   * @returns The row heights of the dashboard.
+   */
+  protected rowHeights(): string | undefined {
+    return undefined;
+  }
+
+  /**
+   * Implement this method to define the column widths of the dashboard.
+   * @returns The column widths of the dashboard.
+   */
+  protected columnWidths(): string | undefined {
+    return undefined;
+  }
+
+  /**
+   * Implement this method to define the dashboard layout.
+   */
+  protected dashboardLayout(): JSX.Element | void {}
+
 }
