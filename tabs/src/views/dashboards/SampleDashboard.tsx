@@ -4,9 +4,9 @@ import ChartWidget from '../widgets/ChartWidget';
 import { ListWidget } from '../widgets/ListWidget';
 
 export default class SampleDashboard extends Dashboard {
-  
+
   protected rowHeights(): string | undefined {
-    return "500px";
+    return "1fr";
   }
 
   protected columnWidths(): string | undefined {
@@ -17,7 +17,7 @@ export default class SampleDashboard extends Dashboard {
     return (
       <>
         <ListWidget />
-        <div style={oneColumn("6fr 4fr")}>
+        <div style={oneColumn("1fr min-content")}>
           <ChartWidget />
           <ListWidget />
         </div>

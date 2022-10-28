@@ -1,12 +1,12 @@
-import * as d3 from 'd3-format';
+import * as d3 from "d3-format";
 
-import { AreaChart } from '@fluentui/react-charting';
-import { DataPieRegular } from '@fluentui/react-icons';
-import { Button, MoreIcon, Text } from '@fluentui/react-northstar';
+import { AreaChart } from "@fluentui/react-charting";
+import { DataPieRegular } from "@fluentui/react-icons";
+import { Button, MoreIcon, Text } from "@fluentui/react-northstar";
 
-import { chart1Points, chart2Points } from '../../services/sampleRequest';
-import { Widget } from '../lib/Widget';
-import { headerContentStyle, headerTextStyle } from '../lib/Widget.styles';
+import { chart1Points, chart2Points } from "../../services/sampleRequest";
+import { Widget } from "../lib/Widget";
+import { headerContentStyle, headerTextStyle } from "../lib/Widget.styles";
 
 export default class ChartWidget extends Widget<void> {
   headerContent(): JSX.Element | void {
@@ -24,12 +24,12 @@ export default class ChartWidget extends Widget<void> {
       {
         legend: "Line 1",
         data: chart1Points,
-        color: "#D9DBDB",
+        color: "#6264A7",
       },
       {
         legend: "Line 2",
         data: chart2Points,
-        color: "#6264A7",
+        color: "#D9DBDB",
       },
     ];
     const chartData = {
@@ -37,14 +37,16 @@ export default class ChartWidget extends Widget<void> {
       lineChartData: chartPoints,
     };
     return (
-      <AreaChart
-        data={chartData}
-        legendsOverflowText={"Overflow Items"}        
-        yAxisTickFormat={d3.format("~s")}
-        legendProps={{
-          allowFocusOnLegends: true,
-        }}
-      />
+      <div style={{position: "relative", height: "30vh"}}>
+        <AreaChart
+          data={chartData}
+          legendsOverflowText={"Overflow Items"}
+          yAxisTickFormat={d3.format("~s")}
+          legendProps={{
+            allowFocusOnLegends: true,
+          }}
+        />
+      </div>
     );
   }
 

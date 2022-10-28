@@ -18,6 +18,26 @@ const sampleData: SampleWidgetModel = {
       title: "Lorem ipsum",
       content: "Lorem ipsum dolor sit amet",
     },
+    {
+      id: "id4",
+      title: "Lorem ipsum",
+      content: "Lorem ipsum dolor sit amet",
+    },
+    {
+      id: "id5",
+      title: "Lorem ipsum",
+      content: "Lorem ipsum dolor sit amet",
+    },
+    {
+      id: "id6",
+      title: "Lorem ipsum",
+      content: "Lorem ipsum dolor sit amet",
+    },
+    {
+      id: "id7",
+      title: "Lorem ipsum",
+      content: "Lorem ipsum dolor sit amet",
+    }
   ],
 };
 
