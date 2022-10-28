@@ -2,6 +2,7 @@ import { Dashboard } from '../lib/Dashboard';
 import { oneColumn } from '../lib/Dashboard.styles';
 import ChartWidget from '../widgets/ChartWidget';
 import { ListWidget } from '../widgets/ListWidget';
+import NewsWidget from '../widgets/NewsWidget';
 
 export default class SampleDashboard extends Dashboard {
 
@@ -17,9 +18,9 @@ export default class SampleDashboard extends Dashboard {
     return (
       <>
         <ListWidget />
-        <div style={oneColumn("1fr min-content")}>
+        <div style={oneColumn("6fr 4fr")}>
           <ChartWidget />
-          <ListWidget />
+          <NewsWidget />
         </div>
       </>
     );

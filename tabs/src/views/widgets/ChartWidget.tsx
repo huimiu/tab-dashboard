@@ -1,7 +1,7 @@
 import * as d3 from "d3-format";
 
 import { AreaChart } from "@fluentui/react-charting";
-import { DataPieRegular } from "@fluentui/react-icons";
+import { DataPieRegular, ArrowRight24Filled } from "@fluentui/react-icons";
 import { Button, MoreIcon, Text } from "@fluentui/react-northstar";
 
 import { chart1Points, chart2Points } from "../../services/sampleRequest";
@@ -54,8 +54,11 @@ export default class ChartWidget extends Widget<void> {
     return (
       <Button
         primary
-        content="View Details"
-        size="medium"
+        text
+        icon={<ArrowRight24Filled />}
+        iconPosition="after"
+        content="View details"
+        size="small"
         style={{ width: "fit-content" }}
         onClick={() => {}} // navigate to detailed page
       />
