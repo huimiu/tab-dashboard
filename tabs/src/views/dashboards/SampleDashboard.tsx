@@ -1,11 +1,8 @@
 import { Dashboard } from '../lib/Dashboard';
-import { oneColumn } from '../lib/Dashboard.styles';
 import ChartWidget from '../widgets/ChartWidget';
 import { ListWidget } from '../widgets/ListWidget';
-import NewsWidget from '../widgets/NewsWidget';
 
 export default class SampleDashboard extends Dashboard {
-
   protected rowHeights(): string | undefined {
     return "1fr";
   }
@@ -18,10 +15,7 @@ export default class SampleDashboard extends Dashboard {
     return (
       <>
         <ListWidget />
-        <div style={oneColumn("6fr 4fr")}>
-          <ChartWidget />
-          <NewsWidget />
-        </div>
+        <ChartWidget />
       </>
     );
   }

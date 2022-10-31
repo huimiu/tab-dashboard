@@ -43,7 +43,7 @@ export class ListWidget extends Widget<SampleWidgetModel> {
           this.state.data.items.map((t: SampleModelItem) => {
             return (
               <div style={{ display: "grid" }}>
-                <Divider style={{ marginBottom: "0.5rem" }} />
+                <Divider style={{ marginBottom: "0.5rem", marginLeft: "-2.25rem", marginRight: "-2.25rem" }} />
                 <Text content={t.title} style={itemTitleStyle()} />
                 <Text content={t.content} style={itemSubtitleStyle()} />
               </div>

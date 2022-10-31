@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-import { Image } from '@fluentui/react-northstar';
-
 import { dashboardStyles } from './Dashboard.styles';
 
 interface IDashboardState {
@@ -41,6 +39,7 @@ export class Dashboard extends Component<{}, IDashboardState> {
         if (entry.target === this.ref.current) {
           const { width } = entry.contentRect;
           this.setState({ isMobile: width < 600 });
+          console.log(this.state.isMobile + " " + width);
         }
       }
     });
@@ -64,7 +63,6 @@ export class Dashboard extends Component<{}, IDashboardState> {
   render() {
     return (
       <>
-        <Image src="bg.png" fluid style={{marginBottom: "-160px"}}/>
         <div
           ref={this.ref}
           style={dashboardStyles(

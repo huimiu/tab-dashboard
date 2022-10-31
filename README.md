@@ -39,14 +39,15 @@ The following files provide the business logic for the dashboard tab. These file
 
 | File                                       | Contents                                                                                                       |
 | ------------------------------------------ | -------------------------------------------------------------------------------------------------------------- |
-| `src/views/lib/Dashboard.styles.ts`        | The dashbaord style file                                                                                       |
-| `src/views/lib/Dashboard.tsx`              | A Dashboard implementation base class, you can inherit this class to customize and create your own dashboards  |
-| `src/views/dashboards/SampleDashboard.tsx` | A sample dashboard layout implementation                                                                       |
-| `src/views/lib/Widget.tsx`                 | An abstract class that defines the widget, you can inherit this class to customize and create your own widgets |
-| `src/views/widgets/SampleWidget.tsx`       | A sample widget implementation                                                                                 |
-| `src/views/widgets/ListWidget.tsx`         | A List widget implementation                                                                                   |
 | `src/models/sampleWidgetModel.tsx`         | Data model for the sample widget                                                                               |
 | `src/services/sampleRequest.tsx`           | A sample data retrive implementation                                                                           |
+| `src/views/dashboards/SampleDashboard.tsx` | A sample dashboard layout implementation                                                                       |
+| `src/views/lib/Dashboard.styles.ts`        | The dashbaord style file                                                                                       |
+| `src/views/lib/Dashboard.tsx`              | A Dashboard implementation base class, you can inherit this class to customize and create your own dashboards  |
+| `src/views/lib/Widget.styles.ts`           | The widgt style file                                                                                           |
+| `src/views/lib/Widget.tsx`                 | An abstract class that defines the widget, you can inherit this class to customize and create your own widgets |
+| `src/views/widgets/ChartWidget.tsx`        | A widget implementation that can display a chart                                                               |
+| `src/views/widgets/ListWidget.tsx`         | A widget implementation that can display a list                                                                |
 
 The following files are project-related files. You generally will not need to customize these files.
 
@@ -70,7 +71,7 @@ You can use the following steps to add a new dashboard layout:
 
 ## Step 1: Create a dashboard class
 
-Create a file with the extension `.tsx` for your dashboard in the `tabs/src/views/dashboards` directory. For example, `YourDashboard.tsx`. Then, create a class that extends the `Dashboard` class.
+Create a file with the extension `.tsx` for your dashboard in the `tabs/src/views/dashboards` directory. For example, `YourDashboard.tsx`. Then, create a class that extends the [Dashboard](tabs/src/views/lib/Dashboard.tsx) class.
 
 ```tsx
 export default class YourDashboard extends Dashboard {}
@@ -130,7 +131,7 @@ export default function App() {
 
 ## Step 4: Modify manifest to add a new dashboard tab
 
-Open the `templates/appPackage/manifest.template.json` file, and add a new dashboard tab under the `staticTabs`. Here is an example:
+Open the [`templates/appPackage/manifest.template.json`](templates/appPackage/manifest.template.json) file, and add a new dashboard tab under the `staticTabs`. Here is an example:
 
 ```json
 {
@@ -152,7 +153,7 @@ You can use the following steps to add a new widget to the dashboard:
 
 ## Step 1: Define the widget model
 
-Define a data model based on the business scenario, and put it in `tabs/src/models`.The widget model defined according to the data you want to display in the widget. Here's a sample data model:
+Define a data model based on the business scenario, and put it in `tabs/src/models` folder. The widget model defined according to the data you want to display in the widget. Here's a sample data model:
 
 ```typescript
 export interface ModelItem {
@@ -167,7 +168,17 @@ export interface YourWidgetModel {
 
 ## Step 2: Create a widget file
 
-Create a widget file in `tabs/src/views/widgets`. Extend the `Widget` class and implement all the abstract methods. Here's a sample widget implementation:
+Create a widget file in `tabs/src/views/widgets` folder. Extend the [`Widget`](tabs/src/views/lib/Widget.tsx) class. The following table lists the methods that you can override to customize your widget.
+
+| Methods           | Function                                                                                                                                      |
+| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `getData()`       | This method is used to get the data for the widget. You can implement it to get data from the backend service or from the Microsoft Graph API |
+| `headerContent()` | Customize the content of the widget header                                                                                                    |
+| `bodyContent()`   | Customize the content of the widget body                                                                                                      |
+| `footerContent()` | Customize the content of the widget footer                                                                                                    |
+> All methods are optional. If you do not override any method, the default widget layout will be used.
+
+Here's a sample widget implementation:
 
 ```tsx
 export class YourWidget extends Widget<YourWidgetModel> {
@@ -197,20 +208,12 @@ export class YourWidget extends Widget<YourWidgetModel> {
 }
 ```
 
-> Please note:
->
-> - The `getData()` method is used to get the data for the widget. You can implement it to get data from the backend service or from the Microsoft Graph API.
->
-> - The `headerContent()`, `bodyContent()`, and `footerContent()` methods are used to define the content of the widget header, body, and footer. You can customize the content based on your business scenario.
->
-> - All the methods are optional. You can implement the methods you need. If you don't implement a method, the default implementation will be used.
-
 ## Step 3: Add the widget to the dashboard
 
 To add the widget to the dashboard.
 
-1. Go to `tabs/src/views/dashboards/YourDashboard.tsx`
-2. update your `dashboardLayout()` method to add the widget to the dashboard:
+1. Go to `tabs/src/views/dashboards/YourDashboard.tsx`, if you have not created the dashboard, please refer to [How to add a new dashboard](#how-to-add-a-new-dashboard).
+2. Update your `dashboardLayout()` method to add the widget to the dashboard:
 
 ```tsx
 protected dashboardLayout(): void | JSX.Element {
@@ -223,7 +226,7 @@ protected dashboardLayout(): void | JSX.Element {
 }
 ```
 
-> Note: If you want put your widget in a column, you can use the `oneColumn()` method to define the column layout. Here is an example:
+> Note: If you want put your widget in a column, you can use the [`oneColumn()`](tabs/src/views/lib/Dashboard.styles.ts#L17) method to define the column layout. Here is an example:
 
 ```tsx
 protected dashboardLayout(): void | JSX.Element {
