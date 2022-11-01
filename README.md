@@ -1,4 +1,5 @@
-# Introduction
+# Dashboard Tab
+## Introduction
 
 This is a Teams tab dashboard app that uses the [Fluent UI Northstar](https://fluentsite.z22.web.core.windows.net/0.64.0/) and the [Microsoft Graph API](https://learn.microsoft.com/en-us/graph/use-the-api) to display a user's profile information and recent Teams activity.
 
@@ -10,19 +11,19 @@ This app also supported teams different themes, including dark theme and high co
 | :----------------------------: | :--------------------------: |
 | ![](images/dashboard-dark.png) | ![](images/dashboard-hc.png) |
 
-# Prerequisites
+## Prerequisites
 
 - [NodeJS](https://nodejs.org/en/), fully tested on NodeJS 14, 16
 - A Microsoft 365 account. If you do not have Microsoft 365 account, apply one from [Microsoft 365 developer program](https://developer.microsoft.com/en-us/microsoft-365/dev-program)
 - [Teams Toolkit Visual Studio Code Extension](https://aka.ms/teams-toolkit) or [TeamsFx CLI](https://aka.ms/teamsfx-cli)
 
-# Getting Started
+## Getting Started
 
 Run your app with local debugging by pressing `F5` in VSCode. Select `Debug (Edge)` or `Debug (Chrome)`.
 
 **Congratulations**! You are running an application that can now show a dashboard in Teams.
 
-# Understanding the code
+## Understanding the code
 
 This section walks through the generated code. The project folder contains the following:
 
@@ -60,16 +61,16 @@ The following files are project-related files. You generally will not need to cu
 | `src/internal/login.ts`            | Implementation of login                          |
 | `src/internal/singletonContext.ts` | Implementation of the TeamsFx instance singleton |
 
-# How to add a new dashboard
+## How to add a new dashboard
 
 You can use the following steps to add a new dashboard layout:
 
-1. [Step 1: Create a dashboard class](#step-1-define-the-widget-model)
+1. [Step 1: Create a dashboard class](#step-1-create-a-dashboard-class)
 2. [Step 2: Override methods to customize dashboard layout](#step-2-override-methods-to-customize-dashboard-layout)
 3. [Step 3: Add a route for the new dashboard](#step-3-add-a-route-for-the-new-dashboard)
 4. [Step 4: Modify manifest to add a new dashboard tab](#step-4-modify-manifest-to-add-a-new-dashboard-tab)
 
-## Step 1: Create a dashboard class
+### Step 1: Create a dashboard class
 
 Create a file with the extension `.tsx` for your dashboard in the `tabs/src/views/dashboards` directory. For example, `YourDashboard.tsx`. Then, create a class that extends the [Dashboard](tabs/src/views/lib/Dashboard.tsx) class.
 
@@ -77,7 +78,7 @@ Create a file with the extension `.tsx` for your dashboard in the `tabs/src/view
 export default class YourDashboard extends Dashboard {}
 ```
 
-## Step 2: Override methods to customize dashboard layout
+### Step 2: Override methods to customize dashboard layout
 
 Dashboard class provides some methods that you can override to customize the dashboard layout. The following table lists the methods that you can override.
 
@@ -115,7 +116,7 @@ export default class YourDashboard extends Dashboard {
 
 > Note: All methods are optional. If you do not override any method, the default dashboard layout will be used.
 
-## Step 3: Add a route for the new dashboard
+### Step 3: Add a route for the new dashboard
 
 Open the `tabs/src/App.tsx` file, and add a route for the new dashboard. Here is an example:
 
@@ -129,7 +130,7 @@ export default function App() {
 }
 ```
 
-## Step 4: Modify manifest to add a new dashboard tab
+### Step 4: Modify manifest to add a new dashboard tab
 
 Open the [`templates/appPackage/manifest.template.json`](templates/appPackage/manifest.template.json) file, and add a new dashboard tab under the `staticTabs`. Here is an example:
 
@@ -143,7 +144,7 @@ Open the [`templates/appPackage/manifest.template.json`](templates/appPackage/ma
 }
 ```
 
-# How to add a new widget
+## How to add a new widget
 
 You can use the following steps to add a new widget to the dashboard:
 
@@ -151,7 +152,7 @@ You can use the following steps to add a new widget to the dashboard:
 2. [Step 2: Create a widget file](#step-2-create-a-widget-file)
 3. [Step 3: Add the widget to the dashboard](#step-3-add-the-widget-to-the-dashboard)
 
-## Step 1: Define the widget model
+### Step 1: Define the widget model
 
 Define a data model based on the business scenario, and put it in `tabs/src/models` folder. The widget model defined according to the data you want to display in the widget. Here's a sample data model:
 
@@ -166,7 +167,7 @@ export interface YourWidgetModel {
 }
 ```
 
-## Step 2: Create a widget file
+### Step 2: Create a widget file
 
 Create a widget file in `tabs/src/views/widgets` folder. Extend the [`Widget`](tabs/src/views/lib/Widget.tsx) class. The following table lists the methods that you can override to customize your widget.
 
@@ -208,7 +209,7 @@ export class YourWidget extends Widget<YourWidgetModel> {
 }
 ```
 
-## Step 3: Add the widget to the dashboard
+### Step 3: Add the widget to the dashboard
 
 To add the widget to the dashboard.
 
@@ -242,11 +243,11 @@ protected dashboardLayout(): void | JSX.Element {
 }
 ```
 
-# How to add a new Graph API call
+## How to add a new Graph API call
 
 There are two types of Graph APIs, one will be called from the front-end(most of APIs, use delegated permissions), the other will be called from the back-end(sendActivityNotification, e.g., use application permissions). You can refer to [this tutorial](https://learn.microsoft.com/en-us/graph/api/overview?view=graph-rest-beta) to check permission types of the Graph APIs you want to call.
 
-## From the front-end(use delegated permissions)
+### From the front-end(use delegated permissions)
 
 If you want to call a Graph API from the front-end tab, you can refer to the following steps.
 
@@ -254,13 +255,13 @@ If you want to call a Graph API from the front-end tab, you can refer to the fol
 2. [Step 2: Create a graph client by adding the scope related to the Graph API you want to call](#step-2-create-a-graph-client-by-adding-the-scope-related-to-the-graph-api-you-want-to-call)
 3. [Step 3: Call the Graph API, and parse the response into a certain model, which will be used by front-end](#step-3-call-the-graph-api-and-parse-the-response-into-a-certain-model-which-will-be-used-by-front-end)
 
-### Step 1: Consent delegated permissions first
+#### Step 1: Consent delegated permissions first
 
 You can call [`addNewScope(scopes: string[])`](/tabs/src/internal/addNewScopes.ts) to consent the scopes of permissions you want to add. And the consented status will be preserved in a global context [`FxContext`](/tabs/src/internal/singletonContext.ts).
 
 You can refer to [the Graph API V1.0](https://learn.microsoft.com/en-us/graph/api/overview?view=graph-rest-1.0) to get the `scope name of the permission` related to the Graph API you want to call.
 
-### Step 2: Create a graph client by adding the scope related to the Graph API you want to call
+#### Step 2: Create a graph client by adding the scope related to the Graph API you want to call
 
 You can refer to the following code snippet:
 
@@ -270,7 +271,7 @@ teamsfx = FxContext.getInstance().getTeamsFx();
 const graphClient: Client = createMicrosoftGraphClient(teamsfx, scope);
 ```
 
-### Step 3: Call the Graph API, and parse the response into a certain model, which will be used by front-end
+#### Step 3: Call the Graph API, and parse the response into a certain model, which will be used by front-end
 
 You can refer to the following code snippet:
 
@@ -281,7 +282,7 @@ try {
 } catch (e) {}
 ```
 
-## From the back-end(use application permissions)
+### From the back-end(use application permissions)
 
 If you want to call a Graph API from the back-end, you can refer to the following steps. In this tutorial, we use `sendActivityNotification` API for example.
 
@@ -292,17 +293,17 @@ If you want to call a Graph API from the back-end, you can refer to the followin
 5. [Step 5: Edit manifest file](#step-5-edit-manifest-file)
 6. [Step 6: Call the Azure Function from the front-end](#step-5-call-the-azure-function-from-the-front-end)
 
-### Step 1: Consent application permissions first
+#### Step 1: Consent application permissions first
 
 Go to [Azure portal](https://portal.azure.com/) > Click `Azure Active Directory` > Click `App registrations` in the side bar > Click your Dashboard app > Click `API permissions` in the side bar > Click `+Add a permission` > Choose `Microsoft Graph` > Choose `Application permissions` > Find the permissions you need > Click `Add permissions` button in the bottom > Click `✔Grant admin consent for XXX` and then click `Yes` button to finish the admin consent
 
-### Step 2: Add an Azure Function
+#### Step 2: Add an Azure Function
 
 In the VS Code side bar, click `Add features` in `Teams Toolkit` > Choose `Azure functions` > Enter the function name
 
    <img src="images\add_azFunction.png" style="zoom: 42%">
 
-### Step 3: Get the `installation id` of your Dashboard app
+#### Step 3: Get the `installation id` of your Dashboard app
 
 Go [Graph Explorer](https://developer.microsoft.com/en-us/graph/graph-explorer), and use the following api path to get a response.
 
@@ -314,7 +315,7 @@ In the response, you should find the information of your Dashboard app, and then
 
    <img src="images\graph_explorer.png" style="zoom: 40%" />
 
-### Step 4: Add your logic in Azure Function
+#### Step 4: Add your logic in Azure Function
 
 In the `index.ts` under the folder named in step 2, you can add the following code snippet to call `sendActivityNotification`
 
@@ -364,7 +365,7 @@ try {
 }
 ```
 
-### Step 5: Edit manifest file
+#### Step 5: Edit manifest file
 
 In the [templates\appPackage\manifest.template.json](templates\appPackage\manifest.template.json), you should add the following properties, which are align with properties in `postbody` in Step 4.
 
@@ -380,7 +381,7 @@ In the [templates\appPackage\manifest.template.json](templates\appPackage\manife
 }
 ```
 
-### Step 6: Call the Azure Function from the front-end
+#### Step 6: Call the Azure Function from the front-end
 
 Call the Azure Function from the front-end. You can refer to the following code snippet to call the Azure Function.
 
@@ -408,7 +409,7 @@ async function callFunction(teamsfx?: TeamsFx) {
 
 Refer to [this sample](https://github.com/OfficeDev/TeamsFx-Samples/blob/dev/hello-world-tab-with-backend/tabs/src/components/sample/AzureFunctions.tsx) for some helps. And you can read [this doc](https://learn.microsoft.com/en-us/azure/azure-functions/functions-reference?tabs=blob) for more details.
 
-# Additional resources
+## Additional resources
 
 - [Fluent UI Northstar](https://fluentsite.z22.web.core.windows.net/0.64.0/)
 - [Fluent UI React Charting Example](https://fluentuipr.z22.web.core.windows.net/heads/master/react-charting/demo/index.html#/)
