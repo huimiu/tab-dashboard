@@ -245,7 +245,18 @@ protected dashboardLayout(): void | JSX.Element {
 
 ## How to add a new Graph API call
 
-There are two types of Graph APIs, one will be called from the front-end(most of APIs, use delegated permissions), the other will be called from the back-end(sendActivityNotification, e.g., use application permissions). You can refer to [this tutorial](https://learn.microsoft.com/en-us/graph/api/overview?view=graph-rest-beta) to check permission types of the Graph APIs you want to call.
+### Add SSO First
+Before you add your logic of calling a Graph API, you should enable your dashboard project to use SSO. It is convenient to add SSO related files by using `Teams Toolkit`. Refer to the following 2 steps to add SSO.
+
+1. Click `Teams Toolkit` in the side bar > Click `Add features` in `DEVELOPMENT`.
+  
+   <img src="images\addsso1.png" style="zoom: 42%">
+
+2. Choose `Single Sign-On` to add.
+
+   <img src="images\addsso2.png" style="zoom: 42%">
+
+Now you have already added SSO files to your project, and you can call Graph APIs. There are two types of Graph APIs, one will be called from the front-end(most of APIs, use delegated permissions), the other will be called from the back-end(sendActivityNotification, e.g., use application permissions). You can refer to [this tutorial](https://learn.microsoft.com/en-us/graph/api/overview?view=graph-rest-beta) to check permission types of the Graph APIs you want to call.
 
 ### From the front-end(use delegated permissions)
 
