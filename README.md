@@ -248,11 +248,11 @@ protected dashboardLayout(): void | JSX.Element {
 ### Add SSO First
 Before you add your logic of calling a Graph API, you should enable your dashboard project to use SSO. It is convenient to add SSO related files by using `Teams Toolkit`. Refer to the following 2 steps to add SSO.
 
-1. Click `Teams Toolkit` in the side bar > Click `Add features` in `DEVELOPMENT`.
+1. Step 1: Click `Teams Toolkit` in the side bar > Click `Add features` in `DEVELOPMENT`.
   
    <img src="images\addsso1.png" style="zoom: 42%">
 
-2. Choose `Single Sign-On` to add.
+2. Step 2: Choose `Single Sign-On` to add.
 
    <img src="images\addsso2.png" style="zoom: 42%">
 
