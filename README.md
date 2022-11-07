@@ -231,7 +231,6 @@ export class YourWidget extends Widget<YourWidgetModel> {
     return (
       <Button
         primary
-        icononly
         content="View Details"
         size="medium"
         style={{ width: "fit-content" }}
