@@ -212,7 +212,7 @@ import {
   Text,
 } from "@fluentui/react-northstar";
 import { Widget } from "../lib/Widget";
-import { YourWidgetModel } from "../models/YourWidgetModel";
+import { YourWidgetModel } from "../../models/YourWidgetModel";
 
 export class YourWidget extends Widget<YourWidgetModel> {
   getData(): YourWidgetModel | undefined {
