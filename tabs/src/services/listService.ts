@@ -1,33 +1,11 @@
-import { SampleWidgetModel } from "../models/sampleWidgetModel";
-
-// dummy data
-const sampleData: SampleWidgetModel = {
-  items: [
-    {
-      id: "id1",
-      title: "Lorem ipsum",
-      content: "Lorem ipsum dolor sit amet",
-    },
-    {
-      id: "id2",
-      title: "Lorem ipsum",
-      content: "Lorem ipsum dolor sit amet",
-    },
-    {
-      id: "id3",
-      title: "Lorem ipsum",
-      content: "Lorem ipsum dolor sit amet",
-    },
-  ],
-};
+import { ListModel } from "../models/listModel";
+import ListData from "../data/ListData.json";
 
 /**
  * Retrive sample data
- * @returns data for sample widget
+ * @returns data for list widget
  */
-export const getSampleData = (): SampleWidgetModel => {
-  return sampleData;
-};
+export const getListData = (): ListModel[] => ListData;
 
 export const chart1Points_7D = [
   { x: new Date("2022/01/01"), y: 18000, },

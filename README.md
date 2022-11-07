@@ -149,26 +149,49 @@ Open the [`templates/appPackage/manifest.template.json`](templates/appPackage/ma
 
 You can use the following steps to add a new widget to the dashboard:
 
-1. [Step 1: Define the widget model](#step-1-define-the-widget-model)
-2. [Step 2: Create a widget file](#step-2-create-a-widget-file)
-3. [Step 3: Add the widget to the dashboard](#step-3-add-the-widget-to-the-dashboard)
+1. [Step 1: Define data model](#step-1-define-the-widget-model)
+2. [Step 2: Create data retrive service](#step-2-create-data-retrive-service)
+3. [Step 3: Create a widget file](#step-3-create-a-widget-file)
+4. [Step 4: Add the widget to the dashboard](#step-4-add-the-widget-to-the-dashboard)
 
-### Step 1: Define the widget model
+### Step 1: Define data model
 
 Define a data model based on the business scenario, and put it in `tabs/src/models` folder. The widget model defined according to the data you want to display in the widget. Here's a sample data model:
 
 ```typescript
-export interface ModelItem {
-  id: string;
-  name: string;
-}
-
 export interface YourWidgetModel {
-  items: ModelItem[];
+  id: string;
+  content: string;
 }
 ```
 
-### Step 2: Create a widget file
+### Step 2: Create data retrive service
+
+Create a service to retrieve data from the backend. Simplely, you can create a service that returns mock data.
+
+Here's a json file that contains mock data:
+
+```json
+[
+    {
+        "id": "id1",
+        "content": "Lorem ipsum"
+    }
+]
+```
+
+Here's a mock data retrive service:
+
+```typescript
+import { YourWidgetModel } from "../models/YourWidgetModel";
+import YourWidgetData from "../data/YourWidgetData.json";
+
+export const getWidgetData = (): YourWidgetModel[] => YourWidgetData;
+```
+
+We recommend that you put the mock data file in the `tabs/src/data` folder, and put the mock data retrive service in the `tabs/src/services` folder.
+
+### Step 3: Create a widget file
 
 Create a widget file in `tabs/src/views/widgets` folder. Extend the [`Widget`](tabs/src/views/lib/Widget.tsx) class. The following table lists the methods that you can override to customize your widget.
 
@@ -184,23 +207,31 @@ Create a widget file in `tabs/src/views/widgets` folder. Extend the [`Widget`](t
 Here's a sample widget implementation:
 
 ```tsx
+import {
+  Button,
+  Text,
+} from "@fluentui/react-northstar";
+import { Widget } from "../lib/Widget";
+import { YourWidgetModel } from "../models/YourWidgetModel";
+
 export class YourWidget extends Widget<YourWidgetModel> {
-  getData(): YourWidgetModel | void {
+  getData(): YourWidgetModel | undefined {
     return getYourWidgetData();
   }
 
-  headerContent(): JSX.Element | void {
+  headerContent(): JSX.Element | undefined {
     return <Text weight="semibold" size="large" content="Your Widget" />;
   }
 
-  bodyContent(): JSX.Element | void {
+  bodyContent(): JSX.Element | undefined {
     return <div>Hello World!</div>;
   }
 
-  footerContent(): JSX.Element | void {
+  footerContent(): JSX.Element | undefined {
     return (
       <Button
         primary
+        icononly
         content="View Details"
         size="medium"
         style={{ width: "fit-content" }}
@@ -211,18 +242,19 @@ export class YourWidget extends Widget<YourWidgetModel> {
 }
 ```
 
-### Step 3: Add the widget to the dashboard
+### Step 4: Add the widget to the dashboard
 
 To add the widget to the dashboard.
 
-1. Go to `tabs/src/views/dashboards/YourDashboard.tsx`, if you have not created the dashboard, please refer to [How to add a new dashboard](#how-to-add-a-new-dashboard).
+1. Go to `tabs/src/views/dashboards/SampleDashboard.tsx`, if you want create a new dashboard, please refer to [How to add a new dashboard](#how-to-add-a-new-dashboard).
 2. Update your `dashboardLayout()` method to add the widget to the dashboard:
 
 ```tsx
 protected dashboardLayout(): void | JSX.Element {
   return (
     <>
-      <SampleWidget />
+      <ListWidget />
+      <ChartWidget />
       <YourWidget />
     </>
   );
@@ -235,9 +267,9 @@ protected dashboardLayout(): void | JSX.Element {
 protected dashboardLayout(): void | JSX.Element {
   return (
     <>
-      <SampleWidget />
+      <ListWidget />
       <div style={oneColumn("6fr 4fr")}>
-        <SampleWidget />
+        <ChartWidget />
         <YourWidget />
       </div>
     </>
