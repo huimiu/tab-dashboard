@@ -1,4 +1,5 @@
 # Dashboard Tab
+
 ## Introduction
 
 This is a Teams tab dashboard app that uses the [Fluent UI Northstar](https://fluentsite.z22.web.core.windows.net/0.64.0/) and the [Microsoft Graph API](https://learn.microsoft.com/en-us/graph/use-the-api) to display a user's profile information and recent Teams activity.
@@ -38,17 +39,17 @@ The core dashboard implementation is in `tabs` folder.
 
 The following files provide the business logic for the dashboard tab. These files can be updated to fit your business logic requirements. The default implementation provides a starting point to help you get started.
 
-| File                                       | Contents                                                                                                       |
-| ------------------------------------------ | -------------------------------------------------------------------------------------------------------------- |
-| `src/models/sampleWidgetModel.tsx`         | Data model for the sample widget                                                                               |
-| `src/services/sampleRequest.tsx`           | A sample data retrive implementation                                                                           |
-| `src/views/dashboards/SampleDashboard.tsx` | A sample dashboard layout implementation                                                                       |
-| `src/views/lib/Dashboard.styles.ts`        | The dashbaord style file                                                                                       |
-| `src/views/lib/Dashboard.tsx`              | A Dashboard implementation base class, you can inherit this class to customize and create your own dashboards  |
-| `src/views/lib/Widget.styles.ts`           | The widgt style file                                                                                           |
-| `src/views/lib/Widget.tsx`                 | An abstract class that defines the widget, you can inherit this class to customize and create your own widgets |
-| `src/views/widgets/ChartWidget.tsx`        | A widget implementation that can display a chart                                                               |
-| `src/views/widgets/ListWidget.tsx`         | A widget implementation that can display a list                                                                |
+| File                                       | Contents                                         |
+| ------------------------------------------ | ------------------------------------------------ |
+| `src/models/sampleWidgetModel.tsx`         | Data model for the sample widget                 |
+| `src/services/sampleRequest.tsx`           | A sample data retrive implementation             |
+| `src/views/dashboards/SampleDashboard.tsx` | A sample dashboard layout implementation         |
+| `src/views/lib/Dashboard.styles.ts`        | The dashbaord style file                         |
+| `src/views/lib/Dashboard.tsx`              | An base class that defines the dashboard         |
+| `src/views/lib/Widget.styles.ts`           | The widgt style file                             |
+| `src/views/lib/Widget.tsx`                 | An abstract class that defines the widget        |
+| `src/views/widgets/ChartWidget.tsx`        | A widget implementation that can display a chart |
+| `src/views/widgets/ListWidget.tsx`         | A widget implementation that can display a list  |
 
 The following files are project-related files. You generally will not need to customize these files.
 
@@ -177,6 +178,7 @@ Create a widget file in `tabs/src/views/widgets` folder. Extend the [`Widget`](t
 | `headerContent()` | Customize the content of the widget header                                                                                                    |
 | `bodyContent()`   | Customize the content of the widget body                                                                                                      |
 | `footerContent()` | Customize the content of the widget footer                                                                                                    |
+
 > All methods are optional. If you do not override any method, the default widget layout will be used.
 
 Here's a sample widget implementation:
