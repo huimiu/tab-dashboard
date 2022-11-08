@@ -62,6 +62,137 @@ The following files are project-related files. You generally will not need to cu
 | `src/internal/login.ts`            | Implementation of login                          |
 | `src/internal/singletonContext.ts` | Implementation of the TeamsFx instance singleton |
 
+## How to add a new widget
+
+You can use the following steps to add a new widget to the dashboard:
+
+1. [Step 1: Define data model](#step-1-define-the-widget-model)
+2. [Step 2: Create data retrive service](#step-2-create-data-retrive-service)
+3. [Step 3: Create a widget file](#step-3-create-a-widget-file)
+4. [Step 4: Add the widget to the dashboard](#step-4-add-the-widget-to-the-dashboard)
+
+### Step 1: Define a data model
+
+Define a data model based on the business scenario, and put it in `tabs/src/models` folder. The widget model defined according to the data you want to display in the widget. Here's a sample data model:
+
+```typescript
+export interface WidgetModel {
+  id: string;
+  content: string;
+}
+```
+
+### Step 2: Create a data retrive service
+
+Create a service to retrieve data from the backend. Simplely, you can create a service that returns mock data.
+
+Here's a sample json file that contains mock data:
+
+```json
+[
+    {
+        "id": "id1",
+        "content": "Lorem ipsum"
+    }
+]
+```
+
+Here's a mock data retrive service:
+
+```typescript
+import { WidgetModel } from "../models/WidgetModel";
+import WidgetData from "../data/WidgetData.json";
+
+export const getWidgetData = (): WidgetModel[] => WidgetData;
+```
+
+We recommend that you put the mock data file in the `tabs/src/data` folder, and put the mock data retrive service in the `tabs/src/services` folder.
+
+### Step 3: Create a widget file
+
+Create a widget file in `tabs/src/views/widgets` folder. Extend the [`Widget`](tabs/src/views/lib/Widget.tsx) class. The following table lists the methods that you can override to customize your widget.
+
+| Methods           | Function                                                                                                                                      |
+| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `getData()`       | This method is used to get the data for the widget. You can implement it to get data from the backend service or from the Microsoft Graph API |
+| `headerContent()` | Customize the content of the widget header                                                                                                    |
+| `bodyContent()`   | Customize the content of the widget body                                                                                                      |
+| `footerContent()` | Customize the content of the widget footer                                                                                                    |
+
+> All methods are optional. If you do not override any method, the default widget layout will be used.
+
+Here's a sample widget implementation:
+
+```tsx
+import {
+  Button,
+  Text,
+} from "@fluentui/react-northstar";
+import { Widget } from "../lib/Widget";
+import { WidgetModel } from "../../models/WidgetModel";
+
+export class SampleWidget extends Widget<WidgetModel> {
+  getData(): WidgetModel | undefined {
+    return getWidgetData();
+  }
+
+  headerContent(): JSX.Element | undefined {
+    return <Text weight="semibold" size="large" content="Sample Widget" />;
+  }
+
+  bodyContent(): JSX.Element | undefined {
+    return <div>Hello World!</div>;
+  }
+
+  footerContent(): JSX.Element | undefined {
+    return (
+      <Button
+        primary
+        content="View Details"
+        size="medium"
+        onClick={() => {}} // navigate to detailed page
+      />
+    );
+  }
+}
+```
+
+### Step 4: Add the widget to the dashboard
+
+To add the widget to the dashboard.
+
+1. Go to `tabs/src/views/dashboards/SampleDashboard.tsx`, if you want create a new dashboard, please refer to [How to add a new dashboard](#how-to-add-a-new-dashboard).
+2. Update your `dashboardLayout()` method to add the widget to the dashboard:
+
+```tsx
+protected dashboardLayout(): void | JSX.Element {
+  return (
+    <>
+      <ListWidget />
+      <ChartWidget />
+      <SampleWidget />
+    </>
+  );
+}
+```
+
+> Note: If you want put your widget in a column, you can use the [`oneColumn()`](tabs/src/views/lib/Dashboard.styles.ts#L17) method to define the column layout. Here is an example:
+
+```tsx
+protected dashboardLayout(): void | JSX.Element {
+  return (
+    <>
+      <ListWidget />
+      <div style={oneColumn("6fr 4fr")}>
+        <ChartWidget />
+        <SampleWidget />
+      </div>
+    </>
+  );
+}
+```
+
+
 ## How to add a new dashboard
 
 You can use the following steps to add a new dashboard layout:
@@ -142,137 +273,6 @@ Open the [`templates/appPackage/manifest.template.json`](templates/appPackage/ma
   "contentUrl": "{{state.fx-resource-frontend-hosting.endpoint}}{{state.fx-resource-frontend-hosting.indexPath}}/yourdashboard",
   "websiteUrl": "{{state.fx-resource-frontend-hosting.endpoint}}{{state.fx-resource-frontend-hosting.indexPath}}/yourdashboard",
   "scopes": ["personal"]
-}
-```
-
-## How to add a new widget
-
-You can use the following steps to add a new widget to the dashboard:
-
-1. [Step 1: Define data model](#step-1-define-the-widget-model)
-2. [Step 2: Create data retrive service](#step-2-create-data-retrive-service)
-3. [Step 3: Create a widget file](#step-3-create-a-widget-file)
-4. [Step 4: Add the widget to the dashboard](#step-4-add-the-widget-to-the-dashboard)
-
-### Step 1: Define data model
-
-Define a data model based on the business scenario, and put it in `tabs/src/models` folder. The widget model defined according to the data you want to display in the widget. Here's a sample data model:
-
-```typescript
-export interface YourWidgetModel {
-  id: string;
-  content: string;
-}
-```
-
-### Step 2: Create data retrive service
-
-Create a service to retrieve data from the backend. Simplely, you can create a service that returns mock data.
-
-Here's a json file that contains mock data:
-
-```json
-[
-    {
-        "id": "id1",
-        "content": "Lorem ipsum"
-    }
-]
-```
-
-Here's a mock data retrive service:
-
-```typescript
-import { YourWidgetModel } from "../models/YourWidgetModel";
-import YourWidgetData from "../data/YourWidgetData.json";
-
-export const getWidgetData = (): YourWidgetModel[] => YourWidgetData;
-```
-
-We recommend that you put the mock data file in the `tabs/src/data` folder, and put the mock data retrive service in the `tabs/src/services` folder.
-
-### Step 3: Create a widget file
-
-Create a widget file in `tabs/src/views/widgets` folder. Extend the [`Widget`](tabs/src/views/lib/Widget.tsx) class. The following table lists the methods that you can override to customize your widget.
-
-| Methods           | Function                                                                                                                                      |
-| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| `getData()`       | This method is used to get the data for the widget. You can implement it to get data from the backend service or from the Microsoft Graph API |
-| `headerContent()` | Customize the content of the widget header                                                                                                    |
-| `bodyContent()`   | Customize the content of the widget body                                                                                                      |
-| `footerContent()` | Customize the content of the widget footer                                                                                                    |
-
-> All methods are optional. If you do not override any method, the default widget layout will be used.
-
-Here's a sample widget implementation:
-
-```tsx
-import {
-  Button,
-  Text,
-} from "@fluentui/react-northstar";
-import { Widget } from "../lib/Widget";
-import { YourWidgetModel } from "../../models/YourWidgetModel";
-
-export class YourWidget extends Widget<YourWidgetModel> {
-  getData(): YourWidgetModel | undefined {
-    return getYourWidgetData();
-  }
-
-  headerContent(): JSX.Element | undefined {
-    return <Text weight="semibold" size="large" content="Your Widget" />;
-  }
-
-  bodyContent(): JSX.Element | undefined {
-    return <div>Hello World!</div>;
-  }
-
-  footerContent(): JSX.Element | undefined {
-    return (
-      <Button
-        primary
-        content="View Details"
-        size="medium"
-        style={{ width: "fit-content" }}
-        onClick={() => {}} // navigate to detailed page
-      />
-    );
-  }
-}
-```
-
-### Step 4: Add the widget to the dashboard
-
-To add the widget to the dashboard.
-
-1. Go to `tabs/src/views/dashboards/SampleDashboard.tsx`, if you want create a new dashboard, please refer to [How to add a new dashboard](#how-to-add-a-new-dashboard).
-2. Update your `dashboardLayout()` method to add the widget to the dashboard:
-
-```tsx
-protected dashboardLayout(): void | JSX.Element {
-  return (
-    <>
-      <ListWidget />
-      <ChartWidget />
-      <YourWidget />
-    </>
-  );
-}
-```
-
-> Note: If you want put your widget in a column, you can use the [`oneColumn()`](tabs/src/views/lib/Dashboard.styles.ts#L17) method to define the column layout. Here is an example:
-
-```tsx
-protected dashboardLayout(): void | JSX.Element {
-  return (
-    <>
-      <ListWidget />
-      <div style={oneColumn("6fr 4fr")}>
-        <ChartWidget />
-        <YourWidget />
-      </div>
-    </>
-  );
 }
 ```
 
