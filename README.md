@@ -179,7 +179,7 @@ protected dashboardLayout(): void | JSX.Element {
   return (
     <>
       <ListWidget />
-      <div style={oneColumn("6fr 4fr")}>
+      <div style={oneColumn()}>
         <ChartWidget />
         <SampleWidget />
       </div>
