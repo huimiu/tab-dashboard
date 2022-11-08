@@ -76,7 +76,7 @@ You can use the following steps to add a new widget to the dashboard:
 Define a data model based on the business scenario, and put it in `tabs/src/models` folder. The widget model defined according to the data you want to display in the widget. Here's a sample data model:
 
 ```typescript
-export interface WidgetModel {
+export interface SampleModel {
   content: string;
 }
 ```
@@ -98,10 +98,10 @@ Here's a sample json file that contains dummy data:
 Here's a dummy data retrive service:
 
 ```typescript
-import { WidgetModel } from "../models/WidgetModel";
-import WidgetData from "../data/WidgetData.json";
+import { SampleModel } from "../models/sampleModel";
+import SampleData from "../data/SampleData.json";
 
-export const getWidgetData = (): WidgetModel => WidgetData;
+export const getSampleData = (): SampleModel => SampleData;
 ```
 
 > Note: You can also implement a service to retrieve data from the backend service or from the Microsoft Graph API.
@@ -124,13 +124,13 @@ Here's a sample widget implementation:
 ```tsx
 import { Button, Text } from "@fluentui/react-northstar";
 import { Widget } from "../lib/Widget";
-import { WidgetModel } from "../../models/WidgetModel";
-import { getWidgetData } from "../../services/sampleRequest";
+import { SampleModel } from "../../models/sampleModel";
+import { getSampleData } from "../../services/sampleService";
 
-export class SampleWidget extends Widget<void> {
+export class SampleWidget extends Widget<SampleModel> {
 
-  async getData(): Promise<WidgetModel> {
-    return getWidgetData();
+  async getData(): Promise<SampleModel> {
+    return getSampleData();
   }
 
   headerContent(): JSX.Element | undefined {
@@ -138,7 +138,7 @@ export class SampleWidget extends Widget<void> {
   }
 
   bodyContent(): JSX.Element | undefined {
-    return <div>{this.state.data.content}</div>;
+    return <div>{this.state.data?.content}</div>;
   }
 
   footerContent(): JSX.Element | undefined {
