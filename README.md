@@ -66,7 +66,7 @@ The following files are project-related files. You generally will not need to cu
 
 You can use the following steps to add a new widget to the dashboard:
 
-1. [Step 1: Define a data model](#step-1-define-a-the-widget-model)
+1. [Step 1: Define a data model](#step-1-define-a-data-model)
 2. [Step 2: Create a data retrive service](#step-2-create-a-data-retrive-service)
 3. [Step 3: Create a widget file](#step-3-create-a-widget-file)
 4. [Step 4: Add the widget to the dashboard](#step-4-add-the-widget-to-the-dashboard)
@@ -77,36 +77,34 @@ Define a data model based on the business scenario, and put it in `tabs/src/mode
 
 ```typescript
 export interface WidgetModel {
-  id: string;
   content: string;
 }
 ```
 
 ### Step 2: Create a data retrive service
 
-Create a service to retrieve data from the backend. Simplely, you can create a service that returns mock data.
+Simplely, you can create a service that returns dummy data.
 
-Here's a sample json file that contains mock data:
+We recommend that you put data files in the `tabs/src/data` folder, and put data retrive services in the `tabs/src/services` folder.
+
+Here's a sample json file that contains dummy data:
 
 ```json
-[
-    {
-        "id": "id1",
-        "content": "Lorem ipsum"
-    }
-]
+{
+  "content": "Hello world!"
+}
 ```
 
-Here's a mock data retrive service:
+Here's a dummy data retrive service:
 
 ```typescript
 import { WidgetModel } from "../models/WidgetModel";
 import WidgetData from "../data/WidgetData.json";
 
-export const getWidgetData = (): WidgetModel[] => WidgetData;
+export const getWidgetData = (): WidgetModel => WidgetData;
 ```
 
-We recommend that you put the mock data file in the `tabs/src/data` folder, and put the mock data retrive service in the `tabs/src/services` folder.
+> Note: You can also implement a service to retrieve data from the backend service or from the Microsoft Graph API.
 
 ### Step 3: Create a widget file
 
@@ -124,15 +122,14 @@ Create a widget file in `tabs/src/views/widgets` folder. Extend the [`Widget`](t
 Here's a sample widget implementation:
 
 ```tsx
-import {
-  Button,
-  Text,
-} from "@fluentui/react-northstar";
+import { Button, Text } from "@fluentui/react-northstar";
 import { Widget } from "../lib/Widget";
 import { WidgetModel } from "../../models/WidgetModel";
+import { getWidgetData } from "../../services/sampleRequest";
 
-export class SampleWidget extends Widget<WidgetModel> {
-  getData(): WidgetModel | undefined {
+export class SampleWidget extends Widget<void> {
+
+  async getData(): Promise<WidgetModel> {
     return getWidgetData();
   }
 
@@ -141,7 +138,7 @@ export class SampleWidget extends Widget<WidgetModel> {
   }
 
   bodyContent(): JSX.Element | undefined {
-    return <div>Hello World!</div>;
+    return <div>{this.state.data.content}</div>;
   }
 
   footerContent(): JSX.Element | undefined {
@@ -158,8 +155,6 @@ export class SampleWidget extends Widget<WidgetModel> {
 ```
 
 ### Step 4: Add the widget to the dashboard
-
-To add the widget to the dashboard.
 
 1. Go to `tabs/src/views/dashboards/SampleDashboard.tsx`, if you want create a new dashboard, please refer to [How to add a new dashboard](#how-to-add-a-new-dashboard).
 2. Update your `dashboardLayout()` method to add the widget to the dashboard:
@@ -191,7 +186,6 @@ protected dashboardLayout(): void | JSX.Element {
   );
 }
 ```
-
 
 ## How to add a new dashboard
 
@@ -279,10 +273,11 @@ Open the [`templates/appPackage/manifest.template.json`](templates/appPackage/ma
 ## How to add a new Graph API call
 
 ### Add SSO First
+
 Before you add your logic of calling a Graph API, you should enable your dashboard project to use SSO. It is convenient to add SSO related files by using `Teams Toolkit`. Refer to the following 2 steps to add SSO.
 
 1. Step 1: Click `Teams Toolkit` in the side bar > Click `Add features` in `DEVELOPMENT`.
-  
+
    <img src="images\addsso1.png" style="zoom: 42%">
 
 2. Step 2: Choose `Single Sign-On` to add.

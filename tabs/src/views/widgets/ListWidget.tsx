@@ -20,7 +20,7 @@ export class ListWidget extends Widget<ListModel[]> {
    * Get data required by the widget, you can get data from a api call or static data stored in a file.
    * @returns The data required by the widget to render.
    */
-  getData(): ListModel[] | undefined {
+  async getData(): Promise<ListModel[]> {
     return getListData();
   }
 

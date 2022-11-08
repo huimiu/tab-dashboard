@@ -18,7 +18,7 @@ enum DayRange {
 }
 
 export default class ChartWidget extends Widget<IChartProps> {
-  protected getData(): IChartProps | void {
+  async getData(): Promise<IChartProps> {
     const chartPoints = [
       {
         legend: "Line 1",

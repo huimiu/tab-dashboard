@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 
 import { Card, Flex } from "@fluentui/react-northstar";
 
@@ -9,10 +9,7 @@ import { cardStyles, headerStyles } from "./Widget.styles";
  * For more information about react component, please refer to https://reactjs.org/docs/react-component.html
  * T is the model type of the widget.
  */
-export abstract class Widget<T> extends React.Component<
-  {},
-  { data?: T | void }
-> {
+export abstract class Widget<T> extends Component<{}, { data?: T | void }> {
   constructor(props: any) {
     super(props);
     this.state = {
@@ -26,7 +23,7 @@ export abstract class Widget<T> extends React.Component<
    * For more information about react lifecycle, please refer to https://reactjs.org/docs/react-component.html#componentdidmount
    */
   async componentDidMount() {
-    this.setState({ data: this.getData() });
+    this.setState({ data: await this.getData() });
   }
 
   /**
@@ -70,7 +67,9 @@ export abstract class Widget<T> extends React.Component<
    * Get data required by the widget, you can get data from a api call or static data stored in a file. Override this method according to your needs.
    * @returns data for the widget
    */
-  protected getData(): T | void {}
+  protected async getData(): Promise<T> {
+    return new Promise<T>(() => {});
+  }
 
   /**
    * Override this method to customize the widget header.
