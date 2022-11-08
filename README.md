@@ -147,6 +147,7 @@ export class SampleWidget extends Widget<SampleModel> {
         primary
         content="View Details"
         size="medium"
+        style={{ width: "fit-content" }}
         onClick={() => {}} // navigate to detailed page
       />
     );
