@@ -134,7 +134,7 @@ export class SampleWidget extends Widget<SampleModel> {
   }
 
   headerContent(): JSX.Element | undefined {
-    return <Text weight="semibold" size="large" content="Sample Widget" />;
+    return <Text content="Sample Widget" />;
   }
 
   bodyContent(): JSX.Element | undefined {
