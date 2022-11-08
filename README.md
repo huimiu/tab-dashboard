@@ -66,8 +66,8 @@ The following files are project-related files. You generally will not need to cu
 
 You can use the following steps to add a new widget to the dashboard:
 
-1. [Step 1: Define data model](#step-1-define-the-widget-model)
-2. [Step 2: Create data retrive service](#step-2-create-data-retrive-service)
+1. [Step 1: Define a data model](#step-1-define-a-the-widget-model)
+2. [Step 2: Create a data retrive service](#step-2-create-a-data-retrive-service)
 3. [Step 3: Create a widget file](#step-3-create-a-widget-file)
 4. [Step 4: Add the widget to the dashboard](#step-4-add-the-widget-to-the-dashboard)
 
