@@ -258,6 +258,11 @@ Before you add your logic of calling a Graph API, you should enable your dashboa
 
    <img src="images\addsso2.png" style="zoom: 42%">
 
+3. Step 3: Move `auth-start.html` and `auth-end.html` in `auth/tab/public` folder to `tabs/public/`.
+These two HTML files are used for auth redirects.
+
+4. Step 4: Move `sso` folder under `auth/tab` to `tabs/src/sso/`.
+
 Now you have already added SSO files to your project, and you can call Graph APIs. There are two types of Graph APIs, one will be called from the front-end(most of APIs, use delegated permissions), the other will be called from the back-end(sendActivityNotification, e.g., use application permissions). You can refer to [this tutorial](https://learn.microsoft.com/en-us/graph/api/overview?view=graph-rest-beta) to check permission types of the Graph APIs you want to call.
 
 ### From the front-end(use delegated permissions)
