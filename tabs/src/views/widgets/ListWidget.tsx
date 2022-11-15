@@ -1,21 +1,27 @@
-import { Button, Divider, ListIcon, MoreIcon, Text } from '@fluentui/react-northstar';
+import {
+  Button,
+  Divider,
+  ListIcon,
+  MoreIcon,
+  Text,
+} from "@fluentui/react-northstar";
 
-import { SampleModelItem, SampleWidgetModel } from '../../models/sampleWidgetModel';
-import { getSampleData } from '../../services/sampleRequest';
-import { Widget } from '../lib/Widget';
-import { headerContentStyle, headerTextStyle } from '../lib/Widget.styles';
-import { itemSubtitleStyle, itemTitleStyle } from '../styles/ListWidget.styles';
+import { ListModel } from "../../models/listModel";
+import { getListData } from "../../services/listService";
+import { Widget } from "../lib/Widget";
+import { headerContentStyle, headerTextStyle } from "../lib/Widget.styles";
+import { itemSubtitleStyle, itemTitleStyle } from "../styles/ListWidget.styles";
 
 /**
  * Extends the Widget class to implement a list widget.
  */
-export class ListWidget extends Widget<SampleWidgetModel> {
+export class ListWidget extends Widget<ListModel[]> {
   /**
    * Get data required by the widget, you can get data from a api call or static data stored in a file.
    * @returns The data required by the widget to render.
    */
-  getData(): SampleWidgetModel | undefined {
-    return getSampleData();
+  async getData(): Promise<ListModel[]> {
+    return getListData();
   }
 
   /**
@@ -40,10 +46,16 @@ export class ListWidget extends Widget<SampleWidgetModel> {
     return (
       <div style={{ display: "grid", gap: "0.5rem" }}>
         {this.state.data &&
-          this.state.data.items.map((t: SampleModelItem) => {
+          this.state.data.map((t: ListModel) => {
             return (
               <div style={{ display: "grid" }}>
-                <Divider style={{ marginBottom: "0.5rem", marginLeft: "-2.25rem", marginRight: "-2.25rem" }} />
+                <Divider
+                  style={{
+                    marginBottom: "0.5rem",
+                    marginLeft: "-2.25rem",
+                    marginRight: "-2.25rem",
+                  }}
+                />
                 <Text content={t.title} style={itemTitleStyle()} />
                 <Text content={t.content} style={itemSubtitleStyle()} />
               </div>

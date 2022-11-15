@@ -7,7 +7,7 @@ import { Button, Menu, menuAsToolbarBehavior, MoreIcon, Text } from '@fluentui/r
 import {
     chart1Points_30D, chart1Points_60D, chart1Points_7D, chart2Points_30D, chart2Points_60D,
     chart2Points_7D
-} from '../../services/sampleRequest';
+} from '../../services/listService';
 import { Widget } from '../lib/Widget';
 import { headerContentStyle, headerTextStyle } from '../lib/Widget.styles';
 
@@ -18,7 +18,7 @@ enum DayRange {
 }
 
 export default class ChartWidget extends Widget<IChartProps> {
-  protected getData(): IChartProps | void {
+  async getData(): Promise<IChartProps> {
     const chartPoints = [
       {
         legend: "Line 1",
@@ -108,6 +108,7 @@ export default class ChartWidget extends Widget<IChartProps> {
       <Button
         primary
         text
+        iconOnly
         icon={<ArrowRight24Filled />}
         iconPosition="after"
         content="View details"
