@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import { dashboardStyles } from './Dashboard.styles';
+import { dashboardStyles } from "./Dashboard.styles";
 
 interface IDashboardState {
   isMobile?: boolean;
@@ -79,6 +79,7 @@ export class Dashboard extends Component<{}, IDashboardState> {
 
   /**
    * Implement this method to define the row heights of the dashboard.
+   * For example, if you want to have 3 rows, and the height of the first row is 100px, the height of the second row is 200px, and the height of the third row is 300px, you can return "100px 200px 300px".
    * @returns The row heights of the dashboard.
    */
   protected rowHeights(): string | undefined {
@@ -87,6 +88,7 @@ export class Dashboard extends Component<{}, IDashboardState> {
 
   /**
    * Implement this method to define the column widths of the dashboard.
+   * For example, if you want to have 3 columns, and each column occupies 1/3 of the full width, you can return "1fr 1fr 1fr".
    * @returns The column widths of the dashboard.
    */
   protected columnWidths(): string | undefined {
@@ -97,5 +99,4 @@ export class Dashboard extends Component<{}, IDashboardState> {
    * Implement this method to define the dashboard layout.
    */
   protected dashboardLayout(): JSX.Element | void {}
-
 }
