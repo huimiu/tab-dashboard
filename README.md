@@ -39,17 +39,18 @@ The core dashboard implementation is in `tabs` folder.
 
 The following files provide the business logic for the dashboard tab. These files can be updated to fit your business logic requirements. The default implementation provides a starting point to help you get started.
 
-| File                                       | Contents                                         |
-| ------------------------------------------ | ------------------------------------------------ |
-| `src/models/sampleWidgetModel.tsx`         | Data model for the sample widget                 |
-| `src/services/sampleRequest.tsx`           | A sample data retrive implementation             |
-| `src/views/dashboards/SampleDashboard.tsx` | A sample dashboard layout implementation         |
-| `src/views/lib/Dashboard.styles.ts`        | The dashbaord style file                         |
-| `src/views/lib/Dashboard.tsx`              | An base class that defines the dashboard         |
-| `src/views/lib/Widget.styles.ts`           | The widgt style file                             |
-| `src/views/lib/Widget.tsx`                 | An abstract class that defines the widget        |
-| `src/views/widgets/ChartWidget.tsx`        | A widget implementation that can display a chart |
-| `src/views/widgets/ListWidget.tsx`         | A widget implementation that can display a list  |
+| File                                       | Contents                                          |
+| ------------------------------------------ | ------------------------------------------------- |
+| `src/models/listModel.tsx`                 | Data model for the list widget                    |
+| `src/services/listService.tsx`             | A data retrive implementation for the list widget |
+| `src/views/dashboards/SampleDashboard.tsx` | A sample dashboard layout implementation          |
+| `src/views/lib/Dashboard.styles.ts`        | The dashbaord style file                          |
+| `src/views/lib/Dashboard.tsx`              | An base class that defines the dashboard          |
+| `src/views/lib/Widget.styles.ts`           | The widgt style file                              |
+| `src/views/lib/Widget.tsx`                 | An abstract class that defines the widget         |
+| `src/views/styles/ListWidget.styles.ts`    | The list widget style file                        |
+| `src/views/widgets/ChartWidget.tsx`        | A widget implementation that can display a chart  |
+| `src/views/widgets/ListWidget.tsx`         | A widget implementation that can display a list   |
 
 The following files are project-related files. You generally will not need to customize these files.
 
@@ -83,9 +84,7 @@ export interface SampleModel {
 
 ### Step 2: Create a data retrive service
 
-Simplely, you can create a service that returns dummy data.
-
-We recommend that you put data files in the `tabs/src/data` folder, and put data retrive services in the `tabs/src/services` folder.
+Simplely, you can create a service that returns dummy data. We recommend that you put data files in the `tabs/src/data` folder, and put data retrive services in the `tabs/src/services` folder.
 
 Here's a sample json file that contains dummy data:
 
@@ -128,7 +127,6 @@ import { SampleModel } from "../../models/sampleModel";
 import { getSampleData } from "../../services/sampleService";
 
 export class SampleWidget extends Widget<SampleModel> {
-
   async getData(): Promise<SampleModel> {
     return getSampleData();
   }
@@ -286,7 +284,7 @@ Before you add your logic of calling a Graph API, you should enable your dashboa
    <img src="images\addsso2.png" style="zoom: 42%">
 
 3. Step 3: Move `auth-start.html` and `auth-end.html` in `auth/tab/public` folder to `tabs/public/`.
-These two HTML files are used for auth redirects.
+   These two HTML files are used for auth redirects.
 
 4. Step 4: Move `sso` folder under `auth/tab` to `tabs/src/sso/`.
 
