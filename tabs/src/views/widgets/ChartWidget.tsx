@@ -7,7 +7,7 @@ import { Button, Menu, menuAsToolbarBehavior, MoreIcon, Text } from '@fluentui/r
 import {
     chart1Points_30D, chart1Points_60D, chart1Points_7D, chart2Points_30D, chart2Points_60D,
     chart2Points_7D
-} from '../../services/listService';
+} from '../../services/chartServices';
 import { Widget } from '../lib/Widget';
 import { headerContentStyle, headerTextStyle } from '../lib/Widget.styles';
 
