@@ -1,10 +1,6 @@
-import {
-  Button,
-  Divider,
-  ListIcon,
-  MoreIcon,
-  Text,
-} from "@fluentui/react-northstar";
+import { Button, Divider, Text } from "@fluentui/react-components";
+import { List28Filled, MoreHorizontal32Regular } from "@fluentui/react-icons";
+import { tokens } from '@fluentui/react-theme';
 
 import { ListModel } from "../../models/listModel";
 import { getListData } from "../../services/listService";
@@ -31,9 +27,9 @@ export class ListWidget extends Widget<ListModel[]> {
   headerContent(): JSX.Element | undefined {
     return (
       <div style={headerContentStyle()}>
-        <ListIcon size="large" />
-        <Text style={headerTextStyle()} content="Your List" />
-        <Button icon={<MoreIcon size="large" />} iconOnly text title="more" />
+        <List28Filled />
+        <Text style={headerTextStyle()}>Your List</Text>
+        <Button icon={<MoreHorizontal32Regular />} appearance="transparent" />
       </div>
     );
   }
@@ -49,15 +45,17 @@ export class ListWidget extends Widget<ListModel[]> {
           this.state.data.map((t: ListModel) => {
             return (
               <div style={{ display: "grid" }}>
-                <Divider
+                <div
                   style={{
                     marginBottom: "0.5rem",
                     marginLeft: "-2.25rem",
-                    marginRight: "-2.25rem",
+                    marginRight: "-2.3rem",
+                    height: "1px",
+                    background: tokens.colorNeutralStroke2,
                   }}
                 />
-                <Text content={t.title} style={itemTitleStyle()} />
-                <Text content={t.content} style={itemSubtitleStyle()} />
+                <Text style={itemTitleStyle()}>{t.title}</Text>
+                <Text style={itemSubtitleStyle()}>{t.content}</Text>
               </div>
             );
           })}
@@ -72,12 +70,13 @@ export class ListWidget extends Widget<ListModel[]> {
   footerContent(): JSX.Element | undefined {
     return (
       <Button
-        primary
-        content="View Details"
+        appearance="primary"
         size="medium"
         style={{ width: "fit-content" }}
         onClick={() => {}} // navigate to detailed page
-      />
+      >
+        View Details
+      </Button>
     );
   }
 }

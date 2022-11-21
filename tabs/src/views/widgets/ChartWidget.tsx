@@ -1,15 +1,23 @@
-import * as d3 from 'd3-format';
+import * as d3 from "d3-format";
 
-import { AreaChart, IChartProps } from '@fluentui/react-charting';
-import { ArrowRight24Filled, DataPieRegular } from '@fluentui/react-icons';
-import { Button, Menu, menuAsToolbarBehavior, MoreIcon, Text } from '@fluentui/react-northstar';
+import { AreaChart, IChartProps } from "@fluentui/react-charting";
+import {
+  ArrowRight16Filled,
+  DataPieRegular,
+  MoreHorizontal32Regular,
+} from "@fluentui/react-icons";
+import { Text, Button, ToggleButton } from "@fluentui/react-components";
 
 import {
-    chart1Points_30D, chart1Points_60D, chart1Points_7D, chart2Points_30D, chart2Points_60D,
-    chart2Points_7D
-} from '../../services/chartServices';
-import { Widget } from '../lib/Widget';
-import { headerContentStyle, headerTextStyle } from '../lib/Widget.styles';
+  chart1Points_30D,
+  chart1Points_60D,
+  chart1Points_7D,
+  chart2Points_30D,
+  chart2Points_60D,
+  chart2Points_7D,
+} from "../../services/chartServices";
+import { Widget } from "../lib/Widget";
+import { headerContentStyle, headerTextStyle } from "../lib/Widget.styles";
 
 enum DayRange {
   Seven,
@@ -42,8 +50,8 @@ export default class ChartWidget extends Widget<IChartProps> {
     return (
       <div style={headerContentStyle()}>
         <DataPieRegular style={{ height: "1.5rem", width: "1.5rem" }} />
-        <Text style={headerTextStyle()} content="Your chart" />
-        <Button icon={<MoreIcon size="large" />} iconOnly text title="more" />
+        <Text style={headerTextStyle()}>Your chart</Text>
+        <Button icon={<MoreHorizontal32Regular />} appearance="transparent" />
       </div>
     );
   }
@@ -52,41 +60,31 @@ export default class ChartWidget extends Widget<IChartProps> {
     return (
       <>
         <div>
-          <Menu
-            style={{ gap: "3rem" }}
-            defaultActiveIndex={0}
-            items={[
-              {
-                key: "1",
-                content: "7 days",
-                onClick: () =>
-                  this.setState({
-                    data: this.retriveChartsData(DayRange.Seven),
-                  }),
-              },
-              {
-                key: "2",
-                content: "30 days",
-                onClick: () =>
-                  this.setState({
-                    data: this.retriveChartsData(DayRange.Thirty),
-                  }),
-              },
-              {
-                key: "3",
-                content: "60 days",
-                onClick: () =>
-                  this.setState({
-                    data: this.retriveChartsData(DayRange.Sixty),
-                  }),
-              },
-            ]}
-            iconOnly
-            accessibility={menuAsToolbarBehavior}
-          />
+          <ToggleButton
+            appearance="transparent"
+            onClick={() =>
+              this.setState({
+                data: this.retriveChartsData(DayRange.Seven),
+              })
+            }
+          >
+            7 Days
+          </ToggleButton>
+          <ToggleButton
+            appearance="transparent"
+            onClick={() => this.retriveChartsData(DayRange.Thirty)}
+          >
+            30 Days
+          </ToggleButton>
+          <ToggleButton
+            appearance="transparent"
+            onClick={() => this.retriveChartsData(DayRange.Sixty)}
+          >
+            60 Days
+          </ToggleButton>
         </div>
 
-        <div style={{ position: "relative", height: "200px", width:"100%" }}>
+        <div style={{ position: "relative", height: "200px", width: "100%" }}>
           {this.state.data && (
             <AreaChart
               data={this.state.data}
@@ -106,16 +104,15 @@ export default class ChartWidget extends Widget<IChartProps> {
   footerContent(): JSX.Element | void {
     return (
       <Button
-        primary
-        text
-        iconOnly
-        icon={<ArrowRight24Filled />}
+        appearance="transparent"
+        icon={<ArrowRight16Filled />}
         iconPosition="after"
-        content="View details"
         size="small"
         style={{ width: "fit-content" }}
         onClick={() => {}} // navigate to detailed page
-      />
+      >
+        View details
+      </Button>
     );
   }
 
