@@ -25,8 +25,13 @@ enum DayRange {
   Sixty,
 }
 
-export default class ChartWidget extends Widget<IChartProps> {
-  async getData(): Promise<IChartProps> {
+interface IChartWidgetState {
+  dayRange: DayRange;
+  chartProps: IChartProps;
+}
+
+export default class ChartWidget extends Widget<IChartWidgetState> {
+  async getData(): Promise<IChartWidgetState> {
     const chartPoints = [
       {
         legend: "Line 1",
@@ -43,7 +48,7 @@ export default class ChartWidget extends Widget<IChartProps> {
       chartTitle: "Area chart multiple example",
       lineChartData: chartPoints,
     };
-    return chartData;
+    return { dayRange: DayRange.Seven, chartProps: chartData };
   }
 
   headerContent(): JSX.Element | void {
@@ -62,9 +67,13 @@ export default class ChartWidget extends Widget<IChartProps> {
         <div>
           <ToggleButton
             appearance="transparent"
+            checked={this.state.data?.dayRange === DayRange.Seven}
             onClick={() =>
               this.setState({
-                data: this.retriveChartsData(DayRange.Seven),
+                data: {
+                  chartProps: this.retriveChartsData(DayRange.Seven),
+                  dayRange: DayRange.Seven,
+                },
               })
             }
           >
@@ -72,13 +81,29 @@ export default class ChartWidget extends Widget<IChartProps> {
           </ToggleButton>
           <ToggleButton
             appearance="transparent"
-            onClick={() => this.retriveChartsData(DayRange.Thirty)}
+            checked={this.state.data?.dayRange === DayRange.Thirty}
+            onClick={() =>
+              this.setState({
+                data: {
+                  chartProps: this.retriveChartsData(DayRange.Thirty),
+                  dayRange: DayRange.Thirty,
+                },
+              })
+            }
           >
             30 Days
           </ToggleButton>
           <ToggleButton
             appearance="transparent"
-            onClick={() => this.retriveChartsData(DayRange.Sixty)}
+            checked={this.state.data?.dayRange === DayRange.Sixty}
+            onClick={() =>
+              this.setState({
+                data: {
+                  chartProps: this.retriveChartsData(DayRange.Sixty),
+                  dayRange: DayRange.Sixty,
+                },
+              })
+            }
           >
             60 Days
           </ToggleButton>
@@ -87,7 +112,7 @@ export default class ChartWidget extends Widget<IChartProps> {
         <div style={{ position: "relative", height: "200px", width: "100%" }}>
           {this.state.data && (
             <AreaChart
-              data={this.state.data}
+              data={this.state.data.chartProps}
               legendsOverflowText={"Overflow Items"}
               yAxisTickFormat={d3.format(".1s")}
               wrapXAxisLables={false}
@@ -116,7 +141,7 @@ export default class ChartWidget extends Widget<IChartProps> {
     );
   }
 
-  private retriveChartsData(r: DayRange): IChartProps | void {
+  private retriveChartsData(r: DayRange): IChartProps {
     const chartPoints = [
       {
         legend: "Line 1",

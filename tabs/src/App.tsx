@@ -33,7 +33,7 @@ export default function App() {
             : teamsLightTheme
         }
         style={{
-          overflow: "auto",
+          height: "100vh",
           background: "var(--Background)",
         }}
       >

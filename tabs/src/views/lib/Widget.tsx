@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 
-import {
-  widgetStyles,
-  headerStyles,
-} from "./Widget.styles";
+import { headerStyles, widgetStyles } from "./Widget.styles";
 
 /**
  * Defined a widget, it's also a react component.
@@ -36,12 +33,8 @@ export abstract class Widget<T> extends Component<{}, { data?: T | void }> {
         {this.headerContent() && (
           <div style={headerStyles()}>{this.headerContent()}</div>
         )}
-        {this.bodyContent() && (
-          <div>{this.bodyContent()}</div>
-        )}
-        {this.footerContent() && (
-          <div>{this.footerContent()}</div>
-        )}
+        {this.bodyContent() && <div>{this.bodyContent()}</div>}
+        {this.footerContent() && <div>{this.footerContent()}</div>}
       </div>
     );
   }

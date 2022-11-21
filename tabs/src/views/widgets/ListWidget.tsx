@@ -1,6 +1,6 @@
-import { Button, Divider, Text } from "@fluentui/react-components";
+import { Button, Text } from "@fluentui/react-components";
 import { List28Filled, MoreHorizontal32Regular } from "@fluentui/react-icons";
-import { tokens } from '@fluentui/react-theme';
+import { tokens } from "@fluentui/react-theme";
 
 import { ListModel } from "../../models/listModel";
 import { getListData } from "../../services/listService";

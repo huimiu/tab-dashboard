@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This is a Teams tab dashboard app that uses the [Fluent UI Northstar](https://fluentsite.z22.web.core.windows.net/0.64.0/) and the [Microsoft Graph API](https://learn.microsoft.com/en-us/graph/use-the-api) to display a user's profile information and recent Teams activity.
+This is a Teams tab dashboard app that uses the [Fluent UI](https://react.fluentui.dev/?path=/docs/concepts-introduction--page) and the [Microsoft Graph API](https://learn.microsoft.com/en-us/graph/use-the-api) to display a user's profile information and recent Teams activity.
 
 ![Default theme](images/dashboard.png)
 
@@ -121,7 +121,7 @@ Create a widget file in `tabs/src/views/widgets` folder. Extend the [`Widget`](t
 Here's a sample widget implementation:
 
 ```tsx
-import { Button, Text } from "@fluentui/react-northstar";
+import { Button, Text } from "@fluentui/react-components";
 import { Widget } from "../lib/Widget";
 import { SampleModel } from "../../models/sampleModel";
 import { getSampleData } from "../../services/sampleService";
@@ -170,7 +170,7 @@ protected dashboardLayout(): void | JSX.Element {
 }
 ```
 
-> Note: If you want put your widget in a column, you can use the [`oneColumn()`](tabs/src/views/lib/Dashboard.styles.ts#L17) method to define the column layout. Here is an example:
+> Note: If you want put your widget in a column, you can use the [`oneColumn()`](tabs/src/views/lib/Dashboard.styles.ts#L32) method to define the column layout. Here is an example:
 
 ```tsx
 protected dashboardLayout(): void | JSX.Element {
@@ -454,8 +454,6 @@ Refer to [this sample](https://github.com/OfficeDev/TeamsFx-Samples/blob/dev/hel
 
 ## Additional resources
 
-- [Fluent UI Northstar](https://fluentsite.z22.web.core.windows.net/0.64.0/)
+- [Fluent UI](https://react.fluentui.dev/?path=/docs/concepts-introduction--page)
 - [Fluent UI React Charting Example](https://fluentuipr.z22.web.core.windows.net/heads/master/react-charting/demo/index.html#/)
-- [Flex Layout](https://developer.mozilla.org/en-US/docs/Web/CSS/flex)
-- [Button component definition](https://fluentsite.z22.web.core.windows.net/0.64.0/components/button/definition).
 - [Dashboard sample](https://github.com/huimiu/DashboardDemo)
