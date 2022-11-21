@@ -132,7 +132,7 @@ export class SampleWidget extends Widget<SampleModel> {
   }
 
   headerContent(): JSX.Element | undefined {
-    return <Text content="Sample Widget" />;
+    return <Text>Sample Widget</Text>;
   }
 
   bodyContent(): JSX.Element | undefined {
@@ -142,12 +142,13 @@ export class SampleWidget extends Widget<SampleModel> {
   footerContent(): JSX.Element | undefined {
     return (
       <Button
-        primary
-        content="View Details"
+        appearance="primary"
         size="medium"
         style={{ width: "fit-content" }}
-        onClick={() => {}} // navigate to detailed page
-      />
+        onClick={() => {}}
+      >
+        View Details
+      </Button>
     );
   }
 }
