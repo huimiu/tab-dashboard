@@ -6,7 +6,7 @@ import {
   DataPieRegular,
   MoreHorizontal32Regular,
 } from "@fluentui/react-icons";
-import { Text, Button, ToggleButton } from "@fluentui/react-components";
+import { Text, Button, ToggleButton, tokens } from "@fluentui/react-components";
 
 import {
   chart1Points_30D,

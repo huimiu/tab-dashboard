@@ -4,13 +4,13 @@
 
 This is a Teams tab dashboard app that uses the [Fluent UI](https://react.fluentui.dev/?path=/docs/concepts-introduction--page) and the [Microsoft Graph API](https://learn.microsoft.com/en-us/graph/use-the-api) to display a user's profile information and recent Teams activity.
 
-![Default theme](images/dashboard.png)
+![Default theme](tabs/public/dashboard.png)
 
 This app also supported teams different themes, including dark theme and high contrast theme.
 
 |           Dark theme           |     High contrast theme      |
 | :----------------------------: | :--------------------------: |
-| ![](images/dashboard-dark.png) | ![](images/dashboard-hc.png) |
+| ![](tabs/public/dashboard-dark.png) | ![](tabs/public/dashboard-hc.png) |
 
 ## Prerequisites
 
@@ -278,11 +278,11 @@ Before you add your logic of calling a Graph API, you should enable your dashboa
 
 1. Step 1: Click `Teams Toolkit` in the side bar > Click `Add features` in `DEVELOPMENT`.
 
-   <img src="images\addsso1.png" style="zoom: 42%">
+   <img src="tabs\public\addsso1.png" style="zoom: 42%">
 
 2. Step 2: Choose `Single Sign-On` to add.
 
-   <img src="images\addsso2.png" style="zoom: 42%">
+   <img src="tabs\public\addsso2.png" style="zoom: 42%">
 
 3. Step 3: Move `auth-start.html` and `auth-end.html` in `auth/tab/public` folder to `tabs/public/`.
    These two HTML files are used for auth redirects.
@@ -345,7 +345,7 @@ Go to [Azure portal](https://portal.azure.com/) > Click `Azure Active Directory`
 
 In the VS Code side bar, click `Add features` in `Teams Toolkit` > Choose `Azure functions` > Enter the function name
 
-   <img src="images\add_azFunction.png" style="zoom: 42%">
+   <img src="tabs\public\add_azFunction.png" style="zoom: 42%">
 
 #### Step 3: Get the `installation id` of your Dashboard app
 
