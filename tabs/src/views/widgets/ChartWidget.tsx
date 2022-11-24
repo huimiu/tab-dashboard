@@ -1,15 +1,24 @@
 import * as d3 from 'd3-format';
 
-import { AreaChart, IChartProps } from '@fluentui/react-charting';
-import { ArrowRight24Filled, DataPieRegular } from '@fluentui/react-icons';
-import { Button, Menu, menuAsToolbarBehavior, MoreIcon, Text } from '@fluentui/react-northstar';
+import { AreaChart, IChartProps } from "@fluentui/react-charting";
+import {
+  ArrowRight16Filled,
+  DataPieRegular,
+  MoreHorizontal32Regular,
+} from "@fluentui/react-icons";
+import { Text, Button, ToggleButton, tokens } from "@fluentui/react-components";
 
 import {
-    chart1Points_30D, chart1Points_60D, chart1Points_7D, chart2Points_30D, chart2Points_60D,
-    chart2Points_7D
-} from '../../services/chartServices';
-import { Widget } from '../lib/Widget';
-import { headerContentStyle, headerTextStyle } from '../lib/Widget.styles';
+  chart1Points_30D,
+  chart1Points_60D,
+  chart1Points_7D,
+  chart2Points_30D,
+  chart2Points_60D,
+  chart2Points_7D,
+} from "../../services/chartServices";
+import { Widget } from "../lib/Widget";
+import { headerContentStyle, headerTextStyle } from "../lib/Widget.styles";
+import { timeSpanStyle } from "../styles/ChartWidget.style";
 
 enum DayRange {
   Seven,
@@ -52,38 +61,51 @@ export default class ChartWidget extends Widget<IChartProps> {
     return (
       <>
         <div>
-          <Menu
-            style={{ gap: "3rem" }}
-            defaultActiveIndex={0}
-            items={[
-              {
-                key: "1",
-                content: "7 days",
-                onClick: () =>
-                  this.setState({
-                    data: this.retriveChartsData(DayRange.Seven),
-                  }),
-              },
-              {
-                key: "2",
-                content: "30 days",
-                onClick: () =>
-                  this.setState({
-                    data: this.retriveChartsData(DayRange.Thirty),
-                  }),
-              },
-              {
-                key: "3",
-                content: "60 days",
-                onClick: () =>
-                  this.setState({
-                    data: this.retriveChartsData(DayRange.Sixty),
-                  }),
-              },
-            ]}
-            iconOnly
-            accessibility={menuAsToolbarBehavior}
-          />
+          <ToggleButton
+            appearance="transparent"
+            checked={this.state.data?.dayRange === DayRange.Seven}
+            style={timeSpanStyle()}
+            onClick={() =>
+              this.setState({
+                data: {
+                  chartProps: this.retriveChartsData(DayRange.Seven),
+                  dayRange: DayRange.Seven,
+                },
+              })
+            }
+          >
+            7 Days
+          </ToggleButton>
+          <ToggleButton
+            appearance="transparent"
+            checked={this.state.data?.dayRange === DayRange.Thirty}
+            style={timeSpanStyle()}
+            onClick={() =>
+              this.setState({
+                data: {
+                  chartProps: this.retriveChartsData(DayRange.Thirty),
+                  dayRange: DayRange.Thirty,
+                },
+              })
+            }
+          >
+            30 Days
+          </ToggleButton>
+          <ToggleButton
+            appearance="transparent"
+            checked={this.state.data?.dayRange === DayRange.Sixty}
+            style={timeSpanStyle()}
+            onClick={() =>
+              this.setState({
+                data: {
+                  chartProps: this.retriveChartsData(DayRange.Sixty),
+                  dayRange: DayRange.Sixty,
+                },
+              })
+            }
+          >
+            60 Days
+          </ToggleButton>
         </div>
 
         <div style={{ position: "relative", height: "200px", width:"100%" }}>
@@ -113,7 +135,7 @@ export default class ChartWidget extends Widget<IChartProps> {
         iconPosition="after"
         content="View details"
         size="small"
-        style={{ width: "fit-content" }}
+        style={{ width: "fit-content", color: tokens.colorBrandForeground1 }}
         onClick={() => {}} // navigate to detailed page
       />
     );
