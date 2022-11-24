@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 
-import { Card, Flex } from "@fluentui/react-northstar";
-
-import { cardStyles, headerStyles } from "./Widget.styles";
+import { headerStyles, widgetStyles } from "./Widget.styles";
 
 /**
  * Defined a widget, it's also a react component.
@@ -31,35 +29,13 @@ export abstract class Widget<T> extends Component<{}, { data?: T | void }> {
    */
   render() {
     return (
-      <Card
-        fluid
-        elevated
-        style={cardStyles()}
-        styles={{
-          ":hover": "backgroud-color: var(--Foreground)",
-        }}
-      >
-        {/** Card header */}
+      <div style={widgetStyles()}>
         {this.headerContent() && (
-          <Card.Header style={headerStyles()}>
-            {this.headerContent()}
-          </Card.Header>
+          <div style={headerStyles()}>{this.headerContent()}</div>
         )}
-
-        {/** Card content */}
-        <Flex fill column gap="gap.medium" vAlign="stretch" hAlign="stretch">
-          {this.bodyContent() && (
-            <Card.Body styles={{ marginTop: "1rem" }}>
-              {this.bodyContent()}
-            </Card.Body>
-          )}
-        </Flex>
-
-        {/** Card footer */}
-        {this.footerContent() && (
-          <Card.Footer fitted>{this.footerContent()}</Card.Footer>
-        )}
-      </Card>
+        {this.bodyContent() && <div>{this.bodyContent()}</div>}
+        {this.footerContent() && <div>{this.footerContent()}</div>}
+      </div>
     );
   }
 

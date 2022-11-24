@@ -1,4 +1,4 @@
-import * as d3 from 'd3-format';
+import * as d3 from "d3-format";
 
 import { AreaChart, IChartProps } from "@fluentui/react-charting";
 import {
@@ -6,7 +6,7 @@ import {
   DataPieRegular,
   MoreHorizontal32Regular,
 } from "@fluentui/react-icons";
-import { Text, Button, ToggleButton, tokens } from "@fluentui/react-components";
+import { Text, Button, ToggleButton } from "@fluentui/react-components";
 
 import {
   chart1Points_30D,
@@ -26,8 +26,13 @@ enum DayRange {
   Sixty,
 }
 
-export default class ChartWidget extends Widget<IChartProps> {
-  async getData(): Promise<IChartProps> {
+interface IChartWidgetState {
+  dayRange: DayRange;
+  chartProps: IChartProps;
+}
+
+export default class ChartWidget extends Widget<IChartWidgetState> {
+  async getData(): Promise<IChartWidgetState> {
     const chartPoints = [
       {
         legend: "Line 1",
@@ -44,15 +49,15 @@ export default class ChartWidget extends Widget<IChartProps> {
       chartTitle: "Area chart multiple example",
       lineChartData: chartPoints,
     };
-    return chartData;
+    return { dayRange: DayRange.Seven, chartProps: chartData };
   }
 
   headerContent(): JSX.Element | void {
     return (
       <div style={headerContentStyle()}>
         <DataPieRegular style={{ height: "1.5rem", width: "1.5rem" }} />
-        <Text style={headerTextStyle()} content="Your chart" />
-        <Button icon={<MoreIcon size="large" />} iconOnly text title="more" />
+        <Text style={headerTextStyle()}>Your chart</Text>
+        <Button icon={<MoreHorizontal32Regular />} appearance="transparent" />
       </div>
     );
   }
@@ -108,10 +113,10 @@ export default class ChartWidget extends Widget<IChartProps> {
           </ToggleButton>
         </div>
 
-        <div style={{ position: "relative", height: "200px", width:"100%" }}>
+        <div style={{ position: "relative", height: "200px", width: "100%" }}>
           {this.state.data && (
             <AreaChart
-              data={this.state.data}
+              data={this.state.data.chartProps}
               legendsOverflowText={"Overflow Items"}
               yAxisTickFormat={d3.format(".1s")}
               wrapXAxisLables={false}
@@ -128,20 +133,19 @@ export default class ChartWidget extends Widget<IChartProps> {
   footerContent(): JSX.Element | void {
     return (
       <Button
-        primary
-        text
-        iconOnly
-        icon={<ArrowRight24Filled />}
+        appearance="transparent"
+        icon={<ArrowRight16Filled />}
         iconPosition="after"
-        content="View details"
         size="small"
         style={{ width: "fit-content", color: tokens.colorBrandForeground1 }}
         onClick={() => {}} // navigate to detailed page
-      />
+      >
+        View details
+      </Button>
     );
   }
 
-  private retriveChartsData(r: DayRange): IChartProps | void {
+  private retriveChartsData(r: DayRange): IChartProps {
     const chartPoints = [
       {
         legend: "Line 1",
