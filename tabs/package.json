@@ -7,6 +7,7 @@
         "@fluentui/react-charting": "^5.14.10",
         "@fluentui/react-components": "^9.7.1",
         "@fluentui/react-icons": "^2.0.186",
+        "@fluentui/react-northstar": "0.62.0",
         "@microsoft/mgt-element": "2.4.1-next.teamsfx.8d56785",
         "@microsoft/mgt-react": "2.4.1-next.teamsfx.8d56785",
         "@microsoft/mgt-teamsfx-provider": "2.4.1-next.teamsfx.8d56785",
