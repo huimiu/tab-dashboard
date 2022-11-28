@@ -52,7 +52,7 @@ export default class ChartWidget extends Widget<IChartWidgetState> {
     return { dayRange: DayRange.Seven, chartProps: chartData };
   }
 
-  headerContent(): JSX.Element | void {
+  headerContent(): JSX.Element | undefined {
     return (
       <div style={headerContentStyle()}>
         <DataPieRegular style={{ height: "1.5rem", width: "1.5rem" }} />
@@ -62,7 +62,7 @@ export default class ChartWidget extends Widget<IChartWidgetState> {
     );
   }
 
-  bodyContent(): JSX.Element | void {
+  bodyContent(): JSX.Element | undefined {
     return (
       <>
         <div>
@@ -130,7 +130,7 @@ export default class ChartWidget extends Widget<IChartWidgetState> {
     );
   }
 
-  footerContent(): JSX.Element | void {
+  footerContent(): JSX.Element | undefined {
     return (
       <Button
         appearance="transparent"

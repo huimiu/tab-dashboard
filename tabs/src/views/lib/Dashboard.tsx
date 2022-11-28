@@ -98,5 +98,7 @@ export class Dashboard extends Component<{}, IDashboardState> {
   /**
    * Implement this method to define the dashboard layout.
    */
-  protected dashboardLayout(): JSX.Element | void {}
+  protected dashboardLayout(): JSX.Element | undefined {
+    return undefined;
+  }
 }

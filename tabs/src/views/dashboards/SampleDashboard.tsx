@@ -11,7 +11,7 @@ export default class SampleDashboard extends Dashboard {
     return "4fr 6fr";
   }
 
-  protected dashboardLayout(): void | JSX.Element {
+  protected dashboardLayout(): undefined | JSX.Element {
     return (
       <>
         <ListWidget />

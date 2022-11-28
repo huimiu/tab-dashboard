@@ -51,17 +51,23 @@ export abstract class Widget<T> extends Component<{}, { data?: T | void }> {
    * Override this method to customize the widget header.
    * @returns JSX component for the widget body
    */
-  protected headerContent(): JSX.Element | void {}
+  protected headerContent(): JSX.Element | undefined {
+    return undefined;
+  }
 
   /**
    * Override this method to customize the widget body.
    * @returns JSX component for the widget body
    */
-  protected bodyContent(): JSX.Element | void {}
+  protected bodyContent(): JSX.Element | undefined {
+    return undefined;
+  }
 
   /**
    * Override this method to customize the widget footer.
    * @returns react node for the widget footer
    */
-  protected footerContent(): JSX.Element | void {}
+  protected footerContent(): JSX.Element | undefined {
+    return undefined;
+  }
 }

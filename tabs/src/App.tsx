@@ -47,7 +47,7 @@ export default function App() {
             <>
               <Route exact path="/privacy" component={Privacy} />
               <Route exact path="/termsofuse" component={TermsOfUse} />
-              <Route exact path="/dashboard" component={SampleDashboard} />
+              <Route exact path="/tab" component={SampleDashboard} />
               <Route exact path="/config" component={TabConfig} />
             </>
           )}
