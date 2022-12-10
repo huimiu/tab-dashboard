@@ -357,7 +357,7 @@ https://graph.microsoft.com/v1.0/users/{user-id | user-principal-name}/teamwork/
 
 In the response, you should find the information of your Dashboard app, and then record the `id` of it as `installationId`, which will be used in step 4.
 
-   <img src="images\graph_explorer.png" style="zoom: 40%" />
+   <img src="tabs\public\graph_explorer.png" style="zoom: 40%" />
 
 #### Step 4: Add your logic in Azure Function
 
