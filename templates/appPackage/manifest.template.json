@@ -6,9 +6,9 @@
     "packageName": "com.microsoft.teams.extension",
     "developer": {
         "name": "Teams App, Inc.",
-        "websiteUrl": "{{state.fx-resource-frontend-hosting.endpoint}}",
-        "privacyUrl": "{{state.fx-resource-frontend-hosting.endpoint}}{{state.fx-resource-frontend-hosting.indexPath}}/privacy",
-        "termsOfUseUrl": "{{state.fx-resource-frontend-hosting.endpoint}}{{state.fx-resource-frontend-hosting.indexPath}}/termsofuse"
+        "websiteUrl": "https://www.example.com",
+        "privacyUrl": "https://www.example.com/termofuse",
+        "termsOfUseUrl": "https://www.example.com/privacy"
     },
     "icons": {
         "color": "{{config.manifest.icons.color}}",
@@ -27,7 +27,7 @@
     "composeExtensions": [],
     "configurableTabs": [
         {
-            "configurationUrl": "{{state.fx-resource-frontend-hosting.endpoint}}{{state.fx-resource-frontend-hosting.indexPath}}/config",
+            "configurationUrl": "{{{state.fx-resource-frontend-hosting.endpoint}}}{{{state.fx-resource-frontend-hosting.indexPath}}}/config",
             "canUpdateConfiguration": true,
             "scopes": [
                 "team",
@@ -37,10 +37,10 @@
     ],
     "staticTabs": [
         {
-            "entityId": "index",
+            "entityId": "index0",
             "name": "Dashboard",
-            "contentUrl": "{{state.fx-resource-frontend-hosting.endpoint}}{{state.fx-resource-frontend-hosting.indexPath}}/dashboard",
-            "websiteUrl": "{{state.fx-resource-frontend-hosting.endpoint}}{{state.fx-resource-frontend-hosting.indexPath}}/dashboard",
+            "contentUrl": "{{{state.fx-resource-frontend-hosting.endpoint}}}{{{state.fx-resource-frontend-hosting.indexPath}}}/tab",
+            "websiteUrl": "{{{state.fx-resource-frontend-hosting.endpoint}}}{{{state.fx-resource-frontend-hosting.indexPath}}}/tab",
             "scopes": [
                 "personal"
             ]
@@ -52,5 +52,9 @@
     ],
     "validDomains": [
         "{{state.fx-resource-frontend-hosting.domain}}"
-    ]
+    ],
+    "webApplicationInfo": {
+        "id": "{{state.fx-resource-aad-app-for-teams.clientId}}",
+        "resource": "{{{state.fx-resource-aad-app-for-teams.applicationIdUris}}}"
+    }
 }
