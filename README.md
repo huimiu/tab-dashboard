@@ -1,5 +1,7 @@
 # Dashboard Tab
 
+[Microsoft Teams Toolkit](https://github.com/OfficeDev/TeamsFx) supported Dashboard scenario since [V4.2.0](https://github.com/OfficeDev/TeamsFx/blob/main/packages/vscode-extension/WHATISNEW.md#420---dec-20-2022), welcome to experience it!
+
 ## Introduction
 
 This is a Teams tab dashboard app that uses the [Fluent UI](https://react.fluentui.dev/?path=/docs/concepts-introduction--page) and the [Microsoft Graph API](https://learn.microsoft.com/en-us/graph/use-the-api) to display a user's profile information and recent Teams activity.
