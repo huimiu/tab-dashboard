@@ -35,5 +35,4 @@ export const headerTextStyle = (): CSSProperties => ({
   lineHeight: "1rem",
   fontStyle: "normal",
   fontSize: "0.75rem",
-  fontFamily: "Segoe UI",
 });

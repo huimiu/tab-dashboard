@@ -1,6 +1,5 @@
-import { Button, Text } from "@fluentui/react-components";
+import { Button, Spinner, Text } from "@fluentui/react-components";
 import { List28Filled, MoreHorizontal32Regular } from "@fluentui/react-icons";
-import { tokens } from "@fluentui/react-theme";
 
 import { ListModel } from "../../models/listModel";
 import { getListData } from "../../services/listService";
@@ -14,16 +13,21 @@ import {
   itemTitleStyle,
 } from "../styles/ListWidget.styles";
 
+interface ListWidgetState {
+  data: ListModel[];
+  loading?: boolean;
+}
+
 /**
  * Extends the Widget class to implement a list widget.
  */
-export class ListWidget extends Widget<ListModel[]> {
+export class ListWidget extends Widget<ListWidgetState> {
   /**
    * Get data required by the widget, you can get data from a api call or static data stored in a file.
    * @returns The data required by the widget to render.
    */
-  async getData(): Promise<ListModel[]> {
-    return getListData();
+  async getData(): Promise<ListWidgetState> {
+    return { data: await getListData(), loading: false };
   }
 
   /**
@@ -46,22 +50,30 @@ export class ListWidget extends Widget<ListModel[]> {
    */
   bodyContent(): JSX.Element | undefined {
     return (
-      <div style={bodyContentStyle()}>
-        {this.state.data &&
-          this.state.data.map((t: ListModel) => {
-            return (
-              <div key={`${t.id}-div`} style={itemLayoutStyle()}>
-                <div key={`${t.id}-divider`} style={dividerStyle()} />
-                <Text key={`${t.id}-title`} style={itemTitleStyle()}>
-                  {t.title}
-                </Text>
-                <Text key={`${t.id}-content`} style={itemSubtitleStyle()}>
-                  {t.content}
-                </Text>
-              </div>
-            );
-          })}
-      </div>
+      <>
+        {this.state.loading !== false ? (
+          <div style={{ display: "grid", justifyContent: "center", height: "100%" }}>
+            <Spinner label="Loading..." labelPosition="below" />
+          </div>
+        ) : (
+          <div style={bodyContentStyle()}>
+            {this.state.data &&
+              this.state.data.map((t: ListModel) => {
+                return (
+                  <div key={`${t.id}-div`} style={itemLayoutStyle()}>
+                    <div key={`${t.id}-divider`} style={dividerStyle()} />
+                    <Text key={`${t.id}-title`} style={itemTitleStyle()}>
+                      {t.title}
+                    </Text>
+                    <Text key={`${t.id}-content`} style={itemSubtitleStyle()}>
+                      {t.content}
+                    </Text>
+                  </div>
+                );
+              })}
+          </div>
+        )}
+      </>
     );
   }
 
@@ -70,14 +82,16 @@ export class ListWidget extends Widget<ListModel[]> {
    * @returns The footer content, all ReactNode types are supported.
    */
   footerContent(): JSX.Element | undefined {
-    return (
-      <Button
-        appearance="primary"
-        size="medium"
-        onClick={() => {}} // navigate to detailed page
-      >
-        View Details
-      </Button>
-    );
+    if (this.state.loading === false) {
+      return (
+        <Button
+          appearance="primary"
+          size="medium"
+          onClick={() => {}} // navigate to detailed page
+        >
+          View Details
+        </Button>
+      );
+    }
   }
 }

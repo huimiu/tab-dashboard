@@ -73,14 +73,12 @@ export default class ChartWidget extends Widget<IChartWidgetState> {
         <div>
           <ToggleButton
             appearance="transparent"
-            checked={this.state.data?.dayRange === DayRange.Seven}
+            checked={this.state.dayRange === DayRange.Seven}
             style={timeSpanStyle()}
             onClick={() =>
               this.setState({
-                data: {
-                  chartProps: this.retriveChartsData(DayRange.Seven),
-                  dayRange: DayRange.Seven,
-                },
+                chartProps: this.retriveChartsData(DayRange.Seven),
+                dayRange: DayRange.Seven,
               })
             }
           >
@@ -88,14 +86,12 @@ export default class ChartWidget extends Widget<IChartWidgetState> {
           </ToggleButton>
           <ToggleButton
             appearance="transparent"
-            checked={this.state.data?.dayRange === DayRange.Thirty}
+            checked={this.state.dayRange === DayRange.Thirty}
             style={timeSpanStyle()}
             onClick={() =>
               this.setState({
-                data: {
-                  chartProps: this.retriveChartsData(DayRange.Thirty),
-                  dayRange: DayRange.Thirty,
-                },
+                chartProps: this.retriveChartsData(DayRange.Thirty),
+                dayRange: DayRange.Thirty,
               })
             }
           >
@@ -103,14 +99,12 @@ export default class ChartWidget extends Widget<IChartWidgetState> {
           </ToggleButton>
           <ToggleButton
             appearance="transparent"
-            checked={this.state.data?.dayRange === DayRange.Sixty}
+            checked={this.state.dayRange === DayRange.Sixty}
             style={timeSpanStyle()}
             onClick={() =>
               this.setState({
-                data: {
-                  chartProps: this.retriveChartsData(DayRange.Sixty),
-                  dayRange: DayRange.Sixty,
-                },
+                chartProps: this.retriveChartsData(DayRange.Sixty),
+                dayRange: DayRange.Sixty,
               })
             }
           >
@@ -119,9 +113,9 @@ export default class ChartWidget extends Widget<IChartWidgetState> {
         </div>
 
         <div style={areaChartStyle()}>
-          {this.state.data && (
+          {this.state.chartProps && (
             <AreaChart
-              data={this.state.data.chartProps}
+              data={this.state.chartProps}
               legendsOverflowText={"Overflow Items"}
               yAxisTickFormat={d3.format(".1s")}
               wrapXAxisLables={false}

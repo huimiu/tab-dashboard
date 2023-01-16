@@ -7,12 +7,10 @@ import { headerStyles, widgetStyles } from "./Widget.styles";
  * For more information about react component, please refer to https://reactjs.org/docs/react-component.html
  * T is the model type of the widget.
  */
-export abstract class Widget<T> extends Component<{}, { data?: T | void }> {
+export abstract class Widget<T> extends Component<{}, T> {
   constructor(props: any) {
     super(props);
-    this.state = {
-      data: undefined,
-    };
+    this.state = {} as T;
   }
 
   /**
@@ -21,7 +19,7 @@ export abstract class Widget<T> extends Component<{}, { data?: T | void }> {
    * For more information about react lifecycle, please refer to https://reactjs.org/docs/react-component.html#componentdidmount
    */
   async componentDidMount() {
-    this.setState({ data: await this.getData() });
+    this.setState(await this.getData());
   }
 
   /**
@@ -30,9 +28,7 @@ export abstract class Widget<T> extends Component<{}, { data?: T | void }> {
   render() {
     return (
       <div style={widgetStyles()}>
-        {this.headerContent() && (
-          <div style={headerStyles()}>{this.headerContent()}</div>
-        )}
+        {this.headerContent() && <div style={headerStyles()}>{this.headerContent()}</div>}
         {this.bodyContent() && <div>{this.bodyContent()}</div>}
         {this.footerContent() && <div>{this.footerContent()}</div>}
       </div>
@@ -43,8 +39,8 @@ export abstract class Widget<T> extends Component<{}, { data?: T | void }> {
    * Get data required by the widget, you can get data from a api call or static data stored in a file. Override this method according to your needs.
    * @returns data for the widget
    */
-  protected async getData(): Promise<T> {
-    return new Promise<T>(() => {});
+  protected async getData<K extends keyof T>(): Promise<Pick<T, K>> {
+    return {} as Pick<T, K>;
   }
 
   /**
