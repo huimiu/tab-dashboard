@@ -1,7 +1,7 @@
 import * as d3 from "d3-format";
 
 import { AreaChart, IChartProps } from "@fluentui/react-charting";
-import { Button, Text, ToggleButton, tokens } from "@fluentui/react-components";
+import { Button, Text, ToggleButton } from "@fluentui/react-components";
 import {
   ArrowRight16Filled,
   DataPie24Regular,
