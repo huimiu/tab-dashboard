@@ -9,8 +9,7 @@
             "deploy": true,
             "provision": true,
             "build": true,
-            "folder": "tabs",
-            "sso": true
+            "folder": "tabs"
         },
         {
             "name": "azure-storage",
