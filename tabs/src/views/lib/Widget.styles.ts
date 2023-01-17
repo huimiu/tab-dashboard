@@ -14,14 +14,13 @@ export const widgetStyles = (): CSSProperties => ({
   boxShadow: tokens.shadow4,
   borderRadius: tokens.borderRadiusMedium,
   gap: "1rem",
-  gridTemplateRows: "max-content 1fr max-content",
 });
 
-export const headerStyles = (): CSSProperties => ({
+export const headerStyles: CSSProperties = {
   display: "grid",
   alignItems: "center",
   height: "max-content",
-});
+};
 
 export const headerContentStyle = (): CSSProperties => ({
   display: "grid",

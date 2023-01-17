@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, CSSProperties } from "react";
 
 import { headerStyles, widgetStyles } from "./Widget.styles";
 
@@ -27,10 +27,10 @@ export abstract class Widget<T> extends Component<{}, T> {
    */
   render() {
     return (
-      <div style={widgetStyles()}>
-        {this.headerContent() && <div style={headerStyles()}>{this.headerContent()}</div>}
-        {this.bodyContent() && <div>{this.bodyContent()}</div>}
-        {this.footerContent() && <div>{this.footerContent()}</div>}
+      <div style={{ ...widgetStyles, ...this.customiseWidgetStyle() }}>
+        {this.headerContent() && <div style={headerStyles}>{this.headerContent()}</div>}
+        {this.bodyContent()}
+        {this.footerContent()}
       </div>
     );
   }
@@ -64,6 +64,14 @@ export abstract class Widget<T> extends Component<{}, T> {
    * @returns react node for the widget footer
    */
   protected footerContent(): JSX.Element | undefined {
+    return undefined;
+  }
+
+  /**
+   * Override this method to customize the widget style.
+   * @returns custom style for the widget
+   */
+  protected customiseWidgetStyle(): CSSProperties | undefined {
     return undefined;
   }
 }
