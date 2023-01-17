@@ -1,6 +1,5 @@
-import { Dashboard } from '../lib/Dashboard';
-import ChartWidget from '../widgets/ChartWidget';
-import { ListWidget } from '../widgets/ListWidget';
+import { Dashboard } from "../lib/Dashboard";
+import { GraphWiget } from "../widgets/GraphWidget";
 
 export default class SampleDashboard extends Dashboard {
   protected rowHeights(): string | undefined {
@@ -13,9 +12,8 @@ export default class SampleDashboard extends Dashboard {
 
   protected dashboardLayout(): undefined | JSX.Element {
     return (
-      <>
-        <ListWidget />
-        <ChartWidget />
+      <>        
+        <GraphWiget />
       </>
     );
   }
