@@ -4,7 +4,7 @@
 
 ## Introduction
 
-This is a Teams tab dashboard app that uses the [Fluent UI](https://react.fluentui.dev/?path=/docs/concepts-introduction--page) and the [Microsoft Graph API](https://learn.microsoft.com/en-us/graph/use-the-api) to display a user's profile information and recent Teams activity.
+This is a Teams dashboard app that uses the [Fluent UI](https://react.fluentui.dev/?path=/docs/concepts-introduction--page) to display multiple cards in Teams Tab.
 
 ![Default theme](tabs/public/dashboard.png)
 
@@ -455,85 +455,8 @@ async function callFunction(teamsfx?: TeamsFx) {
 
 Refer to [this sample](https://github.com/OfficeDev/TeamsFx-Samples/blob/dev/hello-world-tab-with-backend/tabs/src/components/sample/AzureFunctions.tsx) for some helps. And you can read [this doc](https://learn.microsoft.com/en-us/azure/azure-functions/functions-reference?tabs=blob) for more details.
 
-## Widget Abstraction
-
-To simplify the development of a widget, the TeamsFx provides a `Widget` class 
-for developers to inherit to quickly implement a widget that meets their needs without pay too much attention to how to implement the widget layout.
-
-Below is the definition of the widget class.
-
-```ts
-export abstract class Widget<T> extends Component<{}, { data?: T | void }> {
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      data: undefined,
-    };
-  }
-
-  /**
-   * This method is invoked immediately after a component is mounted.
-   * It's a good place to fetch data from server.
-   */
-  async componentDidMount() {
-    this.setState({ data: await this.getData() });
-  }
-
-  /**
-   * Define your widget layout, you can edit the code here to customize your widget.
-   */
-  render() {
-    return (
-      <div style={widgetStyles()}>
-        {this.headerContent() && (
-          <div style={headerStyles()}>{this.headerContent()}</div>
-        )}
-        {this.bodyContent() && <div>{this.bodyContent()}</div>}
-        {this.footerContent() && <div>{this.footerContent()}</div>}
-      </div>
-    );
-  }
-
-  /**
-   * Get data required by the widget, you can get data from a api call or static data stored in a file. Override this method according to your needs.
-   * @returns data for the widget
-   */
-  protected async getData(): Promise<T> {
-    return new Promise<T>(() => {});
-  }
-
-  /**
-   * Override this method to customize the widget header.
-   * @returns JSX component for the widget body
-   */
-  protected headerContent(): JSX.Element | undefined {
-    return undefined;
-  }
-
-  /**
-   * Override this method to customize the widget body.
-   * @returns JSX component for the widget body
-   */
-  protected bodyContent(): JSX.Element | undefined {
-    return undefined;
-  }
-
-  /**
-   * Override this method to customize the widget footer.
-   * @returns react node for the widget footer
-   */
-  protected footerContent(): JSX.Element | undefined {
-    return undefined;
-  }
-}
-```
- - `constructor()`: assigns the initial `this.state`, and call the constructor of the super class `React.Component`.
- - `componentDidMount()`: will be invoked after the component is mounted. This method assigns a value to the `data` property of the state by calling the `getData` method which can be overridden in classes that inherit from widgets.
- - `render()`: 
-
 
 ## Additional resources
 
 - [Fluent UI](https://react.fluentui.dev/?path=/docs/concepts-introduction--page)
 - [Fluent UI React Charting Example](https://fluentuipr.z22.web.core.windows.net/heads/master/react-charting/demo/index.html#/)
-- [Dashboard sample](https://github.com/huimiu/DashboardDemo)
