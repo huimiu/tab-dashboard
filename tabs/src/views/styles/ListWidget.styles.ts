@@ -1,9 +1,11 @@
-import { tokens } from "@fluentui/react-components";
 import { CSSProperties } from "react";
+
+import { tokens } from "@fluentui/react-components";
 
 export const bodyContentStyle = (): CSSProperties => ({
   display: "grid",
   gap: "0.5rem",
+  alignContent: "start",
 });
 
 export const itemLayoutStyle = (): CSSProperties => ({
@@ -28,4 +30,8 @@ export const itemSubtitleStyle = (): CSSProperties => ({
   fontSize: "0.75rem",
   fontWeight: "400",
   lineHeight: "1.25rem",
+});
+
+export const footerButtonStyle = (): CSSProperties => ({
+  width: "fit-content",
 });

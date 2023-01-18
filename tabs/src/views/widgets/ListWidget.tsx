@@ -8,6 +8,7 @@ import { headerContentStyle, headerTextStyle } from "../lib/Widget.styles";
 import {
   bodyContentStyle,
   dividerStyle,
+  footerButtonStyle,
   itemLayoutStyle,
   itemSubtitleStyle,
   itemTitleStyle,
@@ -87,6 +88,7 @@ export class ListWidget extends Widget<ListWidgetState> {
         <Button
           appearance="primary"
           size="medium"
+          style={footerButtonStyle()}
           onClick={() => {}} // navigate to detailed page
         >
           View Details
