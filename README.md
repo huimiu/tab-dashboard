@@ -228,7 +228,7 @@ export default class YourDashboard extends Dashboard {
     return "4fr 6fr";
   }
 
-  protected dashboardLayout(): void | JSX.Element {
+  protected dashboardLayout(): JSX.Element | undefined {
     return (
       <>
         <SampleWidget />
