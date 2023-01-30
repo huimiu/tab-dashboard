@@ -1,19 +1,23 @@
 import { Dashboard } from "../lib/Dashboard";
-import { GraphWiget } from "../widgets/GraphWidget";
+import { oneColumn } from "../lib/Dashboard.styles";
+import { Calendar } from "../widgets/Calendar";
+import ChartWidget from "../widgets/ChartWidget";
+import { ListWidget } from "../widgets/ListWidget";
 
 export default class SampleDashboard extends Dashboard {
-  protected rowHeights(): string | undefined {
-    return "1fr";
-  }
 
   protected columnWidths(): string | undefined {
-    return "4fr 6fr";
+    return "6fr 4fr";
   }
 
   protected dashboardLayout(): undefined | JSX.Element {
     return (
-      <>        
-        <GraphWiget />
+      <>
+        <ListWidget />
+        <div style={oneColumn()}>
+          <Calendar />
+          <ChartWidget />
+        </div>
       </>
     );
   }

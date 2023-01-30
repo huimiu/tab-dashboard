@@ -14,6 +14,7 @@ export const widgetStyles = (): CSSProperties => ({
   boxShadow: tokens.shadow4,
   borderRadius: tokens.borderRadiusMedium,
   gap: "1rem",
+  gridTemplateRows: "max-content 1fr max-content",
 });
 
 export const headerStyles: CSSProperties = {
@@ -35,3 +36,10 @@ export const headerTextStyle = (): CSSProperties => ({
   fontStyle: "normal",
   fontSize: "0.75rem",
 });
+
+export const footerBtnStyle: CSSProperties = {
+  width: "fit-content",
+  color: tokens.colorBrandForeground1,
+  paddingLeft: "0.25rem",
+  paddingRight: 0,
+};

@@ -4,6 +4,7 @@ import { CSSProperties } from "react";
 export const bodyContentStyle = (): CSSProperties => ({
   display: "grid",
   gap: "0.5rem",
+  alignContent: "start",
 });
 
 export const itemLayoutStyle = (): CSSProperties => ({

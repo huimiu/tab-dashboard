@@ -4,7 +4,7 @@ import { List28Filled, MoreHorizontal32Regular } from "@fluentui/react-icons";
 import { ListModel } from "../../models/listModel";
 import { getListData } from "../../services/listService";
 import { Widget } from "../lib/Widget";
-import { headerContentStyle, headerTextStyle } from "../lib/Widget.styles";
+import { footerBtnStyle, headerContentStyle, headerTextStyle } from "../lib/Widget.styles";
 import {
   bodyContentStyle,
   dividerStyle,
@@ -87,6 +87,7 @@ export class ListWidget extends Widget<ListWidgetState> {
         <Button
           appearance="primary"
           size="medium"
+          style={{ width: "fit-content" }}
           onClick={() => {}} // navigate to detailed page
         >
           View Details
