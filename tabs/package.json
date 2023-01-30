@@ -17,6 +17,7 @@
         "@microsoft/teamsfx-react": "^2.1.0",
         "@react-hook/resize-observer": "^1.2.6",
         "axios": "^0.21.1",
+        "moment-timezone": "^0.5.40",
         "msteams-react-base-component": "^4.0.1",
         "react": "^16.14.0",
         "react-dom": "^16.14.0",
