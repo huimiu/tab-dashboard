@@ -14,6 +14,7 @@ export const widgetStyles = (): CSSProperties => ({
   boxShadow: tokens.shadow4,
   borderRadius: tokens.borderRadiusMedium,
   gap: "1rem",
+  gridTemplateRows: "max-content 1fr max-content",
 });
 
 export const headerStyles: CSSProperties = {

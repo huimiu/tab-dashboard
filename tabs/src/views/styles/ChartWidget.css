@@ -1,0 +1,22 @@
+.pie-icon {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+.time-span {
+  font-size: 0.6875rem !important;
+  font-weight: 400 !important;
+  line-height: 0.625rem !important;
+  font: normal !important;
+}
+
+.area-chart {
+  position: relative;
+  height: 200px;
+  width: 100%;
+}
+
+.cw-footer-btn {
+  width: fit-content;
+  color: var(--colorBrandForeground1) !important;
+}

@@ -1,3 +1,5 @@
+import "../styles/ChartWidget.css";
+
 import * as d3 from "d3-format";
 
 import { AreaChart, IChartProps } from "@fluentui/react-charting";
@@ -16,14 +18,8 @@ import {
   chart2Points_60D,
   chart2Points_7D,
 } from "../../services/chartServices";
-import { Widget } from "../lib/Widget";
-import { headerContentStyle, headerTextStyle } from "../lib/Widget.styles";
-import {
-  areaChartStyle,
-  footerButtonStyle,
-  pieIconStyle,
-  timeSpanStyle,
-} from "../styles/ChartWidget.style";
+import { AbstractWidget } from "../lib/AbstractWidget";
+import { headerContentStyle, headerTextStyle } from "../lib/AbstractWidget.styles";
 
 enum DayRange {
   Seven,
@@ -36,7 +32,7 @@ interface IChartWidgetState {
   chartProps: IChartProps;
 }
 
-export default class ChartWidget extends Widget<IChartWidgetState> {
+export default class ChartWidget extends AbstractWidget<IChartWidgetState> {
   async getData(): Promise<IChartWidgetState> {
     const chartPoints = [
       {
@@ -60,7 +56,7 @@ export default class ChartWidget extends Widget<IChartWidgetState> {
   headerContent(): JSX.Element | undefined {
     return (
       <div style={headerContentStyle()}>
-        <DataPie24Regular style={pieIconStyle()} />
+        <DataPie24Regular className="pie-icon" />
         <Text style={headerTextStyle()}>Your chart</Text>
         <Button icon={<MoreHorizontal32Regular />} appearance="transparent" />
       </div>
@@ -72,9 +68,9 @@ export default class ChartWidget extends Widget<IChartWidgetState> {
       <>
         <div>
           <ToggleButton
+            className="time-span"
             appearance="transparent"
             checked={this.state.dayRange === DayRange.Seven}
-            style={timeSpanStyle()}
             onClick={() =>
               this.setState({
                 chartProps: this.retriveChartsData(DayRange.Seven),
@@ -85,9 +81,9 @@ export default class ChartWidget extends Widget<IChartWidgetState> {
             7 Days
           </ToggleButton>
           <ToggleButton
+            className="time-span"
             appearance="transparent"
-            checked={this.state.dayRange === DayRange.Thirty}
-            style={timeSpanStyle()}
+            checked={this.state.dayRange === DayRange.Thirty}            
             onClick={() =>
               this.setState({
                 chartProps: this.retriveChartsData(DayRange.Thirty),
@@ -98,9 +94,9 @@ export default class ChartWidget extends Widget<IChartWidgetState> {
             30 Days
           </ToggleButton>
           <ToggleButton
+            className="time-span"
             appearance="transparent"
             checked={this.state.dayRange === DayRange.Sixty}
-            style={timeSpanStyle()}
             onClick={() =>
               this.setState({
                 chartProps: this.retriveChartsData(DayRange.Sixty),
@@ -112,7 +108,7 @@ export default class ChartWidget extends Widget<IChartWidgetState> {
           </ToggleButton>
         </div>
 
-        <div style={areaChartStyle()}>
+        <div className="area-chart">
           {this.state.chartProps && (
             <AreaChart
               data={this.state.chartProps}
@@ -129,14 +125,14 @@ export default class ChartWidget extends Widget<IChartWidgetState> {
     );
   }
 
-  footerContent(): JSX.Element | undefined {
+  protected footerContent(): JSX.Element | undefined {
     return (
       <Button
+        className="cw-footer-btn"
         appearance="transparent"
         icon={<ArrowRight16Filled />}
         iconPosition="after"
-        size="small"
-        style={footerButtonStyle()}
+        size="small"        
         onClick={() => {}} // navigate to detailed page
       >
         View details

@@ -1,0 +1,33 @@
+.body-content {
+  display: grid;
+  gap: 0.5rem;
+  align-content: start;
+}
+
+.item-layout {
+  display: grid;
+}
+
+.divider {
+  margin-bottom: 0.5rem;
+  margin-left: -2.25rem;
+  margin-right: -2.3rem;
+  height: 1px;
+  background-color: var(--colorNeutralStroke2);
+}
+
+.item-title {
+  font-size: 0.875rem !important;
+  font-weight: 600 !important;
+  line-height: 1.25rem !important;
+}
+
+.item-subtitle {
+  font-size: 0.75rem !important;
+  font-weight: 400 !important;
+  line-height: 1.25rem !important;
+}
+
+.lw-footer-btn {
+  width: fit-content;
+}
