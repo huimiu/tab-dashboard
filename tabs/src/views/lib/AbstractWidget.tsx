@@ -32,7 +32,10 @@ export abstract class AbstractWidget<T> extends Component<{}, T & WidgetState> {
    */
   render() {
     return (
-      <div style={widgetStyles()}>
+      <div
+        style={{ ...widgetStyles(), ...this.mergeStyle() }}
+        className={typeof this.widgetStyle() === "string" ? (this.widgetStyle() as string) : ""}
+      >
         {this.headerContent() && <div style={headerStyles}>{this.headerContent()}</div>}
         {this.state.loading !== false && this.loadingContent() !== undefined ? (
           this.loadingContent()
@@ -89,7 +92,13 @@ export abstract class AbstractWidget<T> extends Component<{}, T & WidgetState> {
    * Override this method to customize the widget style.
    * @returns custom style for the widget
    */
-  protected widgetStyle(): CSSProperties | undefined {
-    return undefined;
+  protected widgetStyle(): CSSProperties | string {
+    return {};
+  }
+
+  private mergeStyle(): CSSProperties {
+    return typeof this.widgetStyle() === "string"
+      ? ({} as CSSProperties)
+      : (this.widgetStyle() as CSSProperties);
   }
 }

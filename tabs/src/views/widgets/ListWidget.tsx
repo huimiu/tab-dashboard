@@ -7,6 +7,7 @@ import { ListModel } from "../../models/listModel";
 import { getListData } from "../../services/listService";
 import { AbstractWidget } from "../lib/AbstractWidget";
 import { headerContentStyle, headerTextStyle } from "../lib/AbstractWidget.styles";
+import { CSSProperties } from "react";
 
 interface ListWidgetState {
   data: ListModel[];
@@ -78,6 +79,10 @@ export class ListWidget extends AbstractWidget<ListWidgetState> {
         View Details
       </Button>
     );
+  }
+
+  protected widgetStyle(): string | CSSProperties {
+    return "lw-widget";
   }
 
   protected loadingContent(): JSX.Element | undefined {

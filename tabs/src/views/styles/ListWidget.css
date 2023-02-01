@@ -31,3 +31,7 @@
 .lw-footer-btn {
   width: fit-content;
 }
+
+.lw-widget {
+  gap: 0;
+}
