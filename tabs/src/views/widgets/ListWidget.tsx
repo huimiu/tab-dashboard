@@ -1,35 +1,25 @@
 import "../styles/ListWidget.css";
 
-import { Button, Spinner, Text, tokens } from "@fluentui/react-components";
+import { Button, Spinner, Text } from "@fluentui/react-components";
 import { List28Filled, MoreHorizontal32Regular } from "@fluentui/react-icons";
 
 import { ListModel } from "../../models/listModel";
 import { getListData } from "../../services/listService";
-import { AbstractWidget } from "../lib/AbstractWidget";
-import { headerContentStyle, headerTextStyle } from "../lib/AbstractWidget.styles";
+import { BaseWidget } from "../lib/BaseWidget";
+import { headerContentStyle, headerTextStyle } from "../lib/BaseWidget.styles";
 import { CSSProperties } from "react";
 
 interface ListWidgetState {
   data: ListModel[];
 }
 
-/**
- * Extends the Widget class to implement a list widget.
- */
-export class ListWidget extends AbstractWidget<ListWidgetState> {
-  /**
-   * Get data required by the widget, you can get data from a api call or static data stored in a file.
-   * @returns The data required by the widget to render.
-   */
+export class ListWidget extends BaseWidget<ListWidgetState> {
+  
   async getData(): Promise<ListWidgetState> {
     return { data: await getListData() };
   }
 
-  /**
-   * Define the widget header.
-   * @returns The header content, all ReactNode types are supported.
-   */
-  protected headerContent(): JSX.Element | undefined {
+  protected header(): JSX.Element | undefined {
     return (
       <div style={headerContentStyle()}>
         <List28Filled />
@@ -39,36 +29,15 @@ export class ListWidget extends AbstractWidget<ListWidgetState> {
     );
   }
 
-  /**
-   * Define the widget body.
-   * @returns The body content, all JSX.Element types are supported.
-   */
-  protected bodyContent(): JSX.Element | undefined {
+  protected body(): JSX.Element | undefined {
     return (
       <div className="body-content">
-        {this.state.data &&
-          this.state.data.map((t: ListModel) => {
-            return (
-              <div key={`${t.id}-div`} className="item-layout">
-                <div key={`${t.id}-divider`} className="divider" />
-                <Text key={`${t.id}-title`} className="item-title">
-                  {t.title}
-                </Text>
-                <Text key={`${t.id}-content`} className="item-subtitle">
-                  {t.content}
-                </Text>
-              </div>
-            );
-          })}
+        ...
       </div>
     );
   }
 
-  /**
-   * Define the widget footer.
-   * @returns The footer content, all ReactNode types are supported.
-   */
-  protected footerContent(): JSX.Element | undefined {
+  protected footer(): JSX.Element | undefined {
     return (
       <Button
         appearance="primary"
@@ -81,11 +50,11 @@ export class ListWidget extends AbstractWidget<ListWidgetState> {
     );
   }
 
-  protected widgetStyle(): string | CSSProperties {
+  protected stylingWidget(): string | CSSProperties {
     return "lw-widget";
   }
 
-  protected loadingContent(): JSX.Element | undefined {
+  protected loading(): JSX.Element | undefined {
     return (
       <div style={{ display: "grid" }}>
         <Spinner label="Loading..." labelPosition="below" />

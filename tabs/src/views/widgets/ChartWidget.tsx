@@ -18,8 +18,8 @@ import {
   chart2Points_60D,
   chart2Points_7D,
 } from "../../services/chartServices";
-import { AbstractWidget } from "../lib/AbstractWidget";
-import { headerContentStyle, headerTextStyle } from "../lib/AbstractWidget.styles";
+import { BaseWidget } from "../lib/BaseWidget";
+import { headerContentStyle, headerTextStyle } from "../lib/BaseWidget.styles";
 
 enum DayRange {
   Seven,
@@ -32,7 +32,7 @@ interface IChartWidgetState {
   chartProps: IChartProps;
 }
 
-export default class ChartWidget extends AbstractWidget<IChartWidgetState> {
+export default class ChartWidget extends BaseWidget<IChartWidgetState> {
   async getData(): Promise<IChartWidgetState> {
     const chartPoints = [
       {
@@ -53,7 +53,7 @@ export default class ChartWidget extends AbstractWidget<IChartWidgetState> {
     return { dayRange: DayRange.Seven, chartProps: chartData };
   }
 
-  headerContent(): JSX.Element | undefined {
+  header(): JSX.Element | undefined {
     return (
       <div style={headerContentStyle()}>
         <DataPie24Regular className="pie-icon" />
@@ -63,7 +63,7 @@ export default class ChartWidget extends AbstractWidget<IChartWidgetState> {
     );
   }
 
-  bodyContent(): JSX.Element | undefined {
+  body(): JSX.Element | undefined {
     return (
       <>
         <div>
@@ -125,7 +125,7 @@ export default class ChartWidget extends AbstractWidget<IChartWidgetState> {
     );
   }
 
-  protected footerContent(): JSX.Element | undefined {
+  protected footer(): JSX.Element | undefined {
     return (
       <Button
         className="cw-footer-btn"

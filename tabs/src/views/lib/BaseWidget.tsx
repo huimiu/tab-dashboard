@@ -1,6 +1,6 @@
 import React, { Component, CSSProperties } from "react";
 
-import { headerStyles, widgetStyles } from "./AbstractWidget.styles";
+import { headerStyles, widgetStyles } from "./BaseWidget.styles";
 
 interface WidgetState {
   loading?: boolean;
@@ -11,7 +11,7 @@ interface WidgetState {
  * For more information about react component, please refer to https://reactjs.org/docs/react-component.html
  * T is the model type of the widget.
  */
-export abstract class AbstractWidget<T> extends Component<{}, T & WidgetState> {
+export class BaseWidget<T> extends Component<{}, T & WidgetState> {
   constructor(props: any) {
     super(props);
     type L = T & WidgetState;
@@ -32,17 +32,14 @@ export abstract class AbstractWidget<T> extends Component<{}, T & WidgetState> {
    */
   render() {
     return (
-      <div
-        style={{ ...widgetStyles(), ...this.mergeStyle() }}
-        className={typeof this.widgetStyle() === "string" ? (this.widgetStyle() as string) : ""}
-      >
-        {this.headerContent() && <div style={headerStyles}>{this.headerContent()}</div>}
-        {this.state.loading !== false && this.loadingContent() !== undefined ? (
-          this.loadingContent()
+      <div style={{ ...widgetStyles(), ...this.genStyle() }} className={this.genClassName()}>
+        {this.header() && <div style={headerStyles}>{this.header()}</div>}
+        {this.state.loading !== false && this.loading() !== undefined ? (
+          this.loading()
         ) : (
           <>
-            {this.bodyContent() !== undefined && this.bodyContent()}
-            {this.footerContent() !== undefined && this.footerContent()}
+            {this.body() !== undefined && this.body()}
+            {this.footer() !== undefined && this.footer()}
           </>
         )}
       </div>
@@ -61,7 +58,7 @@ export abstract class AbstractWidget<T> extends Component<{}, T & WidgetState> {
    * Override this method to customize the widget header.
    * @returns JSX component for the widget body
    */
-  protected headerContent(): JSX.Element | undefined {
+  protected header(): JSX.Element | undefined {
     return undefined;
   }
 
@@ -69,7 +66,7 @@ export abstract class AbstractWidget<T> extends Component<{}, T & WidgetState> {
    * Override this method to customize the widget body.
    * @returns JSX component for the widget body
    */
-  protected bodyContent(): JSX.Element | undefined {
+  protected body(): JSX.Element | undefined {
     return undefined;
   }
 
@@ -77,14 +74,14 @@ export abstract class AbstractWidget<T> extends Component<{}, T & WidgetState> {
    * Override this method to customize the widget footer.
    * @returns react node for the widget footer
    */
-  protected footerContent(): JSX.Element | undefined {
+  protected footer(): JSX.Element | undefined {
     return undefined;
   }
 
   /**
    * Override this method to customize what the widget will look like when it is loading.
    */
-  protected loadingContent(): JSX.Element | undefined {
+  protected loading(): JSX.Element | undefined {
     return undefined;
   }
 
@@ -92,13 +89,25 @@ export abstract class AbstractWidget<T> extends Component<{}, T & WidgetState> {
    * Override this method to customize the widget style.
    * @returns custom style for the widget
    */
-  protected widgetStyle(): CSSProperties | string {
+  protected stylingWidget(): CSSProperties | string {
     return {};
   }
 
-  private mergeStyle(): CSSProperties {
-    return typeof this.widgetStyle() === "string"
+  /**
+   * Construct CSSProperties object for styling the widget.
+   * @returns CSSProperties object
+   */
+  private genStyle(): CSSProperties {
+    return typeof this.stylingWidget() === "string"
       ? ({} as CSSProperties)
-      : (this.widgetStyle() as CSSProperties);
+      : (this.stylingWidget() as CSSProperties);
+  }
+
+  /**
+   * Construct className string for styling the widget.
+   * @returns className for styling the widget
+   */
+  private genClassName(): string {
+    return typeof this.stylingWidget() === "string" ? (this.stylingWidget() as string) : "";
   }
 }
